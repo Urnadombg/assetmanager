@@ -10,6 +10,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/3.3.7+1/css/sb-admin-2.min.css">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 {{--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/3.3.7+1/css/sb-admin-2.css">--}}
@@ -41,6 +42,7 @@
                         @endauth
                     </ul>
                 @endif
+
 {{--                <ul class="navbar-nav">--}}
 {{--                    <li class="nav-item active">--}}
 {{--                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--}}
@@ -60,6 +62,8 @@
         <div class="flex-center position-ref full-height">
 
         </div>
+        {{ Breadcrumbs::render('home') }}
+
         <div class="container-fluid">
             @yield('content')
         </div>

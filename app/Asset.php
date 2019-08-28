@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Asset extends Model
 {
     protected $fillable = [
-        'title',
-        'model',
         'type_of_asset',
-        'serial'
+        'model',
+        'location',
+        'customer_id',
+        'serial',
+        'purchaseDate',
+        'department',
+        'title'
     ];
 
     public function components()
@@ -24,5 +28,13 @@ class Asset extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function media()
+    {
+        return $this->hasMany(Media::class);
+    }
+    public function scopeOfType($query, $type) {
+        return $query->where('type_of_asset', $type);
     }
 }

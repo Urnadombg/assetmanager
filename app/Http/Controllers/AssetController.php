@@ -24,7 +24,7 @@ class AssetController extends Controller
      */
     public function create()
     {
-        //
+        return view('assets.create');
     }
 
     /**
@@ -44,9 +44,9 @@ class AssetController extends Controller
      * @param  \App\Asset  $asset
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Asset $asset)
     {
-        return view('assets.show')->with(['id' => $id]);
+        return view('assets.show', compact('asset'));
     }
 
     /**
@@ -57,7 +57,7 @@ class AssetController extends Controller
      */
     public function edit(Asset $asset)
     {
-        //
+        return view('assets.edit', compact('asset'));
     }
 
     /**

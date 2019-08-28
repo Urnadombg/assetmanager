@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
     <b-container fluid>
-        <asset-details :id="{{ $asset->id }}"></asset-details>
+{{--        <create-new-asset></create-new-asset>--}}
     </b-container>
 @endsection

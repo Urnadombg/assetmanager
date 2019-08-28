@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Component;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ComponentController extends Controller
 {
@@ -14,18 +15,9 @@ class ComponentController extends Controller
      */
     public function index()
     {
-        $components = Component::with(['warranty','customer'])->get();
-        return view('components.index', compact('components'));
-    }
+        $components = Component::with(['warranty', 'asset'])->get();
+        return response()->json($components);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -42,21 +34,10 @@ class ComponentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Component  $component
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Component $component)
-    {
-        return view('components.show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Component  $component
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Component $component)
+    public function show($id)
     {
         //
     }
@@ -65,10 +46,10 @@ class ComponentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Component  $component
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Component $component)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +57,10 @@ class ComponentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Component  $component
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Component $component)
+    public function destroy($id)
     {
         //
     }

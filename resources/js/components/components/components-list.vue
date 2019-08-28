@@ -3,27 +3,26 @@
        <b-card bg-variant="info" header-bg-variant="primary" body-bg-variant="white">
            <div slot="header">
            </div>
-           <b-table :items="assets" :fields="tableFields" small hover striped>
-<!--           <b-table :items="assets" hover striped>-->
+           <b-table :items="components" :fields="tableFields" small hover striped>
+<!--           <b-table :items="components" hover striped>-->
                <template slot="[nomer]" slot-scope="data">
                    {{ data.index +1 }}
                </template>
-               <template slot="[typeOfAsset]" slot-scope="data">
-                   {{ data.item.type_of_asset === 'Primary' ? "Основен актив": "второстепенен/компонент"}}
-               </template>
-               <template slot="[components]" slot-scope="data">
-                   <div v-if="data.item.components.length > 0">
-                        {{ data.item.components.length}}
-                   </div>
-               </template>
-               <template slot="[customer]" slot-scope="customer">
-<!--                   {{ data.item.customer }}-->
-                  {{ customer.item.customer['name'] }}
-                  {{ customer.item.customer['lastname'] }}
-               </template>
+<!--               <template slot="[typeOfAsset]" slot-scope="data">-->
+<!--                   {{ data.item.type_of_asset === 'Primary' ? "Основен актив": "второстепенен/компонент"}}-->
+<!--               </template>-->
+<!--               <template slot="[components]" slot-scope="data">-->
+<!--                   <div v-if="data.item.components.length > 0">-->
+<!--                       {{ data.item.components.length}}-->
+<!--                   </div>-->
+<!--               </template>-->
+<!--               <template slot="[customer]" slot-scope="customer">-->
+<!--&lt;!&ndash;                   {{ data.item.customer }}&ndash;&gt;-->
+<!--&lt;!&ndash;                   {{ customer }}&ndash;&gt;-->
+<!--               </template>-->
                 <template slot="[actions]" slot-scope="data">
                     <b-btn-group>
-                        <a :href="`/assets/${data.item.id}`" class="btn btn-primary">Виж</a>
+                        <a :href="`components/${data.item.id}`" class="btn btn-primary">Виж</a>
                         <a href="" class="btn btn-info">Редакция</a>
                         <a href="" class="btn btn-warning">Изтрий</a>
                     </b-btn-group>
@@ -35,10 +34,10 @@
 
 <script>
     export default {
-        name: "asset-list",
+        name: "components-list",
         data () {
             return {
-                assets: [],
+                components: [],
                 tableFields: [
                     {
                         label: '№',
@@ -76,15 +75,14 @@
             }
         },
         mounted() {
-            axios.get('/api/assets')
+            axios.get('/api/components')
                 .then(
                     (data) => {
-                        this.assets = data.data.data
-                        // console.log(data.data.data)
+                        this.components = data.data
                     }
                 )
 
-        },
+        }
     }
 </script>
 

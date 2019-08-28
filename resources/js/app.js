@@ -13,7 +13,9 @@ Vue.use(axios);
 import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Vuelidate from 'vuelidate';
 
+Vue.use(Vuelidate);
 Vue.use(BootstrapVue);
 /**
  * The following block of code may be used to automatically register your
@@ -29,6 +31,9 @@ Vue.use(BootstrapVue);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('asset-list', require('./components/assets/assets-list.vue').default);
 Vue.component('asset-details', require('./components/Pages/Assets/AssetDetails').default);
+Vue.component('create-new-asset', require('./components/assets/CreateNewAsset').default);
+
+Vue.component('components-list', require('./components/components/components-list.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

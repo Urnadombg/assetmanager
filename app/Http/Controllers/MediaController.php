@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Component;
+use App\Media;
 use Illuminate\Http\Request;
 
-class ComponentController extends Controller
+class MediaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class ComponentController extends Controller
      */
     public function index()
     {
-        $components = Component::with(['warranty','customer'])->get();
-        return view('components.index', compact('components'));
+        //
     }
 
     /**
@@ -42,21 +41,21 @@ class ComponentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Component  $component
+     * @param  \App\Media  $media
      * @return \Illuminate\Http\Response
      */
-    public function show(Component $component)
+    public function show(Media $media)
     {
-        return view('components.show');
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Component  $component
+     * @param  \App\Media  $media
      * @return \Illuminate\Http\Response
      */
-    public function edit(Component $component)
+    public function edit(Media $media)
     {
         //
     }
@@ -65,10 +64,10 @@ class ComponentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Component  $component
+     * @param  \App\Media  $media
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Component $component)
+    public function update(Request $request, Media $media)
     {
         //
     }
@@ -76,10 +75,10 @@ class ComponentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Component  $component
+     * @param  \App\Media  $media
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Component $component)
+    public function destroy(Media $media)
     {
         //
     }

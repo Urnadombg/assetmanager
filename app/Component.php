@@ -16,4 +16,14 @@ class Component extends Model
     public function warranty() {
         return $this->hasOne(Warranty::class);
     }
+
+    public function asset()
+    {
+        return $this->belongsTo(Asset::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }
