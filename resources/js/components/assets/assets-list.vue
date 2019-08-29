@@ -9,17 +9,20 @@
                    {{ data.index +1 }}
                </template>
                <template slot="[typeOfAsset]" slot-scope="data">
-                   {{ data.item.type_of_asset === 'Primary' ? "Основен актив": "второстепенен/компонент"}}
+                   {{ data.item.type_of_asset === 'primary' ? "Основен актив": "второстепенен/компонент"}}
                </template>
                <template slot="[components]" slot-scope="data">
                    <div v-if="data.item.components.length > 0">
                         {{ data.item.components.length}}
                    </div>
                </template>
+               <template slot="[department]" slot-scope="data">
+                   {{ data.item.department}}
+               </template>
                <template slot="[customer]" slot-scope="customer">
 <!--                   {{ data.item.customer }}-->
-                  {{ customer.item.customer['name'] }}
-                  {{ customer.item.customer['lastname'] }}
+<!--                  {{ customer.item.customer['name'] }}-->
+<!--                  {{ customer.item.customer['lastname'] }}-->
                </template>
                 <template slot="[actions]" slot-scope="data">
                     <b-btn-group>
@@ -65,6 +68,10 @@
                         key: 'components'
                     },
                     {
+                        label: 'Катедра',
+                        key: 'department'
+                    },
+                    {
                         label: 'Клиент',
                         key: 'customer'
                     },
@@ -80,7 +87,7 @@
                 .then(
                     (data) => {
                         this.assets = data.data.data
-                        // console.log(data.data.data)
+                        console.log(data.data.data)
                     }
                 )
 

@@ -2129,6 +2129,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get("/api/assets/".concat(this.$props.id)).then(function (data) {
+      // console.log(data)
       _this.assetInfo = data.data;
       _this.assetMedia = data.data[0].media;
       _this.assetComponents = data.data[0].components;
@@ -2348,6 +2349,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "asset-list",
   data: function data() {
@@ -2372,6 +2376,9 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Допълнително оборудване',
         key: 'components'
       }, {
+        label: 'Катедра',
+        key: 'department'
+      }, {
         label: 'Клиент',
         key: 'customer'
       }, {
@@ -2384,7 +2391,8 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get('/api/assets').then(function (data) {
-      _this.assets = data.data.data; // console.log(data.data.data)
+      _this.assets = data.data.data;
+      console.log(data.data.data);
     });
   }
 });
@@ -70646,30 +70654,9 @@ var render = function() {
               _c(
                 "b-row",
                 [
-                  _c("b-col", { attrs: { cols: "1" } }, [
-                    _vm._v("\n                        Сериен № "),
-                    _c("strong", [
-                      _vm._v(
-                        _vm._s(
-                          _vm.assetInfo[0].serial < 0
-                            ? "Добави"
-                            : _vm.assetInfo[0].serial
-                        )
-                      )
-                    ])
-                  ]),
+                  _c("b-col", { attrs: { cols: "1" } }),
                   _vm._v(" "),
-                  _c("b-col", [
-                    _vm._v("\n                        Клиент: "),
-                    _c("strong", [
-                      _vm._v(
-                        " " +
-                          _vm._s(_vm.assetInfo[0].customer.name) +
-                          " " +
-                          _vm._s(_vm.assetInfo[0].customer.lastname)
-                      )
-                    ])
-                  ])
+                  _c("b-col")
                 ],
                 1
               )
@@ -71755,7 +71742,7 @@ var render = function() {
                     _vm._v(
                       "\n                   " +
                         _vm._s(
-                          data.item.type_of_asset === "Primary"
+                          data.item.type_of_asset === "primary"
                             ? "Основен актив"
                             : "второстепенен/компонент"
                         ) +
@@ -71781,17 +71768,21 @@ var render = function() {
                 }
               },
               {
-                key: "[customer]",
-                fn: function(customer) {
+                key: "[department]",
+                fn: function(data) {
                   return [
                     _vm._v(
-                      "\n                  " +
-                        _vm._s(customer.item.customer["name"]) +
-                        "\n                  " +
-                        _vm._s(customer.item.customer["lastname"]) +
+                      "\n                   " +
+                        _vm._s(data.item.department) +
                         "\n               "
                     )
                   ]
+                }
+              },
+              {
+                key: "[customer]",
+                fn: function(customer) {
+                  return undefined
                 }
               },
               {

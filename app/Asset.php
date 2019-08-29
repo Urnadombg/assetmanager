@@ -37,4 +37,9 @@ class Asset extends Model
     public function scopeOfType($query, $type) {
         return $query->where('type_of_asset', $type);
     }
+
+    public function manufacturers()
+    {
+        return $this->belongsToMany(Manufacturer::class);
+    }
 }

@@ -1,0 +1,80 @@
+[
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7802",
+        "purchaseDate": "09-01-2019",
+        "department": "Орална хирургия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003706"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G046"
+            },
+            {
+                "title": "Хирургически обратен наконечник",
+                "model": "WS 92-LG",
+                "serial": "02023"
+            },
+            {
+                "title": "Oбратен наконечник",
+                "model": "WG-56 LT",
+                "serial": "065564"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0294"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7780",
+        "purchaseDate": "09-01-2019",
+        "department": "Орална хирургия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003714"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0080"
+            },
+            {
+                "title": "Хирургически обратен наконечник",
+                "model": "WS 92-LG",
+                "serial": "02024"
+            },
+            {
+                "title": "Oбратен наконечник",
+                "model": "WG-56 LT",
+                "serial": "065561"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0271"
+            }
+        ]
+    }
+]
+
+
+
+

@@ -12,10 +12,10 @@
                 </h1>
                 <b-row>
                     <b-col cols="1">
-                        Сериен № <strong>{{ assetInfo[0].serial < 0 ? 'Добави': assetInfo[0].serial }}</strong>
+<!--                        Сериен № <strong>{{ assetInfo[0].serial < 0 ? 'Добави': assetInfo[0].serial }}</strong>-->
                     </b-col>
                     <b-col>
-                        Клиент: <strong> {{ assetInfo[0].customer.name }} {{ assetInfo[0].customer.lastname }}</strong>
+<!--                        Клиент: <strong> {{ assetInfo[0].customer.name }} {{ assetInfo[0].customer.lastname }}</strong>-->
                     </b-col>
                 </b-row>
             </div>
@@ -271,6 +271,7 @@
             axios.get(`/api/assets/${this.$props.id}`)
                 .then(
                     (data) => {
+                        // console.log(data)
                         this.assetInfo = data.data
                         this.assetMedia = data.data[0].media
                         this.assetComponents = data.data[0].components
