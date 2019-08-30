@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Laravel\File;
 
-class FDMChairsSeeder extends Seeder
+class ChairsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
