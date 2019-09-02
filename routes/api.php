@@ -18,15 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/test', function () {
-//    $assets = new \App\Http\Resources\AssetCollection(\App\Asset::with(['components','customer','media']));
-
-//    $ass = \App\Http\Resources\Warranties::collection(\App\Warranty::all());
-//    return $ass;
-
-//    $asset = \App\Asset::find(1)->additionals;
-//    return response()->json($asset);
-    $uds = \Ramsey\Uuid\Uuid::uuid4();
-    return $uds;
+    // asset i component
+    $data = \App\Asset::with(['warranty', 'components', 'maintenances'])
+        ->where('id', '=', 1)
+        ->get();
+   return (\App\Http\Resources\AssetResource::collection($data));
 });
 
 Route::prefix('/assets')->group(function () {

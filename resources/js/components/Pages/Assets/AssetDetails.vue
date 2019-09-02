@@ -163,7 +163,7 @@
                         </b-card>
 
                     </b-tab>
-                    <b-tab v-if="!loading" active>
+                    <b-tab v-if="!loading">
                         <template slot="title">
                             <i class="fas fa-cogs"></i>
                             Компоненти
@@ -178,11 +178,15 @@
                             <component-list :components="assetInfo.components"></component-list>
                         </b-card>
                     </b-tab>
-                    <b-tab v-if="!loading">
+                    <b-tab v-if="!loading" active>
                         <template slot="title">
                             <i class="fas fa-tools"></i>
                             Сервизна история
                         </template>
+                        <div>
+                            {{ assetInfo.maintenances }}
+                            <service-history-table :maintenanceData="[assetInfo]" origin="asset"></service-history-table>
+                        </div>
                     </b-tab>
                     <b-tab v-if="!loading">
                         <template slot="title">
@@ -202,8 +206,9 @@
     import fancyBox from 'vue-fancybox';
     import MaintenanceIndex from "../../maintenances/MaintenanceIndex";
     import ComponentList from '../../components/components-list'
+    import ServiceHistoryTable from "../../ServiceHistory/table";
     export default {
-        components: {MaintenanceIndex, ComponentList},
+        components: {ServiceHistoryTable, MaintenanceIndex, ComponentList},
         props: ['id'],
         name: "AssetDetails",
         data() {
@@ -300,7 +305,8 @@
             .then(
                 (data) => {
                     setTimeout(() => {
-                        this.assetInfo = data.data[0]
+                        // console.log(data.data.data);
+                        this.assetInfo = data.data.data
                         this.loading = !this.loading
                     },100)
                 }

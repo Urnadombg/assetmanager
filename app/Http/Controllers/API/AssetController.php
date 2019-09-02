@@ -21,7 +21,7 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $ass = \App\Http\Resources\AssetResource::collection(\App\Asset::with(['warranty','components','customer','media'])->paginate());
+        $ass = \App\Http\Resources\AssetResource::collection(\App\Asset::with(['warranty','components','customer','media','maintenances'])->paginate());
         return $ass;
     }
 
@@ -61,9 +61,10 @@ class AssetController extends Controller
 //            ->where('id','=',$id)
 //            ->get();
 
-        $asset = new AssetResource(Asset::findOrFail($id)->load(['components', 'warranty','media']));
-        return response()->json([$asset]);
+        $asset = new AssetResource(Asset::findOrFail($id)->load(['components', 'warranty','media', 'maintenances']));
+//        return response()->json([$asset]);
 //        return response()->json($asset);
+        return $asset;
     }
 
     /**

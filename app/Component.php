@@ -27,7 +27,7 @@ class Component extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    public function maintenance()
+    public function maintenances()
     {
         return $this->hasMany(Maintenance::class);
     }

@@ -20,7 +20,8 @@ class ComponentsResource extends JsonResource
           'model' => $this->model,
           'serial' => $this->serial,
           'warranty' => new Warranties($this->warranty),
-          'asset' => $this->asset
+          'asset' => $this->asset,
+            'maintenances' => $this->maintenances
         ];
     }
 }

@@ -89,10 +89,10 @@
                                 Виж
                             </b-button>
                             <b-button variant="primary" href="#">
-                                Виж
+                                Редакция
                             </b-button>
                             <b-button variant="danger" href="#">
-                                Виж
+                                Изтрий
                             </b-button>
                         </b-btn-group>
                     </template>

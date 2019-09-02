@@ -20,8 +20,8 @@
             <template slot="actions">
                 <b-btn-group>
                     <b-btn variant="primary">Виж</b-btn>
-                    <b-btn variant="secondary">Виж</b-btn>
-                    <b-btn variant="danger">Виж</b-btn>
+                    <b-btn variant="secondary">Редакция</b-btn>
+                    <b-btn variant="danger">Изтриване</b-btn>
                 </b-btn-group>
             </template>
         </b-table>
