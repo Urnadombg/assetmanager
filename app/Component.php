@@ -26,4 +26,14 @@ class Component extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function maintenance()
+    {
+        return $this->hasMany(Maintenance::class);
+    }
+
+    public function media()
+    {
+        return $this->hasMany(Media::class, 'component_id', 'id');
+    }
 }

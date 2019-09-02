@@ -6,7 +6,7 @@
         "location" : "ФДМ - Пловдив",
         "customer_id" : 1,
         "serial" : "7802",
-        "purchaseDate": "09-01-2019",
+        "purchaseDate": "2019-09-06",
         "department": "Орална хирургия",
         "components": [
             {
@@ -33,6 +33,11 @@
                 "title": "Микромотор Bien Air",
                 "model": "MCX LED",
                 "serial": "19G0294"
+            },
+            {
+                "title": "Микромотор W&H",
+                "model": "EM-12 L",
+                "serial": "04286"
             }
         ]
     },
@@ -43,8 +48,1255 @@
         "location" : "ФДМ - Пловдив",
         "customer_id" : 1,
         "serial" : "7780",
-        "purchaseDate": "09-01-2019",
+        "purchaseDate": "2019-09-06",
         "department": "Орална хирургия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003714"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0080"
+            },
+            {
+                "title": "Хирургически обратен наконечник",
+                "model": "WS 92-LG",
+                "serial": "02024"
+            },
+            {
+                "title": "Oбратен наконечник",
+                "model": "WG-56 LT",
+                "serial": "065561"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0271"
+            },
+            {
+                "title": "Микромотор W&H",
+                "model": "EM-12 L",
+                "serial": "04323"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7790",
+        "purchaseDate": "2019-09-06",
+        "department": "Орална хирургия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003714"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0080"
+            },
+            {
+                "title": "Хирургически обратен наконечник",
+                "model": "WS 92-LG",
+                "serial": "02024"
+            },
+            {
+                "title": "Oбратен наконечник",
+                "model": "WG-56 LT",
+                "serial": "065561"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0271"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7779",
+        "purchaseDate": "2019-09-06",
+        "department": "Орална хирургия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003714"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0080"
+            },
+            {
+                "title": "Хирургически обратен наконечник",
+                "model": "WS 92-LG",
+                "serial": "02024"
+            },
+            {
+                "title": "Oбратен наконечник",
+                "model": "WG-56 LT",
+                "serial": "065561"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0271"
+            }
+        ]
+    },
+    {
+    "type_of_asset" : "primary",
+    "title" : "Стоматологичен юнит",
+    "model" : "Epica",
+    "location" : "ФДМ - Пловдив",
+    "customer_id" : 1,
+    "serial" : "7794",
+    "purchaseDate": "2019-09-06",
+    "department": "Орална хирургия",
+    "components": [
+        {
+            "title": "Пиезокристален ултразвук",
+            "model": "Compact Piezo",
+            "serial": "108003714"
+        },
+        {
+            "title": "Турбина с LED светлина",
+            "model": "Tornado X",
+            "serial": "19G0080"
+        },
+        {
+            "title": "Хирургически обратен наконечник",
+            "model": "WS 92-LG",
+            "serial": "02024"
+        },
+        {
+            "title": "Oбратен наконечник",
+            "model": "WG-56 LT",
+            "serial": "065561"
+        },
+        {
+            "title": "Микромотор Bien Air",
+            "model": "MCX LED",
+            "serial": "19G0271"
+        }
+    ]
+},
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7804",
+        "purchaseDate": "2019-09-06",
+        "department": "Орална хирургия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003714"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0080"
+            },
+            {
+                "title": "Хирургически обратен наконечник",
+                "model": "WS 92-LG",
+                "serial": "02024"
+            },
+            {
+                "title": "Oбратен наконечник",
+                "model": "WG-56 LT",
+                "serial": "065561"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0271"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7807",
+        "purchaseDate": "2019-09-06",
+        "department": "Орална хирургия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003714"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0080"
+            },
+            {
+                "title": "Хирургически обратен наконечник",
+                "model": "WS 92-LG",
+                "serial": "02024"
+            },
+            {
+                "title": "Oбратен наконечник",
+                "model": "WG-56 LT",
+                "serial": "065561"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0271"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7773",
+        "purchaseDate": "2019-09-06",
+        "department": "Оперативно зъболечение и ендодонтия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7778",
+        "purchaseDate": "2019-09-06",
+        "department": "Оперативно зъболечение и ендодонтия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7775",
+        "purchaseDate": "2019-09-06",
+        "department": "Оперативно зъболечение и ендодонтия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7781",
+        "purchaseDate": "2019-09-06",
+        "department": "Оперативно зъболечение и ендодонтия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7774",
+        "purchaseDate": "2019-09-06",
+        "department": "Оперативно зъболечение и ендодонтия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7786",
+        "purchaseDate": "2019-09-06",
+        "department": "Оперативно зъболечение и ендодонтия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7772",
+        "purchaseDate": "2019-09-06",
+        "department": "Оперативно зъболечение и ендодонтия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7782",
+        "purchaseDate": "2019-09-06",
+        "department": "Оперативно зъболечение и ендодонтия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7776",
+        "purchaseDate": "2019-09-06",
+        "department": "Оперативно зъболечение и ендодонтия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7800",
+        "purchaseDate": "2019-09-06",
+        "department": "Оперативно зъболечение и ендодонтия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7787",
+        "purchaseDate": "2019-09-06",
+        "department": "Оперативно зъболечение и ендодонтия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7773",
+        "purchaseDate": "2019-09-06",
+        "department": "Оперативно зъболечение и ендодонтия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7773",
+        "purchaseDate": "2019-09-06",
+        "department": "Оперативно зъболечение и ендодонтия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7773",
+        "purchaseDate": "2019-09-06",
+        "department": "Оперативно зъболечение и ендодонтия",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7791",
+        "purchaseDate": "2019-09-06",
+        "department": "Протетична",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7783",
+        "purchaseDate": "2019-09-06",
+        "department": "Протетична",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7796",
+        "purchaseDate": "2019-09-06",
+        "department": "Протетична",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7784",
+        "purchaseDate": "2019-09-06",
+        "department": "Протетична",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7798",
+        "purchaseDate": "2019-09-06",
+        "department": "Протетична",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7797",
+        "purchaseDate": "2019-09-06",
+        "department": "Протетична",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7803",
+        "purchaseDate": "2019-09-06",
+        "department": "Протетична",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7785",
+        "purchaseDate": "2019-09-06",
+        "department": "Протетична",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7793",
+        "purchaseDate": "2019-09-06",
+        "department": "Протетична",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7806",
+        "purchaseDate": "2019-09-06",
+        "department": "Протетична",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7808",
+        "purchaseDate": "2019-09-06",
+        "department": "Протетична",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7795",
+        "purchaseDate": "2019-09-06",
+        "department": "Протетична",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003722"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0044"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Bora L",
+                "serial": "19G0032"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0244"
+            }
+        ]
+    },
+
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7771",
+        "purchaseDate": "2019-09-06",
+        "department": "Пародонтология и ЗОЛ",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003714"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0080"
+            },
+            {
+                "title": "Хирургически обратен наконечник",
+                "model": "WS 92-LG",
+                "serial": "02024"
+            },
+            {
+                "title": "Oбратен наконечник",
+                "model": "WG-56 LT",
+                "serial": "065561"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0271"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7788",
+        "purchaseDate": "2019-09-06",
+        "department": "Пародонтология и ЗОЛ",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003714"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0080"
+            },
+            {
+                "title": "Хирургически обратен наконечник",
+                "model": "WS 92-LG",
+                "serial": "02024"
+            },
+            {
+                "title": "Oбратен наконечник",
+                "model": "WG-56 LT",
+                "serial": "065561"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0271"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7799",
+        "purchaseDate": "2019-09-06",
+        "department": "Пародонтология и ЗОЛ",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003714"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0080"
+            },
+            {
+                "title": "Хирургически обратен наконечник",
+                "model": "WS 92-LG",
+                "serial": "02024"
+            },
+            {
+                "title": "Oбратен наконечник",
+                "model": "WG-56 LT",
+                "serial": "065561"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0271"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7805",
+        "purchaseDate": "2019-09-06",
+        "department": "Пародонтология и ЗОЛ",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003714"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0080"
+            },
+            {
+                "title": "Хирургически обратен наконечник",
+                "model": "WS 92-LG",
+                "serial": "02024"
+            },
+            {
+                "title": "Oбратен наконечник",
+                "model": "WG-56 LT",
+                "serial": "065561"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0271"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7777",
+        "purchaseDate": "2019-09-06",
+        "department": "Пародонтология и ЗОЛ",
+        "components": [
+            {
+                "title": "Пиезокристален ултразвук",
+                "model": "Compact Piezo",
+                "serial": "108003714"
+            },
+            {
+                "title": "Турбина с LED светлина",
+                "model": "Tornado X",
+                "serial": "19G0080"
+            },
+            {
+                "title": "Хирургически обратен наконечник",
+                "model": "WS 92-LG",
+                "serial": "02024"
+            },
+            {
+                "title": "Oбратен наконечник",
+                "model": "WG-56 LT",
+                "serial": "065561"
+            },
+            {
+                "title": "Микромотор Bien Air",
+                "model": "MCX LED",
+                "serial": "19G0271"
+            }
+        ]
+    },
+    {
+        "type_of_asset" : "primary",
+        "title" : "Стоматологичен юнит",
+        "model" : "Epica",
+        "location" : "ФДМ - Пловдив",
+        "customer_id" : 1,
+        "serial" : "7812",
+        "purchaseDate": "2019-09-06",
+        "department": "Пародонтология и ЗОЛ",
         "components": [
             {
                 "title": "Пиезокристален ултразвук",

@@ -23,6 +23,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.vm.provision "shell" do |s|
             s.inline = "awk '{ sub(\"\r$\", \"\"); print }' /tmp/bash_aliases > /home/vagrant/.bash_aliases"
         end
+        config.vm.network "public_network",
+            use_dhcp_assigned_default_route: true
     end
 
     if File.exist? homesteadYamlPath then

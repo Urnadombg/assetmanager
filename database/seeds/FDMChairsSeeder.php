@@ -16,44 +16,54 @@ class FDMChairsSeeder extends Seeder
         $file = \Illuminate\Support\Facades\File::get('database/fdm.json');
         $data = json_decode($file);
 
-        foreach ($data as $asset) {
-            $createAsset = new \App\Asset();
-            $createAsset->type_of_asset = $asset->type_of_asset;
-            $createAsset->model = $asset->model;
-            $createAsset->location = $asset->location;
-            $createAsset->customer_id = $asset->customer_id;
-            $createAsset->serial = $asset->serial;
-            $createAsset->purchaseDate = \Carbon\Carbon::parse($asset->purchaseDate)->toDate();
-            $createAsset->department = $asset->department;
-            $createAsset->title = $asset->title;
-            $createAsset->save();
+//        for ($i =0; $i <= 1000; $i++) {
+            foreach ($data as $asset) {
+                $createAsset = new \App\Asset();
+                $createAsset->type_of_asset = $asset->type_of_asset;
+                $createAsset->model = $asset->model;
+                $createAsset->location = $asset->location;
+                $createAsset->customer_id = $asset->customer_id;
+                $createAsset->serial = $asset->serial;
+                $createAsset->purchaseDate = \Carbon\Carbon::parse($asset->purchaseDate)->toDate();
+                $createAsset->department = $asset->department;
+                $createAsset->title = $asset->title;
+                $createAsset->save();
 
-            foreach ($asset->components as $component) {
-                $createAsset->components()->create(array(
-                    'title' => $component->title,
-                    'model' => $component->model,
-                    'serial' => $component->serial,
-                    'asset_id' => $createAsset->id
-                ));
+                $createAsset->warranty()->create([
+                    'asset_id' => $createAsset->id,
+                    'card_id' => \Ramsey\Uuid\Uuid::uuid4(),
+                    'start' => \Carbon\Carbon::parse($createAsset->purchaseDate),
+                    'end' => \Carbon\Carbon::parse($createAsset->purchaseDate)->addYears(2),
+                    'periodInDays' => \Carbon\Carbon::parse($createAsset->purchaseDate)
+                        ->diffInDays(\Carbon\Carbon::parse($createAsset->purchaseDate)
+                            ->addYears(2))
+                ]);
+                foreach ($asset->components as $component) {
+                    $createComponent = new \App\Component();
+                    $createComponent->title = $component->title;
+                    $createComponent->model = $component->model;
+                    $createComponent->serial = $component->serial;
+                    $createComponent->asset_id = $createAsset->id;
+//                $createAsset->components()->create(array(
+//                    'title' => $component->title,
+//                    'model' => $component->model,
+//                    'serial' => $component->serial,
+//                    'asset_id' => $createAsset->id
+//                ));
+                    $createComponent->save();
+
+                    $createComponent->warranty()->create([
+                        'component_id' => $createComponent->id,
+                        'card_id' => \Ramsey\Uuid\Uuid::uuid4(),
+                        'start' => \Carbon\Carbon::parse($createAsset->purchaseDate),
+                        'end' => \Carbon\Carbon::parse($createAsset->purchaseDate)->addYears(2),
+                        'periodInDays' => \Carbon\Carbon::parse($createAsset->purchaseDate)
+                            ->diffInDays(\Carbon\Carbon::parse($createAsset->purchaseDate)
+                                ->addYears(2))
+                    ]);
+                }
+
             }
-
-        }
-//        foreach (json_decode($file) as $obj) {
-//            \App\Asset::create(array(
-//                'type_of_asset' => $obj->type_of_asset,
-//                'model' => $obj->model,
-//                'location' => $obj ->location,
-//                'customer_id' => $obj  ->customer_id,
-//                'serial' => $obj   ->serial,
-//                'purchaseDate' => \Carbon\Carbon::parse($obj ->purchaseDate)->toDate(),
-//                'department' => $obj   ->department,
-//                'title' => $obj->title
-//            ));
-//            foreach ($obj->components as $component) {
-//
-//            }
 //        }
-
-
     }
 }

@@ -32,7 +32,7 @@ class Asset extends Model
 
     public function media()
     {
-        return $this->hasMany(Media::class);
+        return $this->belongsToMany(Media::class, 'asset_media');
     }
     public function scopeOfType($query, $type) {
         return $query->where('type_of_asset', $type);
@@ -41,5 +41,15 @@ class Asset extends Model
     public function manufacturers()
     {
         return $this->belongsToMany(Manufacturer::class);
+    }
+
+    public function additionals()
+    {
+        return $this->belongsToMany(Additionals::class,'asset_additional','asset_id','id');
+    }
+
+    public function maintenances()
+    {
+        return $this->hasMany(Maintenance::class);
     }
 }

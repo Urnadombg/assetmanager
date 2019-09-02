@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use App\Asset;
+use App\Http\Resources\AssetCollection;
+use App\Http\Resources\AssetResource;
+use App\Media;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
+use Laravel\File;
 
 class AssetController extends Controller
 {
@@ -16,9 +21,8 @@ class AssetController extends Controller
      */
     public function index()
     {
-//        $assets = Asset::all();
-        $assets = Asset::with(['components','warranty','customer', 'media'])->paginate();
-        return response()->json($assets);
+        $ass = \App\Http\Resources\AssetResource::collection(\App\Asset::with(['warranty','components','customer','media'])->paginate());
+        return $ass;
     }
 
     /**
@@ -52,8 +56,14 @@ class AssetController extends Controller
      */
     public function show($id)
     {
-        $asset = Asset::with(['customer','warranty','components', 'media'])->where('id','=',$id)->get();
-        return response()->json($asset);
+//        $asset = Asset::with(
+//            ['customer','warranty','components', 'media'])
+//            ->where('id','=',$id)
+//            ->get();
+
+        $asset = new AssetResource(Asset::findOrFail($id)->load(['components', 'warranty','media']));
+        return response()->json([$asset]);
+//        return response()->json($asset);
     }
 
     /**
@@ -98,5 +108,35 @@ class AssetController extends Controller
     public function secondaryAssets() {
         $asset = Asset::ofType('primary')->paginate();
         return response()->json($asset);
+    }
+
+    public function saveAssetMedia(Request $request)
+    {
+        $assetMediaStore = new Media();
+        $assetMediaStore->media_type = $request->file('file')->getMimeType();
+        $assetMediaStore->size = $request->file('file')->getSize();
+        $assetMediaStore->pathToMedia = '/storage/imgs/assets/' .$request->asset_id . '/' . $request->file('file')->getClientOriginalName();
+        $assetMediaStore->url = '/storage/imgs/assets/';
+        $assetMediaStore->saveOrFail();
+
+        $assetMediaStore->assets()->newPivot([
+            'asset_id' => $request->asset_id,
+            'media_id' => $assetMediaStore->id
+        ])->save();
+
+        $request->file('file')
+            ->storePubliclyAs('/public/imgs/assets/' . $request->asset_id, $request->file('file')
+            ->getClientOriginalName() );
+
+        return response()->json('ok');
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->search;
+        $requestSQ = Asset::where('serial','like', '%'. $request->search .'%');
+        $results = AssetResource::collection($requestSQ->paginate());
+
+        return $results;
     }
 }

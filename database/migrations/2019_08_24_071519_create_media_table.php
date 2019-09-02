@@ -19,18 +19,18 @@ class CreateMediaTable extends Migration
             $table->string('size');
             $table->string('pathToMedia');
             $table->string('url');
-            $table->unsignedBigInteger('asset_id')->nullable();
-            $table->unsignedBigInteger('component_id')->nullable();
-
-            $table->foreign('asset_id')
-                ->references('id')
-                ->on('assets')
-                ->onDelete('cascade');
-
-            $table->foreign('component_id')
-                ->references('id')
-                ->on('components')
-                ->onDelete('cascade');
+//            $table->unsignedBigInteger('asset_id')->nullable();
+//            $table->unsignedBigInteger('component_id')->nullable();
+//
+//            $table->foreign('asset_id')
+//                ->references('id')
+//                ->on('assets')
+//                ->onDelete('cascade');
+//
+//            $table->foreign('component_id')
+//                ->references('id')
+//                ->on('components')
+//                ->onDelete('cascade');
 
             $table->timestamps();
         });

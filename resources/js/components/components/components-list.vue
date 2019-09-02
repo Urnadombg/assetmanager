@@ -1,43 +1,40 @@
 <template>
-    <b-container fluid>
-       <b-card bg-variant="info" header-bg-variant="primary" body-bg-variant="white">
-           <div slot="header">
-           </div>
-           <b-table :items="components" :fields="tableFields" small hover striped>
-<!--           <b-table :items="components" hover striped>-->
-               <template slot="[nomer]" slot-scope="data">
-                   {{ data.index +1 }}
-               </template>
-<!--               <template slot="[typeOfAsset]" slot-scope="data">-->
-<!--                   {{ data.item.type_of_asset === 'Primary' ? "Основен актив": "второстепенен/компонент"}}-->
-<!--               </template>-->
-<!--               <template slot="[components]" slot-scope="data">-->
-<!--                   <div v-if="data.item.components.length > 0">-->
-<!--                       {{ data.item.components.length}}-->
-<!--                   </div>-->
-<!--               </template>-->
-<!--               <template slot="[customer]" slot-scope="customer">-->
-<!--&lt;!&ndash;                   {{ data.item.customer }}&ndash;&gt;-->
-<!--&lt;!&ndash;                   {{ customer }}&ndash;&gt;-->
-<!--               </template>-->
-                <template slot="[actions]" slot-scope="data">
-                    <b-btn-group>
-                        <a :href="`components/${data.item.id}`" class="btn btn-primary">Виж</a>
-                        <a href="" class="btn btn-info">Редакция</a>
-                        <a href="" class="btn btn-warning">Изтрий</a>
-                    </b-btn-group>
-                </template>
-           </b-table>
-       </b-card>
-    </b-container>
+    <div>
+        <b-table :items="componentsx"
+                 bordered
+                 responsive
+                 head-variant="light"
+                 large
+
+                 hover
+                 :fields="tableFields">
+            <template slot="nomer" slot-scope="data">
+                {{ data.index +1 }}
+            </template>
+            <template slot="[warranty]" slot-scope="data">
+                <strong>Валидна от:</strong>
+                {{ data.item.warranty.start }}
+                <strong>до:</strong>
+                {{ data.item.warranty.end }}
+            </template>
+            <template slot="actions">
+                <b-btn-group>
+                    <b-btn variant="primary">Виж</b-btn>
+                    <b-btn variant="secondary">Виж</b-btn>
+                    <b-btn variant="danger">Виж</b-btn>
+                </b-btn-group>
+            </template>
+        </b-table>
+    </div>
 </template>
 
 <script>
     export default {
-        name: "components-list",
+        props: ['components'],
+        name: "ComponentList",
         data () {
             return {
-                components: [],
+                componentsx: [],
                 tableFields: [
                     {
                         label: '№',
@@ -56,16 +53,8 @@
                         key: 'serial'
                     },
                     {
-                        label: 'Тип на актива',
-                        key: 'typeOfAsset'
-                    },
-                    {
-                        label: 'Допълнително оборудване',
-                        key: 'components'
-                    },
-                    {
-                        label: 'Клиент',
-                        key: 'customer'
+                        label: 'Гаранция',
+                        key: 'warranty'
                     },
                     {
                         label: 'Действия',
@@ -74,14 +63,8 @@
                 ]
             }
         },
-        mounted() {
-            axios.get('/api/components')
-                .then(
-                    (data) => {
-                        this.components = data.data
-                    }
-                )
-
+        mounted () {
+            this.componentsx = this.$props.components
         }
     }
 </script>
