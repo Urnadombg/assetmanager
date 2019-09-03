@@ -6,6 +6,7 @@ use App\Asset;
 use App\Http\Resources\AssetCollection;
 use App\Http\Resources\AssetResource;
 use App\Media;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -22,6 +23,7 @@ class AssetController extends Controller
     public function index()
     {
         $ass = \App\Http\Resources\AssetResource::collection(\App\Asset::with(['warranty','components','customer','media','maintenances'])->paginate());
+//        dd($ass);
         return $ass;
     }
 
@@ -139,5 +141,22 @@ class AssetController extends Controller
         $results = AssetResource::collection($requestSQ->paginate());
 
         return $results;
+    }
+
+    public function createMaintenanceProtocol(Request $request)
+    {
+
+        $asset = Asset::findOrFail($request->asset_id)->load(['warranty', 'maintenances']);
+
+//        $asset = \App\Asset::findOrFail(1)->load(['components', 'warranty', 'maintenances']);
+//
+
+        $asset->maintenances()->create([
+            'perform_on' => Carbon::parse($request->perform_on),
+            'protocolUUID' => \Ramsey\Uuid\Uuid::uuid4(),
+            'isWarrantyEvent' => $request->isWarrantyEvent,
+            'explanation' => $request->explanation,
+        ]);
+        return response()->json('ok');
     }
 }

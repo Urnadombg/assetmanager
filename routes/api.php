@@ -18,11 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/test', function () {
-    // asset i component
-    $data = \App\Asset::with(['warranty', 'components', 'maintenances'])
-        ->where('id', '=', 1)
-        ->get();
-   return (\App\Http\Resources\AssetResource::collection($data));
+    $cus = App\Customer::find(1)->load('legalInfo');
+
+    return response()->json($cus);
 });
 
 Route::prefix('/assets')->group(function () {
@@ -32,6 +30,7 @@ Route::prefix('/assets')->group(function () {
     Route::put('/{id}', 'API\\AssetController@update');
     Route::post('/uploadFile', 'API\\AssetController@saveAssetMedia');
     Route::post('/search/{search}', 'API\\AssetController@search');
+    Route::post('/newMaintenance', 'API\\AssetController@createMaintenanceProtocol');
 });
 Route::prefix('/components')->group(function () {
     Route::get('/', 'API\\ComponentController@index');

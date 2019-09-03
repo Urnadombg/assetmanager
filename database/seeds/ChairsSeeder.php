@@ -17,6 +17,27 @@ class ChairsSeeder extends Seeder
         $data = json_decode($file);
 
 //        for ($i =0; $i <= 1000; $i++) {
+//
+        $customer = new App\Customer();
+        $customer->name = 'Стефан';
+        $customer->lastname = 'Костянев';
+        $customer->phone = '032032032';
+        $customer->address = 'бул. Васил Априлов №15 А';
+        $customer->city = 'Пловдив';
+        $customer->IsLegalEntity = true;
+        $customer->legalEntity_id = 1;
+        $customer->saveOrFail();
+//
+        $customer->legalInfo()->create([
+            'companyName' => 'Медицински Университет Пловдив',
+            'address' => 'В. Априлов 15 А',
+            'officialPersonInCharge' => 'Вяра Михова',
+            'bulstat' => '0045995093',
+            'isEntityRegisteredInVATRegister' => 1,
+        ])->save();
+
+//        $customer->saveOrFail();
+
             foreach ($data as $asset) {
                 $createAsset = new \App\Asset();
                 $createAsset->type_of_asset = $asset->type_of_asset;
@@ -27,6 +48,7 @@ class ChairsSeeder extends Seeder
                 $createAsset->purchaseDate = \Carbon\Carbon::parse($asset->purchaseDate)->toDate();
                 $createAsset->department = $asset->department;
                 $createAsset->title = $asset->title;
+                $createAsset->customer_id = 1;
                 $createAsset->save();
 
                 $createAsset->warranty()->create([

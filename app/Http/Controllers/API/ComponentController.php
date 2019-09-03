@@ -68,4 +68,21 @@ class ComponentController extends Controller
     {
         //
     }
+
+    public function createNewMaintenance(Request $request)
+    {
+        $component = Component::findOrFail($request->component_id)->load(['warranty', 'maintenances']);
+
+//        $asset = \App\Asset::findOrFail(1)->load(['components', 'warranty', 'maintenances']);
+//
+
+        $component->maintenances()->create([
+            'perform_on' => Carbon::parse($request->perform_on),
+            'protocolUUID' => \Ramsey\Uuid\Uuid::uuid4(),
+            'isWarrantyEvent' => $request->isWarrantyEvent,
+            'explanation' => $request->explanation,
+        ]);
+
+        return response()->json('ok');
+    }
 }

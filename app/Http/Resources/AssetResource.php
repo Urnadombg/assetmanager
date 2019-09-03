@@ -23,7 +23,7 @@ class AssetResource extends JsonResource
             'serial' => $this->serial,
             'type_of_asset' => $this->type_of_asset,
             'deleted_at' => $this->deleted_at,
-            'customer_id' => $this->customer_id,
+            'customer' => $this->customer->load('legalInfo'),
             'location' => $this->location,
             'department' => $this->department,
             'purchaseDate' => $this->purchaseDate,

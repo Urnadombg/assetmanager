@@ -2210,6 +2210,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
+    // console.log();
     axios.get("/api/assets/".concat(this.$props.id)).then(function (data) {
       setTimeout(function () {
         // console.log(data.data.data);
@@ -2327,6 +2328,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _ServiceForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ServiceForm */ "./resources/js/components/ServiceHistory/ServiceForm.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2740,6 +2751,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ServiceHistory_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ServiceHistory/table */ "./resources/js/components/ServiceHistory/table.vue");
 //
 //
 //
@@ -2817,8 +2829,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "asset-list",
+  components: {
+    ServiceHistoryTable: _ServiceHistory_table__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   data: function data() {
     return {
       assets: [],
@@ -2870,10 +2918,12 @@ __webpack_require__.r(__webpack_exports__);
       ctx.apiUrl = '/api/assets'; // console.log("ctx", ctx)
       // console.log("callback", callback)
 
-      this.sortBy = ctx.sortBy;
-      console.log(ctx.apiUrl);
+      this.sortBy = ctx.sortBy; // console.log(ctx.apiUrl)
+      // console.log(data.data.data);
+
       var promise = axios.get("/api/assets?page=".concat(this.currentPage));
       return promise.then(function (data) {
+        console.log(data.data.data);
         _this.meta = data.data.meta;
         _this.assets = data.data.data;
         var items = data.data.data; // Here we could override the busy state, setting isBusy to false
@@ -35850,7 +35900,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*.theclass {*/\n/*margin-right: 5px;*/\n/*border-radius: 0px 0px 0px 0px;*/\n/*color: #fff;*/\n/*border-bottom: 3px solid #9ed861;*/\n/*}*/\n/*.theclass a {*/\n/*font-weight: bold;*/\n/*border-radius: 0px 0px 0px 0px;*/\n\n/*color: #fff;*/\n/*}*/\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*.theclass {*/\n/*margin-right: 5px;*/\n/*border-radius: 0px 0px 0px 0px;*/\n/*color: #fff;*/\n/*border-bottom: 3px solid #9ed861;*/\n/*}*/\n/*.theclass a {*/\n/*font-weight: bold;*/\n/*border-radius: 0px 0px 0px 0px;*/\n\n/*color: #fff;*/\n/*}*/\n", ""]);
 
 // exports
 
@@ -72254,7 +72304,16 @@ var render = function() {
             [
               _c(
                 "b-tabs",
-                { attrs: { card: "", "no-body": "" } },
+                {
+                  attrs: { card: "", "no-body": "" },
+                  model: {
+                    value: _vm.activeTab,
+                    callback: function($$v) {
+                      _vm.activeTab = $$v
+                    },
+                    expression: "activeTab"
+                  }
+                },
                 [
                   !_vm.loading
                     ? _c(
@@ -73018,7 +73077,6 @@ var render = function() {
                   !_vm.loading
                     ? _c(
                         "b-tab",
-                        { attrs: { active: "" } },
                         [
                           _c("template", { slot: "title" }, [
                             _c("i", { staticClass: "fas fa-tools" }),
@@ -73201,11 +73259,15 @@ var render = function() {
                 key: "title",
                 fn: function(data) {
                   return [
-                    _vm._v(
-                      "\n                            " +
-                        _vm._s(data.item.title) +
-                        "\n                        "
-                    )
+                    data.item.pivot.asset_id === _vm.dataItems.id
+                      ? _c("span", [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.dataItems.title) +
+                              "\n                            "
+                          )
+                        ])
+                      : _vm._e()
                   ]
                 }
               },
@@ -73234,6 +73296,34 @@ var render = function() {
                     _vm._v(
                       "\n                            " +
                         _vm._s(data.item.protocolUUID) +
+                        "\n                        "
+                    )
+                  ]
+                }
+              },
+              {
+                key: "model",
+                fn: function(data) {
+                  return [
+                    data.item.pivot.asset_id === _vm.dataItems.id
+                      ? _c("span", [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.dataItems.model) +
+                              "\n                            "
+                          )
+                        ])
+                      : _vm._e()
+                  ]
+                }
+              },
+              {
+                key: "serial",
+                fn: function(data) {
+                  return [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.dataItems.serial) +
                         "\n                        "
                     )
                   ]
@@ -73339,8 +73429,8 @@ var render = function() {
                   return [
                     _vm._v(
                       "\n                            " +
-                        _vm._s(data.item.title) +
-                        "\n                        "
+                        _vm._s(data.item) +
+                        "--\n                        "
                     )
                   ]
                 }
@@ -73885,17 +73975,83 @@ var render = function() {
                   }
                 },
                 {
+                  key: "row-details",
+                  fn: function(row) {
+                    return [
+                      _c(
+                        "b-card",
+                        [
+                          _c(
+                            "b-row",
+                            { staticClass: "mb-2" },
+                            [
+                              _c(
+                                "b-col",
+                                [
+                                  _c("component-list", {
+                                    attrs: { components: row.item.components }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { size: "sm" },
+                              on: { click: row.toggleDetails }
+                            },
+                            [_vm._v("Скрий детайлите")]
+                          )
+                        ],
+                        1
+                      )
+                    ]
+                  }
+                },
+                {
                   key: "[components]",
                   fn: function(data) {
                     return [
                       data.item.components.length > 0
-                        ? _c("div", [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(data.item.components.length) +
-                                "\n                   "
-                            )
-                          ])
+                        ? _c(
+                            "div",
+                            [
+                              _c(
+                                "b-button",
+                                {
+                                  attrs: { variant: "primary" },
+                                  on: { click: data.toggleDetails }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                           Компоненти\n                           "
+                                  ),
+                                  _c(
+                                    "b-badge",
+                                    { attrs: { variant: "light" } },
+                                    [
+                                      _vm._v(
+                                        "\n                               " +
+                                          _vm._s(data.item.components.length) +
+                                          "\n                           "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(
+                                "\n                       " +
+                                  _vm._s(data.detailsShowing ? "da" : "ne") +
+                                  "\n                   "
+                              )
+                            ],
+                            1
+                          )
                         : _vm._e()
                     ]
                   }
@@ -73914,8 +74070,34 @@ var render = function() {
                 },
                 {
                   key: "[customer]",
-                  fn: function(customer) {
-                    return undefined
+                  fn: function(data) {
+                    return [
+                      data.item.customer.legal_info !== undefined
+                        ? _c("div", [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  href: "/customers/" + data.item.customer.id
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                           " +
+                                    _vm._s(
+                                      data.item.customer.legal_info.companyName
+                                    ) +
+                                    ", " +
+                                    _vm._s(data.item.customer.name) +
+                                    " " +
+                                    _vm._s(data.item.customer.lastname) +
+                                    "\n                       "
+                                )
+                              ]
+                            )
+                          ])
+                        : _vm._e()
+                    ]
                   }
                 },
                 {
@@ -89571,8 +89753,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Sites\assets\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Sites\assets\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/urandom/rails/assetmanager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/urandom/rails/assetmanager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

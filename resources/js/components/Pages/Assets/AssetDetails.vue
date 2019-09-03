@@ -20,7 +20,7 @@
                 </b-row>
             </div>
             <b-container fluid>
-                <b-tabs card no-body>
+                <b-tabs card no-body v-model="activeTab">
                     <b-tab v-if="!loading">
                         <template slot="title">
                             <i class="fas fa-money-check"></i>
@@ -178,7 +178,7 @@
                             <component-list :components="assetInfo.components"></component-list>
                         </b-card>
                     </b-tab>
-                    <b-tab v-if="!loading" active>
+                    <b-tab v-if="!loading">
                         <template slot="title">
                             <i class="fas fa-tools"></i>
                             Сервизна история
@@ -301,6 +301,7 @@
             }
         },
         mounted() {
+            // console.log();
             axios.get(`/api/assets/${this.$props.id}`)
             .then(
                 (data) => {

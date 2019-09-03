@@ -49,16 +49,48 @@
                <template slot="[typeOfAsset]" slot-scope="data">
                    {{ data.item.type_of_asset === 'primary' ? "Основен актив": "второстепенен/компонент"}}
                </template>
+
+               <template slot="row-details" slot-scope="row">
+                   <b-card>
+                       <b-row class="mb-2">
+                           <!--<b-col><b>Age:</b></b-col>-->
+                           <b-col>
+                               <component-list :components="row.item.components"></component-list>
+                               <!--<service-history-table :maintenanceData="[row.item]"></service-history-table>-->
+                           </b-col>
+                       </b-row>
+
+                       <b-button size="sm" @click="row.toggleDetails">Скрий детайлите</b-button>
+                   </b-card>
+               </template>
+
                <template slot="[components]" slot-scope="data">
                    <div v-if="data.item.components.length > 0">
-                        {{ data.item.components.length}}
+                       <!--<b-button variant="primary" :href="'/assets/' + data.item.id" @click="data.toggleDetails()">-->
+
+                       <!--<b-button size="sm" @click="row.toggleDetails" class="mr-2">-->
+                           <!--{{ row.detailsShowing ? 'Hide' : 'Show'}} Details-->
+                       <!--</b-button>-->
+                       <!---->
+                       <b-button variant="primary" @click="data.toggleDetails">
+                           Компоненти
+                           <b-badge variant="light">
+                               {{ data.item.components.length}}
+                           </b-badge>
+                       </b-button>
+                       {{ data.detailsShowing ? "da" :"ne"}}
                    </div>
                </template>
                <template slot="[department]" slot-scope="data">
                    {{ data.item.department}}
                </template>
-               <template slot="[customer]" slot-scope="customer">
-<!--                   {{ data.item.customer }}-->
+               <template slot="[customer]" slot-scope="data">
+                   <div v-if="data.item.customer.legal_info !== undefined">
+                       <a :href="'/customers/' + data.item.customer.id">
+                           {{data.item.customer.legal_info.companyName }}, {{ data.item.customer.name }} {{ data.item.customer.lastname }}
+                       </a>
+                   </div>
+                   <!--{{ data.item.customer.legal_info !== undefined }}-->
 <!--                  {{ customer.item.customer['name'] }}-->
 <!--                  {{ customer.item.customer['lastname'] }}-->
                </template>
@@ -76,8 +108,10 @@
 </template>
 
 <script>
+    import ServiceHistoryTable from "../ServiceHistory/table";
     export default {
         name: "asset-list",
+        components: {ServiceHistoryTable},
         data () {
             return {
                 assets: [],
@@ -140,10 +174,12 @@
                 // console.log("ctx", ctx)
                 // console.log("callback", callback)
                 this.sortBy = ctx.sortBy
-                console.log(ctx.apiUrl)
+                // console.log(ctx.apiUrl)
+                // console.log(data.data.data);
                 let promise = axios.get(`/api/assets?page=${this.currentPage}`)
 
                 return promise.then((data) => {
+                    console.log(data.data.data);
                     this.meta = data.data.meta
                     this.assets = data.data.data
                     const items = data.data.data

@@ -11,7 +11,6 @@
                 </div>
 
                 <!--<b-card-body>-->
-                    <!--{{ dataItems.maintenances }}-->
                     <b-table :items="dataItems.maintenances"
                              :fields="assetTableFields"
                              borderd
@@ -36,8 +35,22 @@
                             {{ data.item.protocolUUID }}
                         </template>
                         <template slot="title" slot-scope="data">
-                            {{ data.item.title }}
+                            <span v-if="data.item.pivot.asset_id === dataItems.id">
+                                {{ dataItems.title }}
+                            </span>
                         </template>
+                        <template slot="model" slot-scope="data">
+                            <span v-if="data.item.pivot.asset_id === dataItems.id">
+                                {{ dataItems.model }}
+                            </span>
+                        </template>
+                        <template slot="serial" slot-scope="data">
+                            {{ dataItems.serial }}
+                        </template>
+                        <!--<template slot="title" slot-scope="data">-->
+                            <!--{{ data.item.title }}-->
+                            <!--&lt;!&ndash;{{ data.item.pivot.asset_id === data.item.id }}&ndash;&gt;-->
+                        <!--</template>-->
                     </b-table>
 
 
@@ -94,9 +107,6 @@
                         </template>
                         <template slot="maintenance.protocolUUID" slot-scope="data">
                             {{ data.item.maintenance.protocolUUID }}
-                        </template>
-                        <template slot="title" slot-scope="data">
-                            {{ data.item.title }}
                         </template>
                     </b-table>
 

@@ -69,32 +69,19 @@ class MaintenanceController extends Controller
 
     public function createNewRecord(Request $request)
     {
-        if ($request->has('asset_id')) {
-            $asset = Asset::findOrFail($request->asset_id);
+        $asset = \App\Asset::findOrFail(1)->load(['components', 'warranty', 'maintenances']);
 
-            $asset->maintenances()->create([
-                'asset_id' => $request->asset_id,
-                'component_id' => $request->component_id,
-                'perform_on' => Carbon::parse($request->perform_on),
-                'protocolUUID' => Uuid::uuid4(),
-                // TODO: Should FIX IT !!!!!!!!!!!!
-                'isWarrantyEvent' => true,
-                'component_id' => 0,
-                'explanation' => 'dggwegwegwegweg'
-            ]);
-        }
-        else if($request->has('component_id')) {
-            $component = Component::findOrFail($request->component_id);
 
-            $component->maintenances()->create([
-                'component_id' => $request->component_id,
-                'perform_on' => Carbon::parse($request->perform_on),
-                'protocolUUID' => Uuid::uuid4(),
-                // TODO: Should FIX IT !!!!!!!!!!!!
-                'isWarrantyEvent' => true,
-                'explanation' => $request->explanation
-            ]);
-        }
+        $maintenance = new App\Maintenance([
+            'perform_on' => \Carbon\Carbon::now(),
+            'protocolUUID' => \Ramsey\Uuid\Uuid::uuid4(),
+            'isWarrantyEvent' => 1,
+            'explanation' => 's',
+        ]);
 
+        $asset->maintenances()->save($maintenance);
+//    dd($maintenance);
+
+        return response()->json($asset);
     }
 }
