@@ -41,3 +41,7 @@ Route::prefix('/components')->group(function () {
 Route::prefix('/customers')->group(function () {
     Route::get('/', 'API\\CustomerController@index');
 });
+
+Route::prefix('/maintenance')->group(function () {
+    Route::post('/', 'API\\MaintenanceController@createNewRecord');
+});

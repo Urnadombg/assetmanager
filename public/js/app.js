@@ -2252,10 +2252,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ServiceHistory/table.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ServiceHistory/table.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ServiceHistory/ServiceForm.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ServiceHistory/ServiceForm.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2292,6 +2292,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ServiceForm",
+  data: function data() {
+    return {
+      formData: {
+        asset_id: null,
+        protocolUID: '',
+        component_id: null
+      },
+      editor: _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1___default.a,
+      editorData: '',
+      editorConfig: {// The configuration of the rich-text editor.
+      }
+    };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ServiceHistory/table.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ServiceHistory/table.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ckeditor_ckeditor5_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ckeditor/ckeditor5-vue */ "./node_modules/@ckeditor/ckeditor5-vue/dist/ckeditor.js");
+/* harmony import */ var _ckeditor_ckeditor5_vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
+/* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ServiceForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ServiceForm */ "./resources/js/components/ServiceHistory/ServiceForm.vue");
 //
 //
 //
@@ -2417,10 +2452,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "service-history-table",
+  components: {
+    ServiceForm: _ServiceForm__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   props: ['origin', 'maintenanceData'],
   data: function data() {
     return {
@@ -72170,17 +72220,17 @@ var render = function() {
               !_vm.loading
                 ? _c("h1", [
                     _vm._v(
-                      "\n                " +
+                      "\n                    " +
                         _vm._s(_vm.assetInfo.title) +
-                        "\n                " +
+                        "\n                    " +
                         _vm._s(_vm.assetInfo.model) +
-                        "\n                "
+                        "\n                    "
                     ),
                     _c("span", [_vm._v(", сериен № ")]),
                     _vm._v(
-                      "\n                " +
+                      "\n                    " +
                         _vm._s(_vm.assetInfo.serial) +
-                        "\n            "
+                        "\n                "
                     )
                   ])
                 : _vm._e(),
@@ -72213,7 +72263,7 @@ var render = function() {
                           _c("template", { slot: "title" }, [
                             _c("i", { staticClass: "fas fa-money-check" }),
                             _vm._v(
-                              "\n                        Детайли\n                    "
+                              "\n                            Детайли\n                        "
                             )
                           ]),
                           _vm._v(" "),
@@ -72229,7 +72279,7 @@ var render = function() {
                                       staticClass: "fas fa-money-check"
                                     }),
                                     _vm._v(
-                                      "\n                                Детайли\n                            "
+                                      "\n                                    Детайли\n                                "
                                     )
                                   ])
                                 ]
@@ -72360,7 +72410,7 @@ var render = function() {
                                                                         },
                                                                         [
                                                                           _vm._v(
-                                                                            "\n                                                                Запази\n                                                            "
+                                                                            "\n                                                                    Запази\n                                                                "
                                                                           )
                                                                         ]
                                                                       ),
@@ -72386,7 +72436,7 @@ var render = function() {
                                                                         },
                                                                         [
                                                                           _vm._v(
-                                                                            "\n                                                                Откажи\n                                                            "
+                                                                            "\n                                                                    Откажи\n                                                                "
                                                                           )
                                                                         ]
                                                                       )
@@ -72401,11 +72451,11 @@ var render = function() {
                                                           )
                                                         : _vm._e(),
                                                       _vm._v(
-                                                        "\n                                                " +
+                                                        "\n                                                    " +
                                                           _vm._s(
                                                             data.item.serial
                                                           ) +
-                                                          "\n                                        "
+                                                          "\n                                            "
                                                       )
                                                     ]
                                                   }
@@ -72492,7 +72542,7 @@ var render = function() {
                                                                         },
                                                                         [
                                                                           _vm._v(
-                                                                            "\n                                                        Запази\n                                                    "
+                                                                            "\n                                                            Запази\n                                                        "
                                                                           )
                                                                         ]
                                                                       ),
@@ -72518,7 +72568,7 @@ var render = function() {
                                                                         },
                                                                         [
                                                                           _vm._v(
-                                                                            "\n                                                        Откажи\n                                                    "
+                                                                            "\n                                                            Откажи\n                                                        "
                                                                           )
                                                                         ]
                                                                       )
@@ -72533,11 +72583,11 @@ var render = function() {
                                                           )
                                                         : _vm._e(),
                                                       _vm._v(
-                                                        "\n                                        " +
+                                                        "\n                                            " +
                                                           _vm._s(
                                                             data.item.location
                                                           ) +
-                                                          "\n                                        "
+                                                          "\n                                            "
                                                       )
                                                     ]
                                                   }
@@ -72624,7 +72674,7 @@ var render = function() {
                                                                         },
                                                                         [
                                                                           _vm._v(
-                                                                            "\n                                                                Запази\n                                                            "
+                                                                            "\n                                                                    Запази\n                                                                "
                                                                           )
                                                                         ]
                                                                       ),
@@ -72650,7 +72700,7 @@ var render = function() {
                                                                         },
                                                                         [
                                                                           _vm._v(
-                                                                            "\n                                                                Откажи\n                                                            "
+                                                                            "\n                                                                    Откажи\n                                                                "
                                                                           )
                                                                         ]
                                                                       )
@@ -72665,11 +72715,11 @@ var render = function() {
                                                           )
                                                         : _vm._e(),
                                                       _vm._v(
-                                                        "\n                                                " +
+                                                        "\n                                                    " +
                                                           _vm._s(
                                                             data.item.department
                                                           ) +
-                                                          "\n                                            "
+                                                          "\n                                                "
                                                       )
                                                     ]
                                                   }
@@ -72682,23 +72732,23 @@ var render = function() {
                                                         _vm._v("Валидна от:")
                                                       ]),
                                                       _vm._v(
-                                                        "\n                                            " +
+                                                        "\n                                                " +
                                                           _vm._s(
                                                             data.item.warranty
                                                               .start
                                                           ) +
-                                                          "\n                                            "
+                                                          "\n                                                "
                                                       ),
                                                       _c("strong", [
                                                         _vm._v("до:")
                                                       ]),
                                                       _vm._v(
-                                                        "\n                                            " +
+                                                        "\n                                                " +
                                                           _vm._s(
                                                             data.item.warranty
                                                               .end
                                                           ) +
-                                                          "\n                                        "
+                                                          "\n                                            "
                                                       )
                                                     ]
                                                   }
@@ -72785,7 +72835,7 @@ var render = function() {
                                                                         },
                                                                         [
                                                                           _vm._v(
-                                                                            "\n                                                            Запази\n                                                        "
+                                                                            "\n                                                                Запази\n                                                            "
                                                                           )
                                                                         ]
                                                                       ),
@@ -72811,7 +72861,7 @@ var render = function() {
                                                                         },
                                                                         [
                                                                           _vm._v(
-                                                                            "\n                                                            Откажи\n                                                        "
+                                                                            "\n                                                                Откажи\n                                                            "
                                                                           )
                                                                         ]
                                                                       )
@@ -72826,12 +72876,12 @@ var render = function() {
                                                           )
                                                         : _vm._e(),
                                                       _vm._v(
-                                                        "\n                                            " +
+                                                        "\n                                                " +
                                                           _vm._s(
                                                             data.item
                                                               .purchaseDate
                                                           ) +
-                                                          "\n                                        "
+                                                          "\n                                            "
                                                       )
                                                     ]
                                                   }
@@ -72839,7 +72889,7 @@ var render = function() {
                                               ],
                                               null,
                                               false,
-                                              3331129035
+                                              1895952331
                                             )
                                           })
                                         ],
@@ -72934,7 +72984,7 @@ var render = function() {
                           _c("template", { slot: "title" }, [
                             _c("i", { staticClass: "fas fa-cogs" }),
                             _vm._v(
-                              "\n                        Компоненти\n                    "
+                              "\n                            Компоненти\n                        "
                             )
                           ]),
                           _vm._v(" "),
@@ -72948,7 +72998,7 @@ var render = function() {
                                   _c("h1", [
                                     _c("i", { staticClass: "fas fa-cogs" }),
                                     _vm._v(
-                                      "\n                                Компоненти\n                            "
+                                      "\n                                    Компоненти\n                                "
                                     )
                                   ])
                                 ]
@@ -72973,18 +73023,13 @@ var render = function() {
                           _c("template", { slot: "title" }, [
                             _c("i", { staticClass: "fas fa-tools" }),
                             _vm._v(
-                              "\n                        Сервизна история\n                    "
+                              "\n                            Сервизна история\n                        "
                             )
                           ]),
                           _vm._v(" "),
                           _c(
                             "div",
                             [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(_vm.assetInfo.maintenances) +
-                                  "\n                        "
-                              ),
                               _c("service-history-table", {
                                 attrs: {
                                   maintenanceData: [_vm.assetInfo],
@@ -73006,7 +73051,7 @@ var render = function() {
                           _c("template", { slot: "title" }, [
                             _c("i", { staticClass: "fas fa-folder-open" }),
                             _vm._v(
-                              "\n                        Документи\n                    "
+                              "\n                            Документи\n                        "
                             )
                           ])
                         ],
@@ -73019,6 +73064,77 @@ var render = function() {
             ],
             1
           )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ServiceHistory/ServiceForm.vue?vue&type=template&id=69eadd34&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ServiceHistory/ServiceForm.vue?vue&type=template&id=69eadd34&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "b-row",
+        [
+          _c(
+            "b-col",
+            {
+              staticClass: "text-capitalize text-lg-center",
+              attrs: { cols: "12" }
+            },
+            [_c("h1", [_vm._v("\n                Протокол №\n            ")])]
+          ),
+          _vm._v(" "),
+          _c("b-col", { attrs: { cols: "2" } })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-form-group",
+        { attrs: { id: "editorData-form-group", "label-for": "-input" } },
+        [
+          _c("div", { attrs: { slot: "label" }, slot: "label" }, [
+            _c("strong", [_vm._v("Описание на проблема:")])
+          ]),
+          _vm._v(" "),
+          _c("ckeditor", {
+            attrs: {
+              id: "editorData",
+              editor: _vm.editor,
+              config: _vm.editorConfig
+            },
+            model: {
+              value: _vm.editorData,
+              callback: function($$v) {
+                _vm.editorData = $$v
+              },
+              expression: "editorData"
+            }
+          })
         ],
         1
       )
@@ -73126,7 +73242,7 @@ var render = function() {
             ])
           }),
           _vm._v(" "),
-          _vm.assetServiceIssue
+          !_vm.aassetServiceIssue
             ? _c(
                 "div",
                 [
@@ -73138,33 +73254,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("hr"),
                   _vm._v(" "),
-                  _c(
-                    "b-form-group",
-                    {
-                      attrs: {
-                        id: "editorData-form-group",
-                        label: "Описание на проблема",
-                        "label-for": "-input"
-                      }
-                    },
-                    [
-                      _c("ckeditor", {
-                        attrs: {
-                          id: "editorData",
-                          editor: _vm.editor,
-                          config: _vm.editorConfig
-                        },
-                        model: {
-                          value: _vm.editorData,
-                          callback: function($$v) {
-                            _vm.editorData = $$v
-                          },
-                          expression: "editorData"
-                        }
-                      })
-                    ],
-                    1
-                  )
+                  _c("service-form")
                 ],
                 1
               )
@@ -73239,7 +73329,8 @@ var render = function() {
               responsive: "",
               hover: "",
               striped: "",
-              "head-variant": "light"
+              "head-variant": "light",
+              "show-empty": ""
             },
             scopedSlots: _vm._u([
               {
@@ -73299,27 +73390,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("hr"),
                   _vm._v(" "),
-                  _c(
-                    "b-form-group",
-                    {
-                      attrs: {
-                        id: "explanation-form-group",
-                        label: "Кратко описание на проблема",
-                        "label-for": "explanation-input"
-                      }
-                    },
-                    [
-                      _c("b-form-textarea", {
-                        attrs: {
-                          id: "explanation-input",
-                          name: "explanation-input",
-                          "aria-describedby": "explanation-input-live-feedback",
-                          size: "lg"
-                        }
-                      })
-                    ],
-                    1
-                  )
+                  _c("service-form")
                 ],
                 1
               )
@@ -88981,6 +89052,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ServiceHistory/ServiceForm.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/ServiceHistory/ServiceForm.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ServiceForm_vue_vue_type_template_id_69eadd34_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ServiceForm.vue?vue&type=template&id=69eadd34&scoped=true& */ "./resources/js/components/ServiceHistory/ServiceForm.vue?vue&type=template&id=69eadd34&scoped=true&");
+/* harmony import */ var _ServiceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ServiceForm.vue?vue&type=script&lang=js& */ "./resources/js/components/ServiceHistory/ServiceForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ServiceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ServiceForm_vue_vue_type_template_id_69eadd34_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ServiceForm_vue_vue_type_template_id_69eadd34_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "69eadd34",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ServiceHistory/ServiceForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ServiceHistory/ServiceForm.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/ServiceHistory/ServiceForm.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ServiceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ServiceForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ServiceHistory/ServiceForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ServiceForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ServiceHistory/ServiceForm.vue?vue&type=template&id=69eadd34&scoped=true&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/ServiceHistory/ServiceForm.vue?vue&type=template&id=69eadd34&scoped=true& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ServiceForm_vue_vue_type_template_id_69eadd34_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ServiceForm.vue?vue&type=template&id=69eadd34&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ServiceHistory/ServiceForm.vue?vue&type=template&id=69eadd34&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ServiceForm_vue_vue_type_template_id_69eadd34_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ServiceForm_vue_vue_type_template_id_69eadd34_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/ServiceHistory/table.vue":
 /*!**********************************************************!*\
   !*** ./resources/js/components/ServiceHistory/table.vue ***!
@@ -89431,8 +89571,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/urandom/rails/assetmanager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/urandom/rails/assetmanager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Sites\assets\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Sites\assets\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

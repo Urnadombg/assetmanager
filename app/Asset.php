@@ -50,6 +50,6 @@ class Asset extends Model
 
     public function maintenances()
     {
-        return $this->hasMany(Maintenance::class);
+        return $this->belongsToMany(Maintenance::class, 'asset_maintenance','asset_id','id');
     }
 }

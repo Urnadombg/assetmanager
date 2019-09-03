@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AssetManufacturer extends Migration
+class AssetMaintenance extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,20 @@ class AssetManufacturer extends Migration
      */
     public function up()
     {
-        Schema::create('asset_manufacturer', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('asset_maintenance', function (Blueprint $table) {
+            $table->increments('id');
             $table->unsignedBigInteger('asset_id');
-            $table->unsignedBigInteger('manufacturer_id');
+            $table->unsignedBigInteger('maintenance_id');
 
-//
             $table->foreign('asset_id')
                 ->references('id')
-                ->on('assets');
+                ->on('assets')
+                ->onDelete('cascade');
 
-            $table->foreign('manufacturer_id')
+            $table->foreign('maintenance_id')
                 ->references('id')
-                ->on('manufacturers');
+                ->on('maintenances')
+                ->onDelete('cascade');
 
         });
     }

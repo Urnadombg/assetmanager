@@ -184,7 +184,7 @@
                             Сервизна история
                         </template>
                         <div>
-                            {{ assetInfo.maintenances }}
+<!--                            {{ assetInfo.maintenances }}-->
                             <service-history-table :maintenanceData="[assetInfo]" origin="asset"></service-history-table>
                         </div>
                     </b-tab>

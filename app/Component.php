@@ -29,7 +29,7 @@ class Component extends Model
 
     public function maintenances()
     {
-        return $this->hasMany(Maintenance::class);
+        return $this->belongsToMany(Maintenance::class,'component_maintenance','component_id','id');
     }
 
     public function media()

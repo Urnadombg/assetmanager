@@ -1,12 +1,5 @@
 <template>
 <div>
-    <!--<b-card>-->
-        <!--<div slot="header">-->
-            <!--<h1>-->
-                <!--Сервизна история-->
-            <!--</h1>-->
-        <!--</div>-->
-        <!--<b-card-body>-->
             <b-card footer-bg-variant="light"
                     header-bg-variant="dark">
                 <div slot="header">
@@ -48,20 +41,12 @@
                     </b-table>
 
 
-                <div v-if="assetServiceIssue">
+                <div v-if="!aassetServiceIssue">
                     <h2>
                         Добавяне на нов сервизен запис
                     </h2>
                     <hr>
-                    <b-form-group id="editorData-form-group" label="Описание на проблема" label-for="-input">
-                        <ckeditor
-                                id="editorData"
-                                :editor="editor"
-                                v-model="editorData"
-                                :config="editorConfig">
-
-                        </ckeditor>
-                    </b-form-group>
+                    <service-form></service-form>
                 </div>
 
                 <div slot="footer">
@@ -88,7 +73,13 @@
                     </h2>
                 </div>
                 <!--<b-card-body>-->
-                    <b-table :items="merged" :fields="componentTableFields" borderd responsive hover striped head-variant="light">
+                    <b-table :items="merged" :fields="componentTableFields"
+                             borderd
+                             responsive
+                             hover
+                             striped
+                             head-variant="light"
+                             show-empty>
                         <template slot="title" slot-scope="data">
                             {{ data.item }}--
                         </template>
@@ -115,14 +106,7 @@
                         Добавяне на нов сервизен запис
                     </h2>
                     <hr>
-                    <b-form-group id="explanation-form-group" label="Кратко описание на проблема" label-for="explanation-input">
-                        <b-form-textarea
-                            id="explanation-input"
-                            name="explanation-input"
-                            aria-describedby="explanation-input-live-feedback"
-                            size="lg"
-                        ></b-form-textarea>
-                    </b-form-group>
+                    <service-form></service-form>
                 </div>
 
 
@@ -153,9 +137,11 @@
 <script>
     import CKEditor from '@ckeditor/ckeditor5-vue';
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+    import ServiceForm from "./ServiceForm";
 
     export default {
         name: "service-history-table",
+        components: {ServiceForm},
         props: ['origin','maintenanceData'],
         data () {
             return {

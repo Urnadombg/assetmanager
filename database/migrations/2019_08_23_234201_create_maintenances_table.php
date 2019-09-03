@@ -18,13 +18,13 @@ class CreateMaintenancesTable extends Migration
             $table->date('perform_on');
             $table->uuid('protocolUUID');
             $table->boolean('isWarrantyEvent')->nullable();
-            $table->unsignedBigInteger('asset_id')->nullable();
-            $table->unsignedBigInteger('component_id')->nullable();
+//            $table->unsignedBigInteger('asset_id')->nullable();
+//            $table->unsignedBigInteger('component_id')->nullable();
 
             $table->text('explanation');
 
-            $table->foreign('asset_id')->references('id')->on('assets');
-            $table->foreign('component_id')->references('id')->on('components');
+//            $table->foreign('asset_id')->references('id')->on('assets');
+//            $table->foreign('component_id')->references('id')->on('components');
 
             $table->softDeletes();
             $table->timestamps();
