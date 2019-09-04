@@ -18,8 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/test', function () {
-    $cus = App\Customer::find(1)->load('legalInfo');
-
+    $cus = App\Customer::find(1)->load('companies');
+//    dd($cus->IsLegalEntity ? "DA" : "NE");
     return response()->json($cus);
 });
 

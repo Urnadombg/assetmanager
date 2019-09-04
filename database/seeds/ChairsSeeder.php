@@ -16,7 +16,7 @@ class ChairsSeeder extends Seeder
         $file = \Illuminate\Support\Facades\File::get('database/fdm.json');
         $data = json_decode($file);
 
-//        for ($i =0; $i <= 1000; $i++) {
+
 //
         $customer = new App\Customer();
         $customer->name = 'Стефан';
@@ -28,16 +28,17 @@ class ChairsSeeder extends Seeder
         $customer->legalEntity_id = 1;
         $customer->saveOrFail();
 //
-        $customer->legalInfo()->create([
+        $customer->companies()->create([
             'companyName' => 'Медицински Университет Пловдив',
             'address' => 'В. Априлов 15 А',
             'officialPersonInCharge' => 'Вяра Михова',
-            'bulstat' => '0045995093',
+            'eik' => '0045995093',
+            'bulstat' => 'BG0045995093',
             'isEntityRegisteredInVATRegister' => 1,
         ])->save();
 
 //        $customer->saveOrFail();
-
+        for ($i =0; $i <= 1000; $i++) {
             foreach ($data as $asset) {
                 $createAsset = new \App\Asset();
                 $createAsset->type_of_asset = $asset->type_of_asset;
@@ -86,6 +87,6 @@ class ChairsSeeder extends Seeder
                 }
 
             }
-//        }
+        }
     }
 }

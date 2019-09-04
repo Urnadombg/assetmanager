@@ -18,9 +18,9 @@ class Customer extends Model
         'legalEntity_id'
     ];
 
-    public function legalInfo()
+    public function companies()
     {
-        return $this->hasOne(LegalEntity::class);
+        return $this->hasMany(Company::class);
     }
 
     public function assets()

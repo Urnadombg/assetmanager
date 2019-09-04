@@ -2858,9 +2858,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "asset-list",
@@ -2871,6 +2868,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       assets: [],
       filter: null,
+      trg: '',
       tableFields: [{
         label: '№',
         key: 'nomer'
@@ -2912,6 +2910,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   methods: {
+    chs: function chs(e, a) {},
     getAssetRecords: function getAssetRecords(ctx, callback) {
       var _this = this;
 
@@ -73234,11 +73233,11 @@ var render = function() {
           _c("div", { attrs: { slot: "header" }, slot: "header" }, [
             _c("h2", [
               _vm._v(
-                "\n                        " +
+                "\r\n                        " +
                   _vm._s(_vm.dataItems.title) +
-                  "\n                        " +
+                  "\r\n                        " +
                   _vm._s(_vm.dataItems.model) +
-                  "\n                    "
+                  "\r\n                    "
               )
             ])
           ]),
@@ -73262,9 +73261,9 @@ var render = function() {
                     data.item.pivot.asset_id === _vm.dataItems.id
                       ? _c("span", [
                           _vm._v(
-                            "\n                                " +
+                            "\r\n                                " +
                               _vm._s(_vm.dataItems.title) +
-                              "\n                            "
+                              "\r\n                            "
                           )
                         ])
                       : _vm._e()
@@ -73294,9 +73293,9 @@ var render = function() {
                 fn: function(data) {
                   return [
                     _vm._v(
-                      "\n                            " +
+                      "\r\n                            " +
                         _vm._s(data.item.protocolUUID) +
-                        "\n                        "
+                        "\r\n                        "
                     )
                   ]
                 }
@@ -73308,9 +73307,9 @@ var render = function() {
                     data.item.pivot.asset_id === _vm.dataItems.id
                       ? _c("span", [
                           _vm._v(
-                            "\n                                " +
+                            "\r\n                                " +
                               _vm._s(_vm.dataItems.model) +
-                              "\n                            "
+                              "\r\n                            "
                           )
                         ])
                       : _vm._e()
@@ -73322,9 +73321,9 @@ var render = function() {
                 fn: function(data) {
                   return [
                     _vm._v(
-                      "\n                            " +
+                      "\r\n                            " +
                         _vm._s(_vm.dataItems.serial) +
-                        "\n                        "
+                        "\r\n                        "
                     )
                   ]
                 }
@@ -73338,7 +73337,7 @@ var render = function() {
                 [
                   _c("h2", [
                     _vm._v(
-                      "\n                        Добавяне на нов сервизен запис\n                    "
+                      "\r\n                        Добавяне на нов сервизен запис\r\n                    "
                     )
                   ]),
                   _vm._v(" "),
@@ -73369,7 +73368,7 @@ var render = function() {
                     [
                       _c("i", { staticClass: "fas fa-plus" }),
                       _vm._v(
-                        "\n                        Добави нов запис\n                    "
+                        "\r\n                        Добави нов запис\r\n                    "
                       )
                     ]
                   )
@@ -73388,7 +73387,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Отказ\n                    "
+                        "\r\n                        Отказ\r\n                    "
                       )
                     ]
                   )
@@ -73406,7 +73405,7 @@ var render = function() {
           _c("div", { attrs: { slot: "header" }, slot: "header" }, [
             _c("h2", [
               _vm._v(
-                "\n                        Периферия\n                    "
+                "\r\n                        Периферия\r\n                    "
               )
             ])
           ]),
@@ -73428,9 +73427,9 @@ var render = function() {
                 fn: function(data) {
                   return [
                     _vm._v(
-                      "\n                            " +
+                      "\r\n                            " +
                         _vm._s(data.item) +
-                        "--\n                        "
+                        "--\r\n                        "
                     )
                   ]
                 }
@@ -73458,9 +73457,9 @@ var render = function() {
                 fn: function(data) {
                   return [
                     _vm._v(
-                      "\n                            " +
+                      "\r\n                            " +
                         _vm._s(data.item.maintenance.protocolUUID) +
-                        "\n                        "
+                        "\r\n                        "
                     )
                   ]
                 }
@@ -73474,7 +73473,7 @@ var render = function() {
                 [
                   _c("h2", [
                     _vm._v(
-                      "\n                        Добавяне на нов сервизен запис\n                    "
+                      "\r\n                        Добавяне на нов сервизен запис\r\n                    "
                     )
                   ]),
                   _vm._v(" "),
@@ -73505,7 +73504,7 @@ var render = function() {
                     [
                       _c("i", { staticClass: "fas fa-plus" }),
                       _vm._v(
-                        "\n                        Добави нов запис\n                    "
+                        "\r\n                        Добави нов запис\r\n                    "
                       )
                     ]
                   )
@@ -73524,7 +73523,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                        Отказ\n                    "
+                        "\r\n                        Отказ\r\n                    "
                       )
                     ]
                   )
@@ -74016,43 +74015,36 @@ var render = function() {
                   key: "[components]",
                   fn: function(data) {
                     return [
-                      data.item.components.length > 0
-                        ? _c(
-                            "div",
+                      _c(
+                        "div",
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { variant: "primary" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.chs(data)
+                                }
+                              }
+                            },
                             [
-                              _c(
-                                "b-button",
-                                {
-                                  attrs: { variant: "primary" },
-                                  on: { click: data.toggleDetails }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                           Компоненти\n                           "
-                                  ),
-                                  _c(
-                                    "b-badge",
-                                    { attrs: { variant: "light" } },
-                                    [
-                                      _vm._v(
-                                        "\n                               " +
-                                          _vm._s(data.item.components.length) +
-                                          "\n                           "
-                                      )
-                                    ]
-                                  )
-                                ],
-                                1
-                              ),
                               _vm._v(
-                                "\n                       " +
-                                  _vm._s(data.detailsShowing ? "da" : "ne") +
-                                  "\n                   "
-                              )
+                                "\n                           Компоненти\n                           "
+                              ),
+                              _c("b-badge", { attrs: { variant: "light" } }, [
+                                _vm._v(
+                                  "\n                               " +
+                                    _vm._s(data.item.components) +
+                                    "\n                           "
+                                )
+                              ])
                             ],
                             1
                           )
-                        : _vm._e()
+                        ],
+                        1
+                      )
                     ]
                   }
                 },
@@ -74072,7 +74064,7 @@ var render = function() {
                   key: "[customer]",
                   fn: function(data) {
                     return [
-                      data.item.customer.legal_info !== undefined
+                      data.item.customer.companies.length > 0
                         ? _c("div", [
                             _c(
                               "a",
@@ -74085,9 +74077,25 @@ var render = function() {
                                 _vm._v(
                                   "\n                           " +
                                     _vm._s(
-                                      data.item.customer.legal_info.companyName
+                                      data.item.customer.companies[0]
+                                        .companyName
                                     ) +
-                                    ", " +
+                                    "\n                       "
+                                )
+                              ]
+                            )
+                          ])
+                        : _c("div", [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  href: "/customers/" + data.item.customer.id
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                           " +
                                     _vm._s(data.item.customer.name) +
                                     " " +
                                     _vm._s(data.item.customer.lastname) +
@@ -74096,7 +74104,6 @@ var render = function() {
                               ]
                             )
                           ])
-                        : _vm._e()
                     ]
                   }
                 },
@@ -89753,8 +89760,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/urandom/rails/assetmanager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/urandom/rails/assetmanager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Sites\assets\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Sites\assets\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

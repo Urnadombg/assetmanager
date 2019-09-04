@@ -65,34 +65,31 @@
                </template>
 
                <template slot="[components]" slot-scope="data">
-                   <div v-if="data.item.components.length > 0">
-                       <!--<b-button variant="primary" :href="'/assets/' + data.item.id" @click="data.toggleDetails()">-->
-
-                       <!--<b-button size="sm" @click="row.toggleDetails" class="mr-2">-->
-                           <!--{{ row.detailsShowing ? 'Hide' : 'Show'}} Details-->
-                       <!--</b-button>-->
-                       <!---->
-                       <b-button variant="primary" @click="data.toggleDetails">
+                   <div >
+                       <b-button variant="primary" @click="chs(data)">
                            Компоненти
                            <b-badge variant="light">
-                               {{ data.item.components.length}}
+                               {{ data.item.components}}
                            </b-badge>
                        </b-button>
-                       {{ data.detailsShowing ? "da" :"ne"}}
+<!--                       sdf-->
+<!--                       {{ data.detailsShowing ? "da" :"ne"}}-->
                    </div>
                </template>
                <template slot="[department]" slot-scope="data">
                    {{ data.item.department}}
                </template>
                <template slot="[customer]" slot-scope="data">
-                   <div v-if="data.item.customer.legal_info !== undefined">
+                   <div v-if="data.item.customer.companies.length > 0">
                        <a :href="'/customers/' + data.item.customer.id">
-                           {{data.item.customer.legal_info.companyName }}, {{ data.item.customer.name }} {{ data.item.customer.lastname }}
+                           {{data.item.customer.companies[0].companyName }}
                        </a>
                    </div>
-                   <!--{{ data.item.customer.legal_info !== undefined }}-->
-<!--                  {{ customer.item.customer['name'] }}-->
-<!--                  {{ customer.item.customer['lastname'] }}-->
+                   <div v-else>
+                       <a :href="'/customers/' + data.item.customer.id">
+                           {{ data.item.customer.name }} {{ data.item.customer.lastname }}
+                       </a>
+                   </div>
                </template>
                 <template slot="[actions]" slot-scope="data">
                     <b-btn-group>
@@ -116,6 +113,7 @@
             return {
                 assets: [],
                 filter: null,
+                trg: '',
                 tableFields: [
                     {
                         label: '№',
@@ -169,6 +167,8 @@
 
         },
         methods: {
+            chs(e, a) {
+            },
             getAssetRecords(ctx, callback) {
                 ctx.apiUrl = '/api/assets'
                 // console.log("ctx", ctx)
