@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddLegalEntitiesIdToCustomers extends Migration
+class AddEmailToCustomers extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddLegalEntitiesIdToCustomers extends Migration
     public function up()
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->integer('legalEntity_id');
+            //
         });
     }
 
