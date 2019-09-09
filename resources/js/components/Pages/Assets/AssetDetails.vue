@@ -20,8 +20,10 @@
                 </b-row>
             </div>
             <b-container fluid>
-                <b-tabs card no-body v-model="activeTab">
-                    <b-tab v-if="!loading">
+<!--                {{ activeTab === 1}}-->
+                <b-tabs card no-body>
+                    <b-tab v-if="!loading" :active="activeTab === 0">
+<!--                        {{ activeTab === 0 }}-->
                         <template slot="title">
                             <i class="fas fa-money-check"></i>
                             Детайли
@@ -153,7 +155,9 @@
                                         <div class="media" v-for="media in assetInfo.media">
                                             <div v-if="media.media_type === 'image/jpeg'">
                                                 <b-img :src="'http://192.168.10.10/' + media.pathToMedia"
-                                                       fluid></b-img>
+                                                       fluid>
+
+                                                </b-img>
                                             </div>
                                         </div>
 
@@ -163,7 +167,7 @@
                         </b-card>
 
                     </b-tab>
-                    <b-tab v-if="!loading">
+                    <b-tab v-if="!loading" :active="activeTab === 1">
                         <template slot="title">
                             <i class="fas fa-cogs"></i>
                             Компоненти
@@ -178,7 +182,7 @@
                             <component-list :components="assetInfo.components"></component-list>
                         </b-card>
                     </b-tab>
-                    <b-tab v-if="!loading">
+                    <b-tab v-if="!loading" :active="activeTab === 2">
                         <template slot="title">
                             <i class="fas fa-tools"></i>
                             Сервизна история
@@ -188,7 +192,7 @@
                             <service-history-table :maintenanceData="[assetInfo]" origin="asset"></service-history-table>
                         </div>
                     </b-tab>
-                    <b-tab v-if="!loading">
+                    <b-tab v-if="!loading" :active="activeTab === 3">
                         <template slot="title">
                             <i class="fas fa-folder-open"></i>
                             Документи
@@ -301,21 +305,27 @@
             }
         },
         mounted() {
-            // console.log();
+            // console.log(tabIndex)
             axios.get(`/api/assets/${this.$props.id}`)
             .then(
                 (data) => {
                     setTimeout(() => {
-                        // console.log(data.data.data);
+                        console.log(data.data.data);
                         this.assetInfo = data.data.data
+                       // console.log(this.activeTab)
                         this.loading = !this.loading
+                        this.activeTab = parseInt(window.location.pathname.replace(`/assets/${this.$props.id}&tabIndex=`,''))
                     },100)
                 }
             )
         },
         methods: {
             setActiveTab(tb) {
-                console.log(this.activeTab)
+                console.log(tb)
+                let origin = window.location.origin
+                let tabIndex = parseInt(window.location.pathname.replace(`/assets/${this.$props.id}&tabIndex=`,''))
+                let winHref = window.location.href = `${origin}/assets/${this.$props.id}&tabIndex=${tb}`
+                window.location.href = winHref
             },
             setEditModeOn(assetToUpdate, attributeToUpdate) {
                 this.isInEditMode = !this.isInEditMode

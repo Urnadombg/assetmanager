@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Resources\ComponentsResource;
 use Illuminate\Database\Eloquent\Model;
 
 class Asset extends Model
@@ -51,5 +52,15 @@ class Asset extends Model
     public function maintenances()
     {
         return $this->belongsToMany(Maintenance::class, 'asset_maintenance', 'asset_id');
+    }
+
+    public function countComponents()
+    {
+        return $this->components()->count();
+    }
+
+    public function openedMaintenanceProtocols()
+    {
+        return $this->maintenances()->where('status', '=',0);
     }
 }

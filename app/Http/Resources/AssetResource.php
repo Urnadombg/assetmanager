@@ -29,7 +29,8 @@ class AssetResource extends JsonResource
             'purchaseDate' => $this->purchaseDate,
             'created_at' => Carbon::parse($this->created_at),
             'updated_at' => $this->updated_at,
-            'components' => count($this->whenLoaded('components')),
+            'components' => ComponentsResource::collection($this->whenLoaded('components')),
+            'cc' => $this->countComponents(),
             'media' => $this->media,
             'warranty' => new Warranties($this->warranty),
             'maintenances' => $this->maintenances

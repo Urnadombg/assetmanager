@@ -22,7 +22,7 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $ass = \App\Http\Resources\AssetResource::collection(\App\Asset::with(['warranty','components','customer','media','maintenances'])->paginate());
+        $ass = \App\Http\Resources\AssetResource::collection(\App\Asset::with(['warranty','customer','media','maintenances'])->paginate());
 //        dd($ass);
         return $ass;
     }
@@ -143,6 +143,10 @@ class AssetController extends Controller
         return $results;
     }
 
+    public function addMaintenanceToExistingProtocol(Request $request)
+    {
+        $protocol = Asset::findOrFail($request->asset_id)->load(['warranty', 'maintenances']);
+    }
     public function createMaintenanceProtocol(Request $request)
     {
 

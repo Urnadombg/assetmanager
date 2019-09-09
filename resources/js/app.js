@@ -14,6 +14,14 @@ import BootstrapVue from 'bootstrap-vue';
 // import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Vuelidate from 'vuelidate';
+import Multiselect from 'vue-multiselect';
+import ImageUploader from 'vue-image-upload-resize'
+
+
+Vue.use(ImageUploader);
+import 'vue-multiselect/dist/vue-multiselect.min.css'
+// register globally
+Vue.component('multiselect', Multiselect)
 
 Vue.use(Vuelidate);
 Vue.use(BootstrapVue);

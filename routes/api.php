@@ -17,10 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/test', function () {
-    $cus = App\Customer::find(1)->load('companies');
-//    dd($cus->IsLegalEntity ? "DA" : "NE");
-    return response()->json($cus);
+Route::get('/test/', function () {
+
+    $rma = new \App\Maintenance();
+    dd($rma->generateRMANumber());
+
 });
 
 Route::prefix('/assets')->group(function () {
@@ -39,8 +40,10 @@ Route::prefix('/components')->group(function () {
 });
 Route::prefix('/customers')->group(function () {
     Route::get('/', 'API\\CustomerController@index');
+    Route::post('/', 'API\\CustomerController@index');
 });
 
-Route::prefix('/maintenance')->group(function () {
+Route::prefix('/maintenances')->group(function () {
     Route::post('/', 'API\\MaintenanceController@createNewRecord');
+    Route::get('/getRmaNumber', 'API\\MaintenanceController@getRmaNumber');
 });

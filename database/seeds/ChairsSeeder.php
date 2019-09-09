@@ -25,7 +25,7 @@ class ChairsSeeder extends Seeder
         $customer->address = 'бул. Васил Априлов №15 А';
         $customer->city = 'Пловдив';
         $customer->IsLegalEntity = true;
-        $customer->legalEntity_id = 1;
+//        $customer->legalEntity_id = 1;
         $customer->saveOrFail();
 //
         $customer->companies()->create([
@@ -38,7 +38,7 @@ class ChairsSeeder extends Seeder
         ])->save();
 
 //        $customer->saveOrFail();
-        for ($i =0; $i <= 1000; $i++) {
+//        for ($i =0; $i <= 1000; $i++) {
             foreach ($data as $asset) {
                 $createAsset = new \App\Asset();
                 $createAsset->type_of_asset = $asset->type_of_asset;
@@ -86,7 +86,7 @@ class ChairsSeeder extends Seeder
                     ]);
                 }
 
-            }
+//            }
         }
     }
 }

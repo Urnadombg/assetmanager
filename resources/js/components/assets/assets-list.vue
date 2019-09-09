@@ -7,7 +7,7 @@
                    v-model="currentPage"
                    :total-rows="meta.total"
                    :per-page="meta.per_page"
-                   aria-controls="my-table"
+                   aria-controls="assettable"
                    first-text="Първа"
                    prev-text="Предишна"
                    next-text="Следваща"
@@ -22,7 +22,7 @@
            <br>
 
            <b-table :items="getAssetRecords"
-                    id="my-table"
+                    id="assettable"
                     bordered
                     ref="table"
                     :busy.sync="isBusy"
@@ -35,7 +35,9 @@
                     :fields="tableFields"
                     hover
                     striped
-                    responsive>
+                    responsive
+                    @row-dblclicked="goToAssetFile"
+           >
 <!--           <b-table :items="assets" hover striped>-->
                <template slot="table-busy">
                    <div >
@@ -65,13 +67,17 @@
                </template>
 
                <template slot="[components]" slot-scope="data">
-                   <div >
-                       <b-button variant="primary" @click="chs(data)">
-                           Компоненти
-                           <b-badge variant="light">
-                               {{ data.item.components}}
-                           </b-badge>
-                       </b-button>
+                   <div>
+<!--                       <b-button :href="`/assets/${data.item.id}&tabIndex=1`">-->
+                           <h3>
+                               <a :href="`/assets/${data.item.id}&tabIndex=1`">
+                                   <b-badge variant="primary">
+                                       Компоненти
+                                       {{ data.item.cc }}
+                                   </b-badge>
+                               </a>
+                           </h3>
+<!--                       </b-button>-->
 <!--                       sdf-->
 <!--                       {{ data.detailsShowing ? "da" :"ne"}}-->
                    </div>
@@ -92,13 +98,68 @@
                    </div>
                </template>
                 <template slot="[actions]" slot-scope="data">
-                    <b-btn-group>
-                        <a :href="`/assets/${data.item.id}`" class="btn btn-primary">Виж</a>
-                        <a href="" class="btn btn-info">Редакция</a>
-                        <a href="" class="btn btn-warning">Изтрий</a>
-                    </b-btn-group>
+                    <b-dropdown id="dropdown-aria" text="Виж"  split
+                                split-variant="outline-primary"
+                                variant="primary">
+                        <div slot="text">
+                            <i class="fas fa-eye"></i>
+                            Виж
+                        </div>
+                        <b-dropdown-header id="dropdown-header-1">
+                            {{ data.item.title }}
+                            {{ data.item.model }}
+                        </b-dropdown-header>
+                        <b-dropdown-item aria-describedby="dropdown-header-1" :href="`/assets/${data.item.id}`">
+                            Виж досието
+                        </b-dropdown-item>
+                        <b-dropdown-item aria-describedby="dropdown-header-1" :href="`/assets/${data.item.id}/edit`">
+                            Редакция
+                        </b-dropdown-item>
+                        <b-dropdown-item aria-describedby="dropdown-header-1" href="#">
+                            Изтриване
+                        </b-dropdown-item>
+                        <b-dropdown-item-button aria-describedby="dropdown-header-1">Виж компонентите</b-dropdown-item-button>
+
+                        <b-dropdown-header id="dropdown-header-2">
+                            <i class="fas fa-cogs"></i>
+                            Компоненти
+                        </b-dropdown-header>
+                        <b-dropdown-item-button aria-describedby="dropdown-header-2">Добави</b-dropdown-item-button>
+                        <b-dropdown-item-button aria-describedby="dropdown-header-2">Виж</b-dropdown-item-button>
+
+<!--                        <b-dropdown-divider></b-dropdown-divider>-->
+
+                        <b-dropdown-header id="dropdown-header-2">Сервиз</b-dropdown-header>
+                        <b-dropdown-item-button aria-describedby="dropdown-header-2">История</b-dropdown-item-button>
+                        <b-dropdown-item-button aria-describedby="dropdown-header-2">Добави ново сервизно събитие</b-dropdown-item-button>
+
+<!--                        <b-dropdown-divider></b-dropdown-divider>-->
+
+                        <b-dropdown-header id="dropdown-header-2">Документи</b-dropdown-header>
+                        <b-dropdown-item-button aria-describedby="dropdown-header-2">История</b-dropdown-item-button>
+                        <b-dropdown-item-button aria-describedby="dropdown-header-2">Добави нов документ</b-dropdown-item-button>
+
+                    </b-dropdown>
+<!--                    <b-btn-group>-->
+<!--                        <a :href="`/assets/${data.item.id}`" class="btn btn-primary">Виж</a>-->
+<!--                        <a href="" class="btn btn-info">Редакция</a>-->
+<!--                        <a href="" class="btn btn-warning">Изтрий</a>-->
+<!--                    </b-btn-group>-->
                 </template>
            </b-table>
+           <b-pagination
+               v-model="currentPage"
+               :total-rows="meta.total"
+               :per-page="meta.per_page"
+               aria-controls="assettable"
+               first-text="Първа"
+               prev-text="Предишна"
+               next-text="Следваща"
+               last-text="Последна"
+               size="xl"
+               align="fill"
+               @change="pageChanged"
+           ></b-pagination>
        </b-card>
 
     </b-container>
@@ -164,28 +225,25 @@
             }
         },
         mounted() {
-
+            this.getAssetRecords()
         },
         methods: {
-            chs(e, a) {
+            goToAssetFile(x) {
+                window.location.href = '/assets/' + x.id
             },
             getAssetRecords(ctx, callback) {
-                ctx.apiUrl = '/api/assets'
-                // console.log("ctx", ctx)
-                // console.log("callback", callback)
+
                 this.sortBy = ctx.sortBy
                 // console.log(ctx.apiUrl)
                 // console.log(data.data.data);
                 let promise = axios.get(`/api/assets?page=${this.currentPage}`)
 
                 return promise.then((data) => {
-                    console.log(data.data.data);
                     this.meta = data.data.meta
-                    this.assets = data.data.data
-                    const items = data.data.data
-                    // Here we could override the busy state, setting isBusy to false
-                    // this.isBusy = false
-                    return(items)
+                    // this.assets = data.data.data
+                    const assets = data.data.data
+                    this.assets = assets
+                    return assets
                 }).catch(error => {
                     // Here we could override the busy state, setting isBusy to false
                     // this.isBusy = false
@@ -208,7 +266,7 @@
                 //             return(items)
                 //         }
                 //     )
-                this.$root.$emit('bv::refresh::table', 'my-table')
+                this.$root.$emit('bv::refresh::table', 'assettable')
             }
         }
     }

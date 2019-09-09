@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
@@ -26,5 +27,10 @@ class Customer extends Model
     public function assets()
     {
         return $this->hasMany(Asset::class);
+    }
+
+    public function sendEmailReminder(Schedule $schedule)
+    {
+//        $schedule->command()
     }
 }

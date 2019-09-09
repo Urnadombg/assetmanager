@@ -36,4 +36,5 @@ class Component extends Model
     {
         return $this->hasMany(Media::class, 'component_id', 'id');
     }
+
 }

@@ -15,7 +15,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::with(['assets','legalInfo'])->get();
+        $customers = Customer::with(['assets','companies'])->get();
         return response()->json($customers);
     }
 

@@ -71,17 +71,24 @@ class MaintenanceController extends Controller
     {
         $asset = \App\Asset::findOrFail(1)->load(['components', 'warranty', 'maintenances']);
 
-
-        $maintenance = new App\Maintenance([
+        $maintenance = new \App\Maintenance([
             'perform_on' => \Carbon\Carbon::now(),
             'protocolUUID' => \Ramsey\Uuid\Uuid::uuid4(),
-            'isWarrantyEvent' => 1,
-            'explanation' => 's',
+            'protocolNumber' => $request->protocolId,
+            'status' => $request->status,
+            'isWarrantyEvent' => $request->isWarrantyEvent,
+            'explanation' => $request->explanation,
         ]);
 
         $asset->maintenances()->save($maintenance);
-//    dd($maintenance);
 
         return response()->json($asset);
+    }
+
+    public function getRmaNumber()
+    {
+        $ms = new Maintenance();
+        $number = $ms->generateRMANumber();
+        return response()->json($number);
     }
 }

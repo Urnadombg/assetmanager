@@ -16,10 +16,13 @@
             <ckeditor
                 id="editorData"
                 :editor="editor"
-                v-model="editorData"
+                v-model="$v.serviceRecord.explanation.$model"
+                :state="$v.serviceRecord.explanation.$dirty ? !$v.serviceRecord.explanation.$error : null"
+                aria-describedby="serviceRecord.explanation-input-live-feedback"
                 :config="editorConfig">
-
             </ckeditor>
+
+
         </b-form-group>
 <!--    </b-container>-->
 </div>
@@ -28,22 +31,63 @@
 <script>
     import CKEditor from '@ckeditor/ckeditor5-vue';
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
+    import {minLength, required, between} from 'vuelidate/lib/validators';
     export default {
         name: "ServiceForm",
         data () {
             return {
-                formData: {
+                initQuestions: {
+                    existingProtocol: false,
+
+                },
+                serviceRecord: {
                     asset_id: null,
                     protocolUID: '',
                     component_id: null,
+                    isWarrantyEvent: '',
+                    explanation: '',
                 },
                 editor: ClassicEditor,
-                editorData: '',
                 editorConfig: {
                     // The configuration of the rich-text editor.
                 },
             }
-        }
+        },
+        validations: {
+            // if (this.asset_id !== null) {
+            //     return {
+                serviceRecord: {
+                    asset_id: {
+                        required
+                    },
+                    isWarrantyEvent: {
+                        required
+                    },
+                    explanation: {
+                        required,
+                        // minLenght: minLenght(10)
+                        minLength: minLength(10)
+
+                    }
+                }
+                // }
+            // } else {
+            //     return {
+            //         serviceRecord: {
+            //             component_id: {
+            //                 required
+            //             }
+            //         }
+            //     }
+            // }
+            // serviceRecord: {
+            //     isWarrantyEvent: {
+            //         required
+            //     }
+            // }
+        },
+
     }
 </script>
 
