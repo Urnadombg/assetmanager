@@ -9,12 +9,12 @@ use App\Media;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
-use Laravel\File;
+use App\Support\Dataviewer;
+use Illuminate\Support\Facades\App;
 
 class AssetController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +22,11 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $ass = \App\Http\Resources\AssetResource::collection(\App\Asset::with(['warranty','customer','media','maintenances'])->paginate());
-//        dd($ass);
-        return $ass;
+        $asp = AssetResource::collection(Asset::with(['warranty','customer','media','maintenances'])->advancedFilter());
+        return $asp;
+//        $ass = \App\Http\Resources\AssetResource::collection(\App\Asset::with(['warranty','customer','media','maintenances'])->paginate());
+////        dd($ass);
+//        return $ass;
     }
 
     /**
@@ -47,7 +49,7 @@ class AssetController extends Controller
 
         $asset->saveOrFail();
 
-        return response()->json(['message' => 'Item has been saved!']);
+        return response()->json(['message' => 'Item has been saved!', 'asset_id' => $asset->id]);
     }
 
     /**
@@ -100,7 +102,8 @@ class AssetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $asset = Asset::destroy($id);
+
     }
     public function primaryAssets() {
         $asset = Asset::ofType('primary')

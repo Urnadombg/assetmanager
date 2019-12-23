@@ -6,8 +6,10 @@ use App\Asset;
 use App\Component;
 use App\Maintenance;
 use Carbon\Carbon;
+use DemeterChain\Main;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
 
 class MaintenanceController extends Controller
@@ -30,7 +32,32 @@ class MaintenanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $asset = \App\Asset::findOrFail($request->asset)->load(['components', 'warranty', 'maintenances']);
+
+        $maintenance = new Maintenance();
+//        dd($asset);
+
+        $maintenance->perform_on = \Carbon\Carbon::now();
+        $maintenance->protocolUUID = \Ramsey\Uuid\Uuid::uuid4();
+        $maintenance->protocolNumber = str_replace("0","",explode("0", $request->protocolId,'2')[1]);
+        $maintenance->status = $request->status;
+        $maintenance->isWarrantyEvent = $request->isWarrantyEvent;
+        $maintenance->explanation = $request->explanation;
+
+//        $maintenance = new \App\Maintenance([
+////            'perform_on' => \Carbon\Carbon::now(),
+////            'protocolUUID' => \Ramsey\Uuid\Uuid::uuid4(),
+////            'protocolNumber' => $request->protocolId === null ? "1234" : $request->protocolId,
+//            'status' => $request->status,
+//            'isWarrantyEvent' => $request->isWarrantyEvent,
+//            'explanation' => $request->explanation,
+//        ]);
+//
+//        dd($maintenance);
+//        $asset
+        $asset->maintenances()->save($maintenance);
+        return response()->json('ok');
     }
 
     /**
@@ -67,28 +94,54 @@ class MaintenanceController extends Controller
         //
     }
 
-    public function createNewRecord(Request $request)
+//    public function createNewRecord(Request $request)
+//    {
+//
+//
+//
+//
+//        $asset = \App\Asset::findOrFail($request->id)->load(['components', 'warranty', 'maintenances']);
+//
+//        $maintenance = new \App\Maintenance([
+//            'perform_on' => \Carbon\Carbon::now(),
+//            'protocolUUID' => \Ramsey\Uuid\Uuid::uuid4(),
+//            'protocolNumber' => $request->protocolId,
+//            'status' => $request->status,
+//            'isWarrantyEvent' => $request->isWarrantyEvent,
+//            'explanation' => $request->explanation,
+//        ]);
+//
+//        dd($asset);
+//        $asset->maintenances()->save($maintenance);
+//
+//        return response()->json($asset);
+//    }
+
+    public function setCaseStatus(Request $request)
     {
-        $asset = \App\Asset::findOrFail(1)->load(['components', 'warranty', 'maintenances']);
 
-        $maintenance = new \App\Maintenance([
-            'perform_on' => \Carbon\Carbon::now(),
-            'protocolUUID' => \Ramsey\Uuid\Uuid::uuid4(),
-            'protocolNumber' => $request->protocolId,
-            'status' => $request->status,
-            'isWarrantyEvent' => $request->isWarrantyEvent,
-            'explanation' => $request->explanation,
-        ]);
+        $case = Maintenance::findOrFail($request->id);
+        $case->status = $request->status;
 
-        $asset->maintenances()->save($maintenance);
+        $case->saveOrFail();
 
-        return response()->json($asset);
+        return response()->json(['message' => 'ok']);
     }
 
     public function getRmaNumber()
     {
-        $ms = new Maintenance();
-        $number = $ms->generateRMANumber();
-        return response()->json($number);
+        $lastMaintenanceID = DB::table('maintenances')
+            ->orderBy('id', 'DESC')
+            ->first()->id;
+        $lastMaintenanceID += 1;
+        if(!$lastMaintenanceID) {
+            $lastMaintenanceID += 1;
+        }
+//        dd($lastMaintenanceID);
+        $leadZeroPatern = str_pad($lastMaintenanceID, 10, 0, STR_PAD_LEFT);
+        $completeMaintenanceIdForRecord = 'RMA-' . $leadZeroPatern;
+
+        return $completeMaintenanceIdForRecord;
+
     }
 }

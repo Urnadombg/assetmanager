@@ -45,9 +45,11 @@ class ComponentController extends Controller
      * @param  \App\Component  $component
      * @return \Illuminate\Http\Response
      */
-    public function show(Component $component)
+    public function show($id)
     {
-        return view('components.show');
+        $component = Component::findOrFail($id)->load(['customer','warranty','maintenances']);
+
+        return view('components.show', compact('component'));
     }
 
     /**

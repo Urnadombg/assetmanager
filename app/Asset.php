@@ -4,9 +4,10 @@ namespace App;
 
 use App\Http\Resources\ComponentsResource;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Support\Dataviewer;
 class Asset extends Model
 {
+    use Dataviewer;
     protected $fillable = [
         'type_of_asset',
         'model',

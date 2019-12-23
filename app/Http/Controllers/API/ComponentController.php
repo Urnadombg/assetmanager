@@ -43,7 +43,8 @@ class ComponentController extends Controller
      */
     public function show($id)
     {
-        //
+        $component = Component::findOrFail($id)->load(['customer','warranty','maintenances']);
+        return $component;
     }
 
     /**

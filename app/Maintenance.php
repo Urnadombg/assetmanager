@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Maintenance extends Model
 {
@@ -22,10 +23,17 @@ class Maintenance extends Model
 
     public function generateRMANumber()
     {
-        $lastMaintenanceID = \App\Maintenance::orderBy('id', 'desc')->first()->id;
+        $lastMaintenanceID = DB::table('maintenances')
+            ->orderBy('id', 'DESC')
+            ->first()->id;
+        $lastMaintenanceID += 1;
+        if(!$lastMaintenanceID) {
+            $lastMaintenanceID += 1;
+        }
+//        dd($lastMaintenanceID);
         $leadZeroPatern = str_pad($lastMaintenanceID, 10, 0, STR_PAD_LEFT);
         $completeMaintenanceIdForRecord = 'RMA-' . $leadZeroPatern;
 
-        return $completeMaintenanceIdForRecord;
+        return $leadZeroPatern;
     }
 }
