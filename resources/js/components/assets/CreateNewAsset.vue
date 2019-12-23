@@ -313,8 +313,9 @@
                 axios.post('/api/assets/', this.asset)
                     .then(
                         (data) => {
-                            console.log(data)
-                            // window.location.href = '/assets'
+                      console.log(data.data.asset_id)
+
+                            window.location.href = `/assets/${data.data.asset_id}`
                         }
                     )
                     .catch((error)=>console.log(error))

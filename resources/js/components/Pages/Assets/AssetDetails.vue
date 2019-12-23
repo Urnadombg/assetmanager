@@ -1,6 +1,13 @@
 <template>
     <b-container fluid>
+        <div v-if="loading" class="text-center">
+            <b-spinner variant="primary" v-if="loading" label="Spinning"></b-spinner>
+            <h2>
+                Зарежда...
+            </h2>
+        </div>
         <b-card
+            v-if="!loading"
             header-bg-variant="dark"
             header-text-variant="white"
             text-variant="black"
@@ -20,10 +27,8 @@
                 </b-row>
             </div>
             <b-container fluid>
-<!--                {{ activeTab === 1}}-->
                 <b-tabs card no-body>
-                    <b-tab v-if="!loading" :active="activeTab === 0">
-<!--                        {{ activeTab === 0 }}-->
+                    <b-tab v-if="!loading" @click="tri(0)" :active="activeTab === 0">
                         <template slot="title">
                             <i class="fas fa-money-check"></i>
                             Детайли
@@ -167,7 +172,7 @@
                         </b-card>
 
                     </b-tab>
-                    <b-tab v-if="!loading" :active="activeTab === 1">
+                    <b-tab v-if="!loading" @click="tri(1)" :active="activeTab === 1">
                         <template slot="title">
                             <i class="fas fa-cogs"></i>
                             Компоненти
@@ -182,17 +187,17 @@
                             <component-list :components="assetInfo.components"></component-list>
                         </b-card>
                     </b-tab>
-                    <b-tab v-if="!loading" :active="activeTab === 2">
+                    <b-tab v-if="!loading" @click="tri(2)" :active="activeTab === 2">
                         <template slot="title">
                             <i class="fas fa-tools"></i>
                             Сервизна история
                         </template>
                         <div>
-<!--                            {{ assetInfo.maintenances }}-->
+<!--                            {{ assetInfo }}-->
                             <service-history-table :maintenanceData="[assetInfo]" origin="asset"></service-history-table>
                         </div>
                     </b-tab>
-                    <b-tab v-if="!loading" :active="activeTab === 3">
+                    <b-tab v-if="!loading" @click="tri(3)" :active="activeTab === 3">
                         <template slot="title">
                             <i class="fas fa-folder-open"></i>
                             Документи
@@ -320,6 +325,10 @@
             )
         },
         methods: {
+            tri(tabID) {
+              console.log(tabID)
+                // this
+            },
             setActiveTab(tb) {
                 console.log(tb)
                 let origin = window.location.origin

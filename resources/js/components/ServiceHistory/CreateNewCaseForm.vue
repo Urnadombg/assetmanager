@@ -6,12 +6,12 @@
                     Добавяне на нов сервизен запис
                 </h1>
             </div>
-
+            <b-form @submit.prevent="save">
             <b-form-group id="protocolId-form-group" label="№ на протокола" label-for="protocolId-input">
                 <b-form-input
                     id="protocolId-input"
                     name="protocolId-input"
-                    v-model="entity.protocolId"
+                    v-model.trim="$v.entity.protocolId.$model"
                     disabled
                     size="lg"
                 ></b-form-input>
@@ -31,44 +31,82 @@
                     <h4>
                         Описание на проблема:
                     </h4>
-                    <ckeditor
-                        id="editorData"
-                        :editor="editor"
-                        v-model="entity.explanation"
-                        :config="editorConfig">
-                    </ckeditor>
+
+                    <b-form-group id="explanation-form-group" label="Описание на проблема / събитието" label-for="explanation-input">
+                        <b-textarea
+                            id="explanation-input"
+                            name="explanation-input"
+                            v-model="$v.entity.explanation.$model"
+                            :state="$v.entity.explanation.$dirty ? !$v.entity.explanation.$error : null"
+                            aria-describedby="explanation-input-live-feedback"
+                            rows="8"
+                            size="lg"
+                        ></b-textarea>
+                        <b-form-invalid-feedback id="explanation-input-live-feedback">
+                            <div v-if="$v.entity.explanation.$invalid">
+                                  <span v-if="$v.entity.explanation.required">
+                                    Това поле e задължително и трябва да съдържа минимум {{ $v.entity.explanation.$params.minLength.min }} символа!
+                                </span>
+                                <span v-if="$v.entity.explanation.minLength">
+                                    Това поле трябва да е поне 5 символа!
+                                </span>
+                            </div>
+                        </b-form-invalid-feedback>
+                    </b-form-group>
+<!--                    <ckeditor-->
+<!--                        id="editorData"-->
+<!--                        :editor="editor"-->
+<!--                        v-model="entity.explanation"-->
+<!--                        :config="editorConfig">-->
+<!--                    </ckeditor>-->
                 </b-col>
                 <b-col cols="12"></b-col>
                 <b-col cols="12">
-                    <b-form-group id="isWarrantyEvent-form-group" label="Събитието гаранционно ли е?" label-for="isWarrantyEvent-input">
-                        <b-form-select :options="[{ label: 'Да, гаранционно е събитието', value: true}, { label: 'Не, не е гаранционно', value: false}]"
-                                       text-field="label"
-                                       v-model="entity.isWarrantyEvent">
+                    <b-form-group id="isWarrantyEvent-form-group" label="Гаранционно събитие?" label-for="isWarrantyEvent-input">
+                        <b-form-select
+                            :options="[{ label: 'Да, гаранционно е събитието', value: true}, { label: 'Не, не е гаранционно', value: false}]"
+                            text-field="label"
+                            id="isWarrantyEvent-input"
+                            name="isWarrantyEvent-input"
+                            v-model="$v.entity.isWarrantyEvent.$model"
+                            :state="$v.entity.isWarrantyEvent.$dirty ? !$v.entity.isWarrantyEvent.$error : null"
+                            aria-describedby="isWarrantyEvent-input-live-feedback"
+                            size="lg"
+                        ></b-form-select>
 
-                        </b-form-select>
-<!--                        <b-form-radio-->
-<!--                            v-model="$v.isWarrantyEvent.$model"-->
-<!--                            :state="$v.isWarrantyEvent.$dirty ? !$v.isWarrantyEvent.$error : null"-->
-<!--                            aria-describedby="isWarrantyEvent-input-live-feedback"-->
-<!--                            size="lg"-->
-<!--                            value="yes"-->
-<!--                        >-->
-<!--                            Да, покрива го гаранцията-->
-<!--                        </b-form-radio>-->
-
-<!--                        <b-form-radio-->
-<!--                            v-model="$v.isWarrantyEvent.$model"-->
-<!--                            :state="$v.isWarrantyEvent.$dirty ? !$v.isWarrantyEvent.$error : null"-->
-<!--                            aria-describedby="isWarrantyEvent-input-live-feedback"-->
-<!--                            value="no"-->
-<!--                            size="lg"-->
-<!--                        >-->
-<!--                            Не, не е гаранционно събитие-->
-<!--                        </b-form-radio>-->
                         <b-form-invalid-feedback id="isWarrantyEvent-input-live-feedback">
-                            Моля, отбележи
+                            Nevalidno
                         </b-form-invalid-feedback>
                     </b-form-group>
+<!--                    <b-form-group id="isWarrantyEvent-form-group" label="Събитието гаранционно ли е?" label-for="isWarrantyEvent-input">-->
+<!--                        <b-form-select :options="[{ label: 'Да, гаранционно е събитието', value: true}, { label: 'Не, не е гаранционно', value: false}]"-->
+<!--                                       text-field="label"-->
+<!--                                       v-model.trim="$v.entity.isWarrantyEvent.$model">-->
+
+<!--                        </b-form-select>-->
+<!--&lt;!&ndash;                        <b-form-radio&ndash;&gt;-->
+<!--&lt;!&ndash;                            v-model="$v.isWarrantyEvent.$model"&ndash;&gt;-->
+<!--&lt;!&ndash;                            :state="$v.isWarrantyEvent.$dirty ? !$v.isWarrantyEvent.$error : null"&ndash;&gt;-->
+<!--&lt;!&ndash;                            aria-describedby="isWarrantyEvent-input-live-feedback"&ndash;&gt;-->
+<!--&lt;!&ndash;                            size="lg"&ndash;&gt;-->
+<!--&lt;!&ndash;                            value="yes"&ndash;&gt;-->
+<!--&lt;!&ndash;                        >&ndash;&gt;-->
+<!--&lt;!&ndash;                            Да, покрива го гаранцията&ndash;&gt;-->
+<!--&lt;!&ndash;                        </b-form-radio>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <b-form-radio&ndash;&gt;-->
+<!--&lt;!&ndash;                            v-model="$v.isWarrantyEvent.$model"&ndash;&gt;-->
+<!--&lt;!&ndash;                            :state="$v.isWarrantyEvent.$dirty ? !$v.isWarrantyEvent.$error : null"&ndash;&gt;-->
+<!--&lt;!&ndash;                            aria-describedby="isWarrantyEvent-input-live-feedback"&ndash;&gt;-->
+<!--&lt;!&ndash;                            value="no"&ndash;&gt;-->
+<!--&lt;!&ndash;                            size="lg"&ndash;&gt;-->
+<!--&lt;!&ndash;                        >&ndash;&gt;-->
+<!--&lt;!&ndash;                            Не, не е гаранционно събитие&ndash;&gt;-->
+<!--&lt;!&ndash;                        </b-form-radio>&ndash;&gt;-->
+<!--                        <b-form-invalid-feedback id="isWarrantyEvent-input-live-feedback">-->
+<!--                            Моля, отбележи-->
+<!--                        </b-form-invalid-feedback>-->
+<!--                    </b-form-group>-->
                 </b-col>
                 <b-col cols="6">
                     <b-button block variant="primary" @click="save()">Запиши!</b-button>
@@ -77,7 +115,7 @@
                     <b-button block variant="danger">Откажи!</b-button>
                 </b-col>
             </b-row>
-
+            </b-form>
         </b-card>
 
         <b-toast id="assetSaved" variant="success" solid>
@@ -105,7 +143,6 @@
         props: ['assets', 'origin'],
         data (){
             return {
-
                 entity: {
                     chooseProtocol: false,
                     protocolId:'',
@@ -124,31 +161,35 @@
             }
         },
         validations: {
-            protocolId: {
-                required
-            },
-            perform_on: {
-                required
-            },
-            isWarrantyEvent: {
-                required
-            },
-            status: {
-                required
-            },
-            explanation: {
-                required,
-                minLength: minLength(10)
+            entity: {
+                protocolId: {
+                    required
+                },
+                // perform_on: {
+                //     required
+                // },
+                isWarrantyEvent: {
+                    required
+                },
+                // status: {
+                //     required
+                // },
+                explanation: {
+                    required,
+                    minLength: minLength(5)
+                }
             }
         },
         mounted() {
            this.getProtocolId();
             if (this.$props.origin === 'asset') {
                 // if (this.$props.assets.warranty)
+                console.log("SH", this.$props)
                 setTimeout(() => {
                     this.entity.asset = this.$props.assets
                     // this.entity.component = this.entity.asset.components
-                    // console.log(Object.keys(this.entity))
+                    // console.log(Object.keys(this.entity))c
+                    // console.log("set", this.entity)
 
                 },70)
             } else if (this.$props.origin === 'component') {
@@ -157,23 +198,31 @@
         },
         methods: {
             save() {
+                this.$v.entity.$touch()
+                if (this.$v.entity.$invalid) {
+                    this.$bvToast.toast("Формата за запис на ново сервизно събитие е невалидна!",{
+                        title: "Не мога да запиша формата",
+                        toaster: "b-toaster-top-full",
+                        variant: "danger"
+                    })
+                } else {
+                    console.log(this.entity)
+                    // axios.post('/api/maintenances', this.entity)
+                    //     .then(
+                    //         (data) => {
+                    //             this.$bvToast.show('assetSaved');
+                    //             this.$root.$emit('bv::refresh::table', 'assetMaintenanceTable')
+                    //             // console.log("data", data.data)
+                    //             this.$emit('refreshTable', this.entity);
+                    //         }
+                    //     )
+                    //     .catch(
+                    //         (er) => {
+                    //             console.log(er)
+                    //         }
+                    //     )
+                }
 
-                // console.log(this.entity)
-                axios.post('/api/maintenances', this.entity)
-                    .then(
-                        (data) => {
-                            console.log(data)
-                            // this.$bvToast.show('assetSaved');
-                            // this.$root.$emit('bv::refresh::table', 'assetMaintenanceTable')
-                            // console.log(data.data)
-                            this.$emit('refreshTable', this.entity);
-                        }
-                    )
-                    .catch(
-                        (er) => {
-                            console.log(er)
-                        }
-                    )
             },
             getProtocolId() {
                 axios.get('/api/maintenances/getRmaNumber')
@@ -182,7 +231,9 @@
                             if  (data.data.length < 0) {
                                 alert("NEE");
                             }
-                            this.entity.protocolId = data.data
+                            else {
+                                this.entity.protocolId = data.data
+                            }
                         }
                     )
             }

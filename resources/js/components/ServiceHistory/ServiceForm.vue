@@ -4,11 +4,13 @@
     <b-row>
         <b-col cols="12" class="text-capitalize text-lg-center">
             <h1>
-                Протокол №
+                Протокол №№№№фдфе
             </h1>
         </b-col>
         <b-col cols="2"></b-col>
     </b-row>
+    <h3>fwer
+    </h3>
         <b-form-group id="editorData-form-group" label-for="-input">
             <div slot="label">
                 <strong>Описание на проблема:</strong>
@@ -55,8 +57,6 @@
             }
         },
         validations: {
-            // if (this.asset_id !== null) {
-            //     return {
                 serviceRecord: {
                     asset_id: {
                         required
@@ -71,21 +71,6 @@
 
                     }
                 }
-                // }
-            // } else {
-            //     return {
-            //         serviceRecord: {
-            //             component_id: {
-            //                 required
-            //             }
-            //         }
-            //     }
-            // }
-            // serviceRecord: {
-            //     isWarrantyEvent: {
-            //         required
-            //     }
-            // }
         },
 
     }

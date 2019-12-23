@@ -2128,6 +2128,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -2226,6 +2231,9 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    tri: function tri(tabID) {
+      console.log(tabID); // this
+    },
     setActiveTab: function setActiveTab(tb) {
       console.log(tb);
       var origin = window.location.origin;
@@ -2375,6 +2383,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2399,21 +2445,23 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   validations: {
-    protocolId: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
-    },
-    perform_on: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
-    },
-    isWarrantyEvent: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
-    },
-    status: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
-    },
-    explanation: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
-      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(10)
+    entity: {
+      protocolId: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+      },
+      // perform_on: {
+      //     required
+      // },
+      isWarrantyEvent: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+      },
+      // status: {
+      //     required
+      // },
+      explanation: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(5)
+      }
     }
   },
   mounted: function mounted() {
@@ -2423,9 +2471,11 @@ __webpack_require__.r(__webpack_exports__);
 
     if (this.$props.origin === 'asset') {
       // if (this.$props.assets.warranty)
+      console.log("SH", this.$props);
       setTimeout(function () {
         _this.entity.asset = _this.$props.assets; // this.entity.component = this.entity.asset.components
-        // console.log(Object.keys(this.entity))
+        // console.log(Object.keys(this.entity))c
+        // console.log("set", this.entity)
       }, 70);
     } else if (this.$props.origin === 'component') {
       this.entity.component = this.$props.assets.components;
@@ -2433,28 +2483,40 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     save: function save() {
-      var _this2 = this;
+      this.$v.entity.$touch();
 
-      // console.log(this.entity)
-      axios.post('/api/maintenances', this.entity).then(function (data) {
-        console.log(data); // this.$bvToast.show('assetSaved');
-        // this.$root.$emit('bv::refresh::table', 'assetMaintenanceTable')
-        // console.log(data.data)
-
-        _this2.$emit('refreshTable', _this2.entity);
-      })["catch"](function (er) {
-        console.log(er);
-      });
+      if (this.$v.entity.$invalid) {
+        this.$bvToast.toast("Формата за запис на ново сервизно събитие е невалидна!", {
+          title: "Не мога да запиша формата",
+          toaster: "b-toaster-top-full",
+          variant: "danger"
+        });
+      } else {
+        console.log(this.entity); // axios.post('/api/maintenances', this.entity)
+        //     .then(
+        //         (data) => {
+        //             this.$bvToast.show('assetSaved');
+        //             this.$root.$emit('bv::refresh::table', 'assetMaintenanceTable')
+        //             // console.log("data", data.data)
+        //             this.$emit('refreshTable', this.entity);
+        //         }
+        //     )
+        //     .catch(
+        //         (er) => {
+        //             console.log(er)
+        //         }
+        //     )
+      }
     },
     getProtocolId: function getProtocolId() {
-      var _this3 = this;
+      var _this2 = this;
 
       axios.get('/api/maintenances/getRmaNumber').then(function (data) {
         if (data.data.length < 0) {
           alert("NEE");
+        } else {
+          _this2.entity.protocolId = data.data;
         }
-
-        _this3.entity.protocolId = data.data;
       });
     }
   }
@@ -2477,6 +2539,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__);
+//
+//
 //
 //
 //
@@ -2530,8 +2594,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   validations: {
-    // if (this.asset_id !== null) {
-    //     return {
     serviceRecord: {
       asset_id: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
@@ -2543,22 +2605,7 @@ __webpack_require__.r(__webpack_exports__);
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
         // minLenght: minLenght(10)
         minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["minLength"])(10)
-      } // }
-      // } else {
-      //     return {
-      //         serviceRecord: {
-      //             component_id: {
-      //                 required
-      //             }
-      //         }
-      //     }
-      // }
-      // serviceRecord: {
-      //     isWarrantyEvent: {
-      //         required
-      //     }
-      // }
-
+      }
     }
   }
 });
@@ -2743,6 +2790,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2762,10 +2832,6 @@ __webpack_require__.r(__webpack_exports__);
       addAssetIssue: false,
       addComponentIssue: false,
       merged: [],
-      editor: _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_1___default.a,
-      editorData: '<p>Rich-text editor content.</p>',
-      editorConfig: {// The configuration of the rich-text editor.
-      },
       componentTableFields: [{
         label: '№ на протокола',
         key: 'maintenance.protocolUUID'
@@ -2796,16 +2862,19 @@ __webpack_require__.r(__webpack_exports__);
       assetTableFields: [{
         label: '№ на протокола',
         key: 'protocolId'
-      }, {
-        label: 'Наименование на изделието',
-        key: 'title'
-      }, {
-        label: 'Модел на изделието',
-        key: 'model'
-      }, {
-        label: 'Сериен № на изделието',
-        key: 'serial'
-      }, {
+      }, // {
+      //     label: 'Наименование на изделието',
+      //     key:'title'
+      // },
+      // {
+      //     label: 'Модел на изделието',
+      //     key:'model'
+      // },
+      // {
+      //     label: 'Сериен № на изделието',
+      //     key:'serial'
+      // },
+      {
         label: 'Сервизно събитие от',
         key: 'perform_on'
       }, {
@@ -2817,6 +2886,9 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         label: 'Кратко обяснение',
         key: 'explanation'
+      }, {
+        label: 'Действия',
+        key: 'actions'
       }],
       tableFields: [{
         label: '№',
@@ -2836,7 +2908,18 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         label: 'Действия',
         key: 'actions'
-      }]
+      }],
+      statusOptions: [{
+        value: 0,
+        text: 'Нов'
+      }, {
+        value: 1,
+        text: 'В процес на разрешаване!'
+      }, {
+        value: 2,
+        text: 'Затворен'
+      }],
+      statusEditing: false
     };
   },
   created: function created() {
@@ -2845,34 +2928,18 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   mounted: function mounted() {
-    // this.dataItems = this.$props.maintenanceData[0]
-    // setTimeout(() => {
-    //     this.$props.maintenanceData.forEach(d => {
-    //         d.maintenances.forEach(assetMaintenance => {
-    //             // this.merged.push(assetMaintenance)
-    //         })
-    //         d.components.forEach(compo => {
-    //             compo.maintenances.forEach(mdt => {
-    //                 this.merged.push({
-    //                     title: compo.title,
-    //                     model: compo.model,
-    //                     serial: compo.serial,
-    //                     maintenance: mdt
-    //                 })
-    //                 this.componentMaintenanceData.push(mdt)
-    //             })
-    //         })
-    //     })
-    // },0)
-    // axios.get(`/assets/${this.$props.id}`)
-    this.getData();
+    this.dataItems = this.$props.maintenanceData; // console.log("rable,", this.$props)
   },
   methods: {
+    addIssueToAsset: function addIssueToAsset() {
+      this.addAssetIssue = true;
+    },
     getData: function getData() {
       var _this = this;
 
-      axios.get("/assets/".concat(this.$props.id)).then(function (data) {
-        _this.dataItems = data.data;
+      axios.get("/assets/".concat(this.$props.maintenanceData.id)).then(function (data) {
+        // console.log("DAAA", data.data[0])
+        _this.dataItems = data.data[0];
       });
     },
     logs: function logs(data) {// this.dataItems.maintenances.push(data)
@@ -2885,6 +2952,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     rowSelected: function rowSelected(te) {
       console.log(te);
+    },
+    changeCaseStatus: function changeCaseStatus(serviceCase) {
+      axios.patch("/api/maintenances/".concat(serviceCase.id, "/setStatus"), {
+        status: serviceCase.status
+      }).then(function (data) {
+        console.log(data);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+      this.statusEditing = false;
     }
   },
   computed: {}
@@ -3242,7 +3319,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       e.preventDefault();
       this.$v.$touch();
       axios.post('/api/assets/', this.asset).then(function (data) {
-        console.log(data); // window.location.href = '/assets'
+        console.log(data.data.asset_id);
+        window.location.href = "/assets/".concat(data.data.asset_id);
       })["catch"](function (error) {
         return console.log(error);
       });
@@ -3263,9 +3341,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ServiceHistory_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ServiceHistory/table */ "./resources/js/components/ServiceHistory/table.vue");
-//
-//
-//
 //
 //
 //
@@ -3484,43 +3559,53 @@ __webpack_require__.r(__webpack_exports__);
     this.getAssetRecords();
   },
   methods: {
+    deleteAsset: function deleteAsset(id) {
+      var _this = this;
+
+      axios["delete"]("/api/assets/".concat(id)).then(function (data) {
+        console.log(data);
+
+        _this.$root.$emit('bv::refresh::table', 'assettable');
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    },
     goToAssetFile: function goToAssetFile(x) {
       window.location.href = '/assets/' + x.id;
     },
     getAssetRecords: function getAssetRecords(ctx, callback) {
-      var _this = this;
+      var _this2 = this;
 
-      this.sortBy = ctx.sortBy; // console.log(ctx.apiUrl)
-      // console.log(data.data.data);
-
-      var promise = axios.get("/api/assets?page=".concat(this.currentPage));
-      return promise.then(function (data) {
-        _this.meta = data.data.meta; // this.assets = data.data.data
-
-        var assets = data.data.data;
-        _this.assets = assets;
-        return assets;
-      })["catch"](function (error) {
-        // Here we could override the busy state, setting isBusy to false
-        // this.isBusy = false
-        // Returning an empty array, allows table to correctly handle
-        // internal busy state in case of error
-        return [];
-      });
+      console.log(ctx);
+      var req = axios.get("/api/assets?".concat(this.currentPage));
+      return req.then(function (data) {
+        _this2.meta = data.data.meta;
+        var items = data.data.data;
+        return items;
+      }); // this.sortBy = ctx.sortBy
+      // // console.log(ctx.apiUrl)
+      // // console.log(data.data.data);
+      // let promise = axios.get(`/api/assets?page=${this.currentPage}`)
+      //
+      // return promise.then((data) => {
+      //     this.meta = data.data.meta
+      //     // this.assets = data.data.data
+      //     const assets = data.data.data
+      //     this.assets = assets
+      //     return assets
+      // }).catch(error => {
+      //     // Here we could override the busy state, setting isBusy to false
+      //     // this.isBusy = false
+      //     // Returning an empty array, allows table to correctly handle
+      //     // internal busy state in case of error
+      //     return []
+      // })
     },
-    pageChanged: function pageChanged() {
+    pageChanged: function pageChanged(ctx) {
       // this.currentPage = this.meta.current_page
       // console.log(this.currentPage)
-      // axios.get(`/api/assets?page=${this.currentPage}`)
-      //     .then(
-      //         (data) => {
-      //
-      //             const items = data.data.data
-      //             // Here we could override the busy state, setting isBusy to false
-      //             // this.isBusy = false
-      //             return(items)
-      //         }
-      //     )
+      this.currentPage = ctx;
+      this.getAssetRecords();
       this.$root.$emit('bv::refresh::table', 'assettable');
     }
   }
@@ -3847,7 +3932,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['components'],
   name: "ComponentList",
@@ -3872,11 +3956,15 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         label: 'Действия',
         key: 'actions'
-      }]
+      }],
+      loading: true
     };
   },
   mounted: function mounted() {
     this.componentsx = this.$props.components;
+  },
+  methods: {
+    getComponentsInfo: function getComponentsInfo() {}
   }
 });
 
@@ -36489,7 +36577,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*.theclass {*/\n/*margin-right: 5px;*/\n/*border-radius: 0px 0px 0px 0px;*/\n/*color: #fff;*/\n/*border-bottom: 3px solid #9ed861;*/\n/*}*/\n/*.theclass a {*/\n/*font-weight: bold;*/\n/*border-radius: 0px 0px 0px 0px;*/\n\n/*color: #fff;*/\n/*}*/\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*.theclass {*/\n/*margin-right: 5px;*/\n/*border-radius: 0px 0px 0px 0px;*/\n/*color: #fff;*/\n/*border-bottom: 3px solid #9ed861;*/\n/*}*/\n/*.theclass a {*/\n/*font-weight: bold;*/\n/*border-radius: 0px 0px 0px 0px;*/\n\n/*color: #fff;*/\n/*}*/\n", ""]);
 
 // exports
 
@@ -72852,767 +72940,816 @@ var render = function() {
     "b-container",
     { attrs: { fluid: "" } },
     [
-      _c(
-        "b-card",
-        {
-          attrs: {
-            "header-bg-variant": "dark",
-            "header-text-variant": "white",
-            "text-variant": "black",
-            "body-bg-variant": "white"
-          }
-        },
-        [
-          _c(
+      _vm.loading
+        ? _c(
             "div",
-            { attrs: { slot: "header" }, slot: "header" },
+            { staticClass: "text-center" },
             [
-              !_vm.loading
-                ? _c("h1", [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.assetInfo.title) +
-                        "\n                    " +
-                        _vm._s(_vm.assetInfo.model) +
-                        "\n                    "
-                    ),
-                    _c("span", [_vm._v(", сериен № ")]),
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.assetInfo.serial) +
-                        "\n                "
-                    )
-                  ])
+              _vm.loading
+                ? _c("b-spinner", {
+                    attrs: { variant: "primary", label: "Spinning" }
+                  })
                 : _vm._e(),
               _vm._v(" "),
-              _c(
-                "b-row",
-                [
-                  _c("b-col", { attrs: { cols: "1" } }),
-                  _vm._v(" "),
-                  _c("b-col")
-                ],
-                1
-              )
+              _c("h2", [_vm._v("\n                Зарежда...\n            ")])
             ],
             1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-container",
-            { attrs: { fluid: "" } },
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.loading
+        ? _c(
+            "b-card",
+            {
+              attrs: {
+                "header-bg-variant": "dark",
+                "header-text-variant": "white",
+                "text-variant": "black",
+                "body-bg-variant": "white"
+              }
+            },
             [
               _c(
-                "b-tabs",
-                { attrs: { card: "", "no-body": "" } },
+                "div",
+                { attrs: { slot: "header" }, slot: "header" },
                 [
                   !_vm.loading
-                    ? _c(
-                        "b-tab",
-                        { attrs: { active: _vm.activeTab === 0 } },
-                        [
-                          _c("template", { slot: "title" }, [
-                            _c("i", { staticClass: "fas fa-money-check" }),
-                            _vm._v(
-                              "\n                            Детайли\n                        "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "b-card",
+                    ? _c("h1", [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.assetInfo.title) +
+                            "\n                    " +
+                            _vm._s(_vm.assetInfo.model) +
+                            "\n                    "
+                        ),
+                        _c("span", [_vm._v(", сериен № ")]),
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.assetInfo.serial) +
+                            "\n                "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { attrs: { cols: "1" } }),
+                      _vm._v(" "),
+                      _c("b-col")
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-container",
+                { attrs: { fluid: "" } },
+                [
+                  _c(
+                    "b-tabs",
+                    { attrs: { card: "", "no-body": "" } },
+                    [
+                      !_vm.loading
+                        ? _c(
+                            "b-tab",
+                            {
+                              attrs: { active: _vm.activeTab === 0 },
+                              on: {
+                                click: function($event) {
+                                  return _vm.tri(0)
+                                }
+                              }
+                            },
                             [
-                              _c(
-                                "div",
-                                { attrs: { slot: "header" }, slot: "header" },
-                                [
-                                  _c("h1", [
-                                    _c("i", {
-                                      staticClass: "fas fa-money-check"
-                                    }),
-                                    _vm._v(
-                                      "\n                                    Детайли\n                                "
-                                    )
-                                  ])
-                                ]
-                              ),
+                              _c("template", { slot: "title" }, [
+                                _c("i", { staticClass: "fas fa-money-check" }),
+                                _vm._v(
+                                  "\n                            Детайли\n                        "
+                                )
+                              ]),
                               _vm._v(" "),
                               _c(
-                                "b-card-body",
+                                "b-card",
                                 [
                                   _c(
-                                    "b-row",
+                                    "div",
+                                    {
+                                      attrs: { slot: "header" },
+                                      slot: "header"
+                                    },
+                                    [
+                                      _c("h1", [
+                                        _c("i", {
+                                          staticClass: "fas fa-money-check"
+                                        }),
+                                        _vm._v(
+                                          "\n                                    Детайли\n                                "
+                                        )
+                                      ])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-card-body",
                                     [
                                       _c(
-                                        "b-col",
-                                        { attrs: { cols: "6" } },
-                                        [
-                                          _c("b-table", {
-                                            staticClass: "table-responsive",
-                                            attrs: {
-                                              items: [_vm.assetInfo],
-                                              fields: _vm.assetDetailsFields,
-                                              stacked: "",
-                                              small: ""
-                                            },
-                                            scopedSlots: _vm._u(
-                                              [
-                                                {
-                                                  key: "[serial]",
-                                                  fn: function(data) {
-                                                    return [
-                                                      data.item.serial === null
-                                                        ? _c(
-                                                            "span",
-                                                            [
-                                                              _c(
-                                                                "b-btn",
-                                                                {
-                                                                  directives: [
-                                                                    {
-                                                                      name:
-                                                                        "show",
-                                                                      rawName:
-                                                                        "v-show",
-                                                                      value: !_vm.isInEditMode,
-                                                                      expression:
-                                                                        "!isInEditMode"
-                                                                    }
-                                                                  ],
-                                                                  staticClass:
-                                                                    "btn btn-primary btn-sm",
-                                                                  on: {
-                                                                    click: function(
-                                                                      $event
-                                                                    ) {
-                                                                      return _vm.setEditModeOn(
-                                                                        data.item,
-                                                                        "serial"
-                                                                      )
-                                                                    }
-                                                                  }
-                                                                },
-                                                                [
-                                                                  _c("i", {
-                                                                    staticClass:
-                                                                      "fas fa-plus"
-                                                                  })
-                                                                ]
-                                                              )
-                                                            ],
-                                                            1
-                                                          )
-                                                        : _vm._e(),
-                                                      _vm._v(" "),
-                                                      _vm.isInEditMode &&
-                                                      _vm.attributeToUpdate ===
-                                                        "serial"
-                                                        ? _c(
-                                                            "b-form",
-                                                            [
-                                                              _c(
-                                                                "b-input-group",
-                                                                [
-                                                                  _c(
-                                                                    "b-form-input",
-                                                                    {
-                                                                      attrs: {
-                                                                        size:
-                                                                          "sm"
-                                                                      },
-                                                                      model: {
-                                                                        value:
-                                                                          _vm
-                                                                            .currentAsset
-                                                                            .serial,
-                                                                        callback: function(
-                                                                          $$v
-                                                                        ) {
-                                                                          _vm.$set(
-                                                                            _vm.currentAsset,
-                                                                            "serial",
-                                                                            $$v
-                                                                          )
-                                                                        },
-                                                                        expression:
-                                                                          "currentAsset.serial"
-                                                                      }
-                                                                    }
-                                                                  ),
-                                                                  _vm._v(" "),
-                                                                  _c(
-                                                                    "b-input-group-append",
-                                                                    [
-                                                                      _c(
-                                                                        "b-button",
-                                                                        {
-                                                                          attrs: {
-                                                                            variant:
-                                                                              "success",
-                                                                            size:
-                                                                              "sm"
-                                                                          },
-                                                                          on: {
-                                                                            click: function(
-                                                                              $event
-                                                                            ) {
-                                                                              _vm.isInEditMode = !_vm.isInEditMode
-                                                                            }
-                                                                          }
-                                                                        },
-                                                                        [
-                                                                          _vm._v(
-                                                                            "\n                                                                    Запази\n                                                                "
-                                                                          )
-                                                                        ]
-                                                                      ),
-                                                                      _vm._v(
-                                                                        " "
-                                                                      ),
-                                                                      _c(
-                                                                        "b-button",
-                                                                        {
-                                                                          attrs: {
-                                                                            variant:
-                                                                              "danger",
-                                                                            size:
-                                                                              "sm"
-                                                                          },
-                                                                          on: {
-                                                                            click: function(
-                                                                              $event
-                                                                            ) {
-                                                                              _vm.isInEditMode = !_vm.isInEditMode
-                                                                            }
-                                                                          }
-                                                                        },
-                                                                        [
-                                                                          _vm._v(
-                                                                            "\n                                                                    Откажи\n                                                                "
-                                                                          )
-                                                                        ]
-                                                                      )
-                                                                    ],
-                                                                    1
-                                                                  )
-                                                                ],
-                                                                1
-                                                              )
-                                                            ],
-                                                            1
-                                                          )
-                                                        : _vm._e(),
-                                                      _vm._v(
-                                                        "\n                                                    " +
-                                                          _vm._s(
-                                                            data.item.serial
-                                                          ) +
-                                                          "\n                                            "
-                                                      )
-                                                    ]
-                                                  }
-                                                },
-                                                {
-                                                  key: "[location]",
-                                                  fn: function(data) {
-                                                    return [
-                                                      data.item.location ===
-                                                      null
-                                                        ? _c(
-                                                            "span",
-                                                            [
-                                                              _c(
-                                                                "b-btn",
-                                                                {
-                                                                  directives: [
-                                                                    {
-                                                                      name:
-                                                                        "show",
-                                                                      rawName:
-                                                                        "v-show",
-                                                                      value: !_vm.isInEditMode,
-                                                                      expression:
-                                                                        "!isInEditMode"
-                                                                    }
-                                                                  ],
-                                                                  staticClass:
-                                                                    "btn btn-primary btn-sm",
-                                                                  on: {
-                                                                    click: function(
-                                                                      $event
-                                                                    ) {
-                                                                      return _vm.setEditModeOn(
-                                                                        data.item,
-                                                                        "location"
-                                                                      )
-                                                                    }
-                                                                  }
-                                                                },
-                                                                [
-                                                                  _c("i", {
-                                                                    staticClass:
-                                                                      "fas fa-plus"
-                                                                  })
-                                                                ]
-                                                              )
-                                                            ],
-                                                            1
-                                                          )
-                                                        : _vm._e(),
-                                                      _vm._v(" "),
-                                                      _vm.isInEditMode &&
-                                                      _vm.attributeToUpdate ===
-                                                        "location"
-                                                        ? _c(
-                                                            "b-form",
-                                                            [
-                                                              _c(
-                                                                "b-input-group",
-                                                                [
-                                                                  _c(
-                                                                    "b-form-input",
-                                                                    {
-                                                                      attrs: {
-                                                                        size:
-                                                                          "sm"
-                                                                      }
-                                                                    }
-                                                                  ),
-                                                                  _vm._v(" "),
-                                                                  _c(
-                                                                    "b-input-group-append",
-                                                                    [
-                                                                      _c(
-                                                                        "b-button",
-                                                                        {
-                                                                          attrs: {
-                                                                            variant:
-                                                                              "success",
-                                                                            size:
-                                                                              "sm"
-                                                                          }
-                                                                        },
-                                                                        [
-                                                                          _vm._v(
-                                                                            "\n                                                            Запази\n                                                        "
-                                                                          )
-                                                                        ]
-                                                                      ),
-                                                                      _vm._v(
-                                                                        " "
-                                                                      ),
-                                                                      _c(
-                                                                        "b-button",
-                                                                        {
-                                                                          attrs: {
-                                                                            variant:
-                                                                              "danger",
-                                                                            size:
-                                                                              "sm"
-                                                                          },
-                                                                          on: {
-                                                                            click: function(
-                                                                              $event
-                                                                            ) {
-                                                                              _vm.isInEditMode = !_vm.isInEditMode
-                                                                            }
-                                                                          }
-                                                                        },
-                                                                        [
-                                                                          _vm._v(
-                                                                            "\n                                                            Откажи\n                                                        "
-                                                                          )
-                                                                        ]
-                                                                      )
-                                                                    ],
-                                                                    1
-                                                                  )
-                                                                ],
-                                                                1
-                                                              )
-                                                            ],
-                                                            1
-                                                          )
-                                                        : _vm._e(),
-                                                      _vm._v(
-                                                        "\n                                            " +
-                                                          _vm._s(
-                                                            data.item.location
-                                                          ) +
-                                                          "\n                                            "
-                                                      )
-                                                    ]
-                                                  }
-                                                },
-                                                {
-                                                  key: "[department]",
-                                                  fn: function(data) {
-                                                    return [
-                                                      data.item.department ===
-                                                      null
-                                                        ? _c(
-                                                            "span",
-                                                            [
-                                                              _c(
-                                                                "b-btn",
-                                                                {
-                                                                  directives: [
-                                                                    {
-                                                                      name:
-                                                                        "show",
-                                                                      rawName:
-                                                                        "v-show",
-                                                                      value: !_vm.isInEditMode,
-                                                                      expression:
-                                                                        "!isInEditMode"
-                                                                    }
-                                                                  ],
-                                                                  staticClass:
-                                                                    "btn btn-primary btn-sm",
-                                                                  on: {
-                                                                    click: function(
-                                                                      $event
-                                                                    ) {
-                                                                      return _vm.setEditModeOn(
-                                                                        data.item,
-                                                                        "department"
-                                                                      )
-                                                                    }
-                                                                  }
-                                                                },
-                                                                [
-                                                                  _c("i", {
-                                                                    staticClass:
-                                                                      "fas fa-plus"
-                                                                  })
-                                                                ]
-                                                              )
-                                                            ],
-                                                            1
-                                                          )
-                                                        : _vm._e(),
-                                                      _vm._v(" "),
-                                                      _vm.isInEditMode &&
-                                                      _vm.attributeToUpdate ===
-                                                        "department"
-                                                        ? _c(
-                                                            "b-form",
-                                                            [
-                                                              _c(
-                                                                "b-input-group",
-                                                                [
-                                                                  _c(
-                                                                    "b-form-input",
-                                                                    {
-                                                                      attrs: {
-                                                                        size:
-                                                                          "sm"
-                                                                      }
-                                                                    }
-                                                                  ),
-                                                                  _vm._v(" "),
-                                                                  _c(
-                                                                    "b-input-group-append",
-                                                                    [
-                                                                      _c(
-                                                                        "b-button",
-                                                                        {
-                                                                          attrs: {
-                                                                            variant:
-                                                                              "success",
-                                                                            size:
-                                                                              "sm"
-                                                                          }
-                                                                        },
-                                                                        [
-                                                                          _vm._v(
-                                                                            "\n                                                                    Запази\n                                                                "
-                                                                          )
-                                                                        ]
-                                                                      ),
-                                                                      _vm._v(
-                                                                        " "
-                                                                      ),
-                                                                      _c(
-                                                                        "b-button",
-                                                                        {
-                                                                          attrs: {
-                                                                            variant:
-                                                                              "danger",
-                                                                            size:
-                                                                              "sm"
-                                                                          },
-                                                                          on: {
-                                                                            click: function(
-                                                                              $event
-                                                                            ) {
-                                                                              _vm.isInEditMode = !_vm.isInEditMode
-                                                                            }
-                                                                          }
-                                                                        },
-                                                                        [
-                                                                          _vm._v(
-                                                                            "\n                                                                    Откажи\n                                                                "
-                                                                          )
-                                                                        ]
-                                                                      )
-                                                                    ],
-                                                                    1
-                                                                  )
-                                                                ],
-                                                                1
-                                                              )
-                                                            ],
-                                                            1
-                                                          )
-                                                        : _vm._e(),
-                                                      _vm._v(
-                                                        "\n                                                    " +
-                                                          _vm._s(
-                                                            data.item.department
-                                                          ) +
-                                                          "\n                                                "
-                                                      )
-                                                    ]
-                                                  }
-                                                },
-                                                {
-                                                  key: "[warranty]",
-                                                  fn: function(data) {
-                                                    return [
-                                                      _c("strong", [
-                                                        _vm._v("Валидна от:")
-                                                      ]),
-                                                      _vm._v(
-                                                        "\n                                                " +
-                                                          _vm._s(
-                                                            data.item.warranty
-                                                              .start
-                                                          ) +
-                                                          "\n                                                "
-                                                      ),
-                                                      _c("strong", [
-                                                        _vm._v("до:")
-                                                      ]),
-                                                      _vm._v(
-                                                        "\n                                                " +
-                                                          _vm._s(
-                                                            data.item.warranty
-                                                              .end
-                                                          ) +
-                                                          "\n                                            "
-                                                      )
-                                                    ]
-                                                  }
-                                                },
-                                                {
-                                                  key: "[purchaseDate]",
-                                                  fn: function(data) {
-                                                    return [
-                                                      data.item.purchaseDate ===
-                                                      null
-                                                        ? _c(
-                                                            "span",
-                                                            [
-                                                              _c(
-                                                                "b-btn",
-                                                                {
-                                                                  directives: [
-                                                                    {
-                                                                      name:
-                                                                        "show",
-                                                                      rawName:
-                                                                        "v-show",
-                                                                      value: !_vm.isInEditMode,
-                                                                      expression:
-                                                                        "!isInEditMode"
-                                                                    }
-                                                                  ],
-                                                                  staticClass:
-                                                                    "btn btn-primary btn-sm",
-                                                                  on: {
-                                                                    click: function(
-                                                                      $event
-                                                                    ) {
-                                                                      return _vm.setEditModeOn(
-                                                                        data.item,
-                                                                        "purchaseDate"
-                                                                      )
-                                                                    }
-                                                                  }
-                                                                },
-                                                                [
-                                                                  _c("i", {
-                                                                    staticClass:
-                                                                      "fas fa-plus"
-                                                                  })
-                                                                ]
-                                                              )
-                                                            ],
-                                                            1
-                                                          )
-                                                        : _vm._e(),
-                                                      _vm._v(" "),
-                                                      _vm.isInEditMode &&
-                                                      _vm.attributeToUpdate ===
-                                                        "purchaseDate"
-                                                        ? _c(
-                                                            "b-form",
-                                                            [
-                                                              _c(
-                                                                "b-input-group",
-                                                                [
-                                                                  _c(
-                                                                    "b-form-input",
-                                                                    {
-                                                                      attrs: {
-                                                                        size:
-                                                                          "sm"
-                                                                      }
-                                                                    }
-                                                                  ),
-                                                                  _vm._v(" "),
-                                                                  _c(
-                                                                    "b-input-group-append",
-                                                                    [
-                                                                      _c(
-                                                                        "b-button",
-                                                                        {
-                                                                          attrs: {
-                                                                            variant:
-                                                                              "success",
-                                                                            size:
-                                                                              "sm"
-                                                                          }
-                                                                        },
-                                                                        [
-                                                                          _vm._v(
-                                                                            "\n                                                                Запази\n                                                            "
-                                                                          )
-                                                                        ]
-                                                                      ),
-                                                                      _vm._v(
-                                                                        " "
-                                                                      ),
-                                                                      _c(
-                                                                        "b-button",
-                                                                        {
-                                                                          attrs: {
-                                                                            variant:
-                                                                              "danger",
-                                                                            size:
-                                                                              "sm"
-                                                                          },
-                                                                          on: {
-                                                                            click: function(
-                                                                              $event
-                                                                            ) {
-                                                                              _vm.isInEditMode = !_vm.isInEditMode
-                                                                            }
-                                                                          }
-                                                                        },
-                                                                        [
-                                                                          _vm._v(
-                                                                            "\n                                                                Откажи\n                                                            "
-                                                                          )
-                                                                        ]
-                                                                      )
-                                                                    ],
-                                                                    1
-                                                                  )
-                                                                ],
-                                                                1
-                                                              )
-                                                            ],
-                                                            1
-                                                          )
-                                                        : _vm._e(),
-                                                      _vm._v(
-                                                        "\n                                                " +
-                                                          _vm._s(
-                                                            data.item
-                                                              .purchaseDate
-                                                          ) +
-                                                          "\n                                            "
-                                                      )
-                                                    ]
-                                                  }
-                                                }
-                                              ],
-                                              null,
-                                              false,
-                                              1895952331
-                                            )
-                                          })
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-col",
-                                        { attrs: { cols: "6" } },
+                                        "b-row",
                                         [
                                           _c(
-                                            "b-form",
-                                            {
-                                              attrs: {
-                                                enctype: "multipart/form-data"
-                                              },
-                                              on: { submit: _vm.uploadFile }
-                                            },
+                                            "b-col",
+                                            { attrs: { cols: "6" } },
                                             [
-                                              _c("b-form-file", {
-                                                model: {
-                                                  value: _vm.file,
-                                                  callback: function($$v) {
-                                                    _vm.file = $$v
-                                                  },
-                                                  expression: "file"
-                                                }
-                                              }),
-                                              _vm._v(" "),
-                                              _c(
-                                                "b-button",
-                                                {
-                                                  attrs: {
-                                                    variant: "success",
-                                                    type: "submit"
-                                                  }
+                                              _c("b-table", {
+                                                staticClass: "table-responsive",
+                                                attrs: {
+                                                  items: [_vm.assetInfo],
+                                                  fields:
+                                                    _vm.assetDetailsFields,
+                                                  stacked: "",
+                                                  small: ""
                                                 },
-                                                [_vm._v("Запази")]
-                                              )
+                                                scopedSlots: _vm._u(
+                                                  [
+                                                    {
+                                                      key: "[serial]",
+                                                      fn: function(data) {
+                                                        return [
+                                                          data.item.serial ===
+                                                          null
+                                                            ? _c(
+                                                                "span",
+                                                                [
+                                                                  _c(
+                                                                    "b-btn",
+                                                                    {
+                                                                      directives: [
+                                                                        {
+                                                                          name:
+                                                                            "show",
+                                                                          rawName:
+                                                                            "v-show",
+                                                                          value: !_vm.isInEditMode,
+                                                                          expression:
+                                                                            "!isInEditMode"
+                                                                        }
+                                                                      ],
+                                                                      staticClass:
+                                                                        "btn btn-primary btn-sm",
+                                                                      on: {
+                                                                        click: function(
+                                                                          $event
+                                                                        ) {
+                                                                          return _vm.setEditModeOn(
+                                                                            data.item,
+                                                                            "serial"
+                                                                          )
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    [
+                                                                      _c("i", {
+                                                                        staticClass:
+                                                                          "fas fa-plus"
+                                                                      })
+                                                                    ]
+                                                                  )
+                                                                ],
+                                                                1
+                                                              )
+                                                            : _vm._e(),
+                                                          _vm._v(" "),
+                                                          _vm.isInEditMode &&
+                                                          _vm.attributeToUpdate ===
+                                                            "serial"
+                                                            ? _c(
+                                                                "b-form",
+                                                                [
+                                                                  _c(
+                                                                    "b-input-group",
+                                                                    [
+                                                                      _c(
+                                                                        "b-form-input",
+                                                                        {
+                                                                          attrs: {
+                                                                            size:
+                                                                              "sm"
+                                                                          },
+                                                                          model: {
+                                                                            value:
+                                                                              _vm
+                                                                                .currentAsset
+                                                                                .serial,
+                                                                            callback: function(
+                                                                              $$v
+                                                                            ) {
+                                                                              _vm.$set(
+                                                                                _vm.currentAsset,
+                                                                                "serial",
+                                                                                $$v
+                                                                              )
+                                                                            },
+                                                                            expression:
+                                                                              "currentAsset.serial"
+                                                                          }
+                                                                        }
+                                                                      ),
+                                                                      _vm._v(
+                                                                        " "
+                                                                      ),
+                                                                      _c(
+                                                                        "b-input-group-append",
+                                                                        [
+                                                                          _c(
+                                                                            "b-button",
+                                                                            {
+                                                                              attrs: {
+                                                                                variant:
+                                                                                  "success",
+                                                                                size:
+                                                                                  "sm"
+                                                                              },
+                                                                              on: {
+                                                                                click: function(
+                                                                                  $event
+                                                                                ) {
+                                                                                  _vm.isInEditMode = !_vm.isInEditMode
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            [
+                                                                              _vm._v(
+                                                                                "\n                                                                    Запази\n                                                                "
+                                                                              )
+                                                                            ]
+                                                                          ),
+                                                                          _vm._v(
+                                                                            " "
+                                                                          ),
+                                                                          _c(
+                                                                            "b-button",
+                                                                            {
+                                                                              attrs: {
+                                                                                variant:
+                                                                                  "danger",
+                                                                                size:
+                                                                                  "sm"
+                                                                              },
+                                                                              on: {
+                                                                                click: function(
+                                                                                  $event
+                                                                                ) {
+                                                                                  _vm.isInEditMode = !_vm.isInEditMode
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            [
+                                                                              _vm._v(
+                                                                                "\n                                                                    Откажи\n                                                                "
+                                                                              )
+                                                                            ]
+                                                                          )
+                                                                        ],
+                                                                        1
+                                                                      )
+                                                                    ],
+                                                                    1
+                                                                  )
+                                                                ],
+                                                                1
+                                                              )
+                                                            : _vm._e(),
+                                                          _vm._v(
+                                                            "\n                                                    " +
+                                                              _vm._s(
+                                                                data.item.serial
+                                                              ) +
+                                                              "\n                                            "
+                                                          )
+                                                        ]
+                                                      }
+                                                    },
+                                                    {
+                                                      key: "[location]",
+                                                      fn: function(data) {
+                                                        return [
+                                                          data.item.location ===
+                                                          null
+                                                            ? _c(
+                                                                "span",
+                                                                [
+                                                                  _c(
+                                                                    "b-btn",
+                                                                    {
+                                                                      directives: [
+                                                                        {
+                                                                          name:
+                                                                            "show",
+                                                                          rawName:
+                                                                            "v-show",
+                                                                          value: !_vm.isInEditMode,
+                                                                          expression:
+                                                                            "!isInEditMode"
+                                                                        }
+                                                                      ],
+                                                                      staticClass:
+                                                                        "btn btn-primary btn-sm",
+                                                                      on: {
+                                                                        click: function(
+                                                                          $event
+                                                                        ) {
+                                                                          return _vm.setEditModeOn(
+                                                                            data.item,
+                                                                            "location"
+                                                                          )
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    [
+                                                                      _c("i", {
+                                                                        staticClass:
+                                                                          "fas fa-plus"
+                                                                      })
+                                                                    ]
+                                                                  )
+                                                                ],
+                                                                1
+                                                              )
+                                                            : _vm._e(),
+                                                          _vm._v(" "),
+                                                          _vm.isInEditMode &&
+                                                          _vm.attributeToUpdate ===
+                                                            "location"
+                                                            ? _c(
+                                                                "b-form",
+                                                                [
+                                                                  _c(
+                                                                    "b-input-group",
+                                                                    [
+                                                                      _c(
+                                                                        "b-form-input",
+                                                                        {
+                                                                          attrs: {
+                                                                            size:
+                                                                              "sm"
+                                                                          }
+                                                                        }
+                                                                      ),
+                                                                      _vm._v(
+                                                                        " "
+                                                                      ),
+                                                                      _c(
+                                                                        "b-input-group-append",
+                                                                        [
+                                                                          _c(
+                                                                            "b-button",
+                                                                            {
+                                                                              attrs: {
+                                                                                variant:
+                                                                                  "success",
+                                                                                size:
+                                                                                  "sm"
+                                                                              }
+                                                                            },
+                                                                            [
+                                                                              _vm._v(
+                                                                                "\n                                                            Запази\n                                                        "
+                                                                              )
+                                                                            ]
+                                                                          ),
+                                                                          _vm._v(
+                                                                            " "
+                                                                          ),
+                                                                          _c(
+                                                                            "b-button",
+                                                                            {
+                                                                              attrs: {
+                                                                                variant:
+                                                                                  "danger",
+                                                                                size:
+                                                                                  "sm"
+                                                                              },
+                                                                              on: {
+                                                                                click: function(
+                                                                                  $event
+                                                                                ) {
+                                                                                  _vm.isInEditMode = !_vm.isInEditMode
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            [
+                                                                              _vm._v(
+                                                                                "\n                                                            Откажи\n                                                        "
+                                                                              )
+                                                                            ]
+                                                                          )
+                                                                        ],
+                                                                        1
+                                                                      )
+                                                                    ],
+                                                                    1
+                                                                  )
+                                                                ],
+                                                                1
+                                                              )
+                                                            : _vm._e(),
+                                                          _vm._v(
+                                                            "\n                                            " +
+                                                              _vm._s(
+                                                                data.item
+                                                                  .location
+                                                              ) +
+                                                              "\n                                            "
+                                                          )
+                                                        ]
+                                                      }
+                                                    },
+                                                    {
+                                                      key: "[department]",
+                                                      fn: function(data) {
+                                                        return [
+                                                          data.item
+                                                            .department === null
+                                                            ? _c(
+                                                                "span",
+                                                                [
+                                                                  _c(
+                                                                    "b-btn",
+                                                                    {
+                                                                      directives: [
+                                                                        {
+                                                                          name:
+                                                                            "show",
+                                                                          rawName:
+                                                                            "v-show",
+                                                                          value: !_vm.isInEditMode,
+                                                                          expression:
+                                                                            "!isInEditMode"
+                                                                        }
+                                                                      ],
+                                                                      staticClass:
+                                                                        "btn btn-primary btn-sm",
+                                                                      on: {
+                                                                        click: function(
+                                                                          $event
+                                                                        ) {
+                                                                          return _vm.setEditModeOn(
+                                                                            data.item,
+                                                                            "department"
+                                                                          )
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    [
+                                                                      _c("i", {
+                                                                        staticClass:
+                                                                          "fas fa-plus"
+                                                                      })
+                                                                    ]
+                                                                  )
+                                                                ],
+                                                                1
+                                                              )
+                                                            : _vm._e(),
+                                                          _vm._v(" "),
+                                                          _vm.isInEditMode &&
+                                                          _vm.attributeToUpdate ===
+                                                            "department"
+                                                            ? _c(
+                                                                "b-form",
+                                                                [
+                                                                  _c(
+                                                                    "b-input-group",
+                                                                    [
+                                                                      _c(
+                                                                        "b-form-input",
+                                                                        {
+                                                                          attrs: {
+                                                                            size:
+                                                                              "sm"
+                                                                          }
+                                                                        }
+                                                                      ),
+                                                                      _vm._v(
+                                                                        " "
+                                                                      ),
+                                                                      _c(
+                                                                        "b-input-group-append",
+                                                                        [
+                                                                          _c(
+                                                                            "b-button",
+                                                                            {
+                                                                              attrs: {
+                                                                                variant:
+                                                                                  "success",
+                                                                                size:
+                                                                                  "sm"
+                                                                              }
+                                                                            },
+                                                                            [
+                                                                              _vm._v(
+                                                                                "\n                                                                    Запази\n                                                                "
+                                                                              )
+                                                                            ]
+                                                                          ),
+                                                                          _vm._v(
+                                                                            " "
+                                                                          ),
+                                                                          _c(
+                                                                            "b-button",
+                                                                            {
+                                                                              attrs: {
+                                                                                variant:
+                                                                                  "danger",
+                                                                                size:
+                                                                                  "sm"
+                                                                              },
+                                                                              on: {
+                                                                                click: function(
+                                                                                  $event
+                                                                                ) {
+                                                                                  _vm.isInEditMode = !_vm.isInEditMode
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            [
+                                                                              _vm._v(
+                                                                                "\n                                                                    Откажи\n                                                                "
+                                                                              )
+                                                                            ]
+                                                                          )
+                                                                        ],
+                                                                        1
+                                                                      )
+                                                                    ],
+                                                                    1
+                                                                  )
+                                                                ],
+                                                                1
+                                                              )
+                                                            : _vm._e(),
+                                                          _vm._v(
+                                                            "\n                                                    " +
+                                                              _vm._s(
+                                                                data.item
+                                                                  .department
+                                                              ) +
+                                                              "\n                                                "
+                                                          )
+                                                        ]
+                                                      }
+                                                    },
+                                                    {
+                                                      key: "[warranty]",
+                                                      fn: function(data) {
+                                                        return [
+                                                          _c("strong", [
+                                                            _vm._v(
+                                                              "Валидна от:"
+                                                            )
+                                                          ]),
+                                                          _vm._v(
+                                                            "\n                                                " +
+                                                              _vm._s(
+                                                                data.item
+                                                                  .warranty
+                                                                  .start
+                                                              ) +
+                                                              "\n                                                "
+                                                          ),
+                                                          _c("strong", [
+                                                            _vm._v("до:")
+                                                          ]),
+                                                          _vm._v(
+                                                            "\n                                                " +
+                                                              _vm._s(
+                                                                data.item
+                                                                  .warranty.end
+                                                              ) +
+                                                              "\n                                            "
+                                                          )
+                                                        ]
+                                                      }
+                                                    },
+                                                    {
+                                                      key: "[purchaseDate]",
+                                                      fn: function(data) {
+                                                        return [
+                                                          data.item
+                                                            .purchaseDate ===
+                                                          null
+                                                            ? _c(
+                                                                "span",
+                                                                [
+                                                                  _c(
+                                                                    "b-btn",
+                                                                    {
+                                                                      directives: [
+                                                                        {
+                                                                          name:
+                                                                            "show",
+                                                                          rawName:
+                                                                            "v-show",
+                                                                          value: !_vm.isInEditMode,
+                                                                          expression:
+                                                                            "!isInEditMode"
+                                                                        }
+                                                                      ],
+                                                                      staticClass:
+                                                                        "btn btn-primary btn-sm",
+                                                                      on: {
+                                                                        click: function(
+                                                                          $event
+                                                                        ) {
+                                                                          return _vm.setEditModeOn(
+                                                                            data.item,
+                                                                            "purchaseDate"
+                                                                          )
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    [
+                                                                      _c("i", {
+                                                                        staticClass:
+                                                                          "fas fa-plus"
+                                                                      })
+                                                                    ]
+                                                                  )
+                                                                ],
+                                                                1
+                                                              )
+                                                            : _vm._e(),
+                                                          _vm._v(" "),
+                                                          _vm.isInEditMode &&
+                                                          _vm.attributeToUpdate ===
+                                                            "purchaseDate"
+                                                            ? _c(
+                                                                "b-form",
+                                                                [
+                                                                  _c(
+                                                                    "b-input-group",
+                                                                    [
+                                                                      _c(
+                                                                        "b-form-input",
+                                                                        {
+                                                                          attrs: {
+                                                                            size:
+                                                                              "sm"
+                                                                          }
+                                                                        }
+                                                                      ),
+                                                                      _vm._v(
+                                                                        " "
+                                                                      ),
+                                                                      _c(
+                                                                        "b-input-group-append",
+                                                                        [
+                                                                          _c(
+                                                                            "b-button",
+                                                                            {
+                                                                              attrs: {
+                                                                                variant:
+                                                                                  "success",
+                                                                                size:
+                                                                                  "sm"
+                                                                              }
+                                                                            },
+                                                                            [
+                                                                              _vm._v(
+                                                                                "\n                                                                Запази\n                                                            "
+                                                                              )
+                                                                            ]
+                                                                          ),
+                                                                          _vm._v(
+                                                                            " "
+                                                                          ),
+                                                                          _c(
+                                                                            "b-button",
+                                                                            {
+                                                                              attrs: {
+                                                                                variant:
+                                                                                  "danger",
+                                                                                size:
+                                                                                  "sm"
+                                                                              },
+                                                                              on: {
+                                                                                click: function(
+                                                                                  $event
+                                                                                ) {
+                                                                                  _vm.isInEditMode = !_vm.isInEditMode
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            [
+                                                                              _vm._v(
+                                                                                "\n                                                                Откажи\n                                                            "
+                                                                              )
+                                                                            ]
+                                                                          )
+                                                                        ],
+                                                                        1
+                                                                      )
+                                                                    ],
+                                                                    1
+                                                                  )
+                                                                ],
+                                                                1
+                                                              )
+                                                            : _vm._e(),
+                                                          _vm._v(
+                                                            "\n                                                " +
+                                                              _vm._s(
+                                                                data.item
+                                                                  .purchaseDate
+                                                              ) +
+                                                              "\n                                            "
+                                                          )
+                                                        ]
+                                                      }
+                                                    }
+                                                  ],
+                                                  null,
+                                                  false,
+                                                  1895952331
+                                                )
+                                              })
                                             ],
                                             1
                                           ),
                                           _vm._v(" "),
-                                          _vm._l(_vm.assetInfo.media, function(
-                                            media
-                                          ) {
-                                            return _c(
-                                              "div",
-                                              { staticClass: "media" },
-                                              [
-                                                media.media_type ===
-                                                "image/jpeg"
-                                                  ? _c(
-                                                      "div",
-                                                      [
-                                                        _c("b-img", {
-                                                          attrs: {
-                                                            src:
-                                                              "http://192.168.10.10/" +
-                                                              media.pathToMedia,
-                                                            fluid: ""
-                                                          }
-                                                        })
-                                                      ],
-                                                      1
-                                                    )
-                                                  : _vm._e()
-                                              ]
-                                            )
-                                          })
+                                          _c(
+                                            "b-col",
+                                            { attrs: { cols: "6" } },
+                                            [
+                                              _c(
+                                                "b-form",
+                                                {
+                                                  attrs: {
+                                                    enctype:
+                                                      "multipart/form-data"
+                                                  },
+                                                  on: { submit: _vm.uploadFile }
+                                                },
+                                                [
+                                                  _c("b-form-file", {
+                                                    model: {
+                                                      value: _vm.file,
+                                                      callback: function($$v) {
+                                                        _vm.file = $$v
+                                                      },
+                                                      expression: "file"
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "b-button",
+                                                    {
+                                                      attrs: {
+                                                        variant: "success",
+                                                        type: "submit"
+                                                      }
+                                                    },
+                                                    [_vm._v("Запази")]
+                                                  )
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _vm._l(
+                                                _vm.assetInfo.media,
+                                                function(media) {
+                                                  return _c(
+                                                    "div",
+                                                    { staticClass: "media" },
+                                                    [
+                                                      media.media_type ===
+                                                      "image/jpeg"
+                                                        ? _c(
+                                                            "div",
+                                                            [
+                                                              _c("b-img", {
+                                                                attrs: {
+                                                                  src:
+                                                                    "http://192.168.10.10/" +
+                                                                    media.pathToMedia,
+                                                                  fluid: ""
+                                                                }
+                                                              })
+                                                            ],
+                                                            1
+                                                          )
+                                                        : _vm._e()
+                                                    ]
+                                                  )
+                                                }
+                                              )
+                                            ],
+                                            2
+                                          )
                                         ],
-                                        2
+                                        1
                                       )
                                     ],
                                     1
@@ -73621,105 +73758,129 @@ var render = function() {
                                 1
                               )
                             ],
-                            1
+                            2
                           )
-                        ],
-                        2
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  !_vm.loading
-                    ? _c(
-                        "b-tab",
-                        { attrs: { active: _vm.activeTab === 1 } },
-                        [
-                          _c("template", { slot: "title" }, [
-                            _c("i", { staticClass: "fas fa-cogs" }),
-                            _vm._v(
-                              "\n                            Компоненти\n                        "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "b-card",
+                        : _vm._e(),
+                      _vm._v(" "),
+                      !_vm.loading
+                        ? _c(
+                            "b-tab",
+                            {
+                              attrs: { active: _vm.activeTab === 1 },
+                              on: {
+                                click: function($event) {
+                                  return _vm.tri(1)
+                                }
+                              }
+                            },
                             [
+                              _c("template", { slot: "title" }, [
+                                _c("i", { staticClass: "fas fa-cogs" }),
+                                _vm._v(
+                                  "\n                            Компоненти\n                        "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "b-card",
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      attrs: { slot: "header" },
+                                      slot: "header"
+                                    },
+                                    [
+                                      _c("h1", [
+                                        _c("i", { staticClass: "fas fa-cogs" }),
+                                        _vm._v(
+                                          "\n                                    Компоненти\n                                "
+                                        )
+                                      ])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("component-list", {
+                                    attrs: {
+                                      components: _vm.assetInfo.components
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            2
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      !_vm.loading
+                        ? _c(
+                            "b-tab",
+                            {
+                              attrs: { active: _vm.activeTab === 2 },
+                              on: {
+                                click: function($event) {
+                                  return _vm.tri(2)
+                                }
+                              }
+                            },
+                            [
+                              _c("template", { slot: "title" }, [
+                                _c("i", { staticClass: "fas fa-tools" }),
+                                _vm._v(
+                                  "\n                            Сервизна история\n                        "
+                                )
+                              ]),
+                              _vm._v(" "),
                               _c(
                                 "div",
-                                { attrs: { slot: "header" }, slot: "header" },
                                 [
-                                  _c("h1", [
-                                    _c("i", { staticClass: "fas fa-cogs" }),
-                                    _vm._v(
-                                      "\n                                    Компоненти\n                                "
-                                    )
-                                  ])
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("component-list", {
-                                attrs: { components: _vm.assetInfo.components }
-                              })
+                                  _c("service-history-table", {
+                                    attrs: {
+                                      maintenanceData: [_vm.assetInfo],
+                                      origin: "asset"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
                             ],
-                            1
+                            2
                           )
-                        ],
-                        2
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  !_vm.loading
-                    ? _c(
-                        "b-tab",
-                        { attrs: { active: _vm.activeTab === 2 } },
-                        [
-                          _c("template", { slot: "title" }, [
-                            _c("i", { staticClass: "fas fa-tools" }),
-                            _vm._v(
-                              "\n                            Сервизна история\n                        "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            [
-                              _c("service-history-table", {
-                                attrs: {
-                                  maintenanceData: [_vm.assetInfo],
-                                  origin: "asset"
+                        : _vm._e(),
+                      _vm._v(" "),
+                      !_vm.loading
+                        ? _c(
+                            "b-tab",
+                            {
+                              attrs: { active: _vm.activeTab === 3 },
+                              on: {
+                                click: function($event) {
+                                  return _vm.tri(3)
                                 }
-                              })
+                              }
+                            },
+                            [
+                              _c("template", { slot: "title" }, [
+                                _c("i", { staticClass: "fas fa-folder-open" }),
+                                _vm._v(
+                                  "\n                            Документи\n                        "
+                                )
+                              ])
                             ],
-                            1
+                            2
                           )
-                        ],
-                        2
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  !_vm.loading
-                    ? _c(
-                        "b-tab",
-                        { attrs: { active: _vm.activeTab === 3 } },
-                        [
-                          _c("template", { slot: "title" }, [
-                            _c("i", { staticClass: "fas fa-folder-open" }),
-                            _vm._v(
-                              "\n                            Документи\n                        "
-                            )
-                          ])
-                        ],
-                        2
-                      )
-                    : _vm._e()
+                        : _vm._e()
+                    ],
+                    1
+                  )
                 ],
                 1
               )
             ],
             1
           )
-        ],
-        1
-      )
+        : _vm._e()
     ],
     1
   )
@@ -73764,165 +73925,255 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c(
-            "b-form-group",
+            "b-form",
             {
-              attrs: {
-                id: "protocolId-form-group",
-                label: "№ на протокола",
-                "label-for": "protocolId-input"
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.save($event)
+                }
               }
             },
             [
-              _c("b-form-input", {
-                attrs: {
-                  id: "protocolId-input",
-                  name: "protocolId-input",
-                  disabled: "",
-                  size: "lg"
-                },
-                model: {
-                  value: _vm.entity.protocolId,
-                  callback: function($$v) {
-                    _vm.$set(_vm.entity, "protocolId", $$v)
-                  },
-                  expression: "entity.protocolId"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("b-col", { attrs: { cols: "12" } }, [
-                _c("h2", [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.entity.asset.title) +
-                      " " +
-                      _vm._s(_vm.entity.asset.model) +
-                      "\n                    "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("span", [
-                  _vm._v(
-                    "\n                    Сериен № " +
-                      _vm._s(_vm.entity.asset.serial) +
-                      "\n                "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
               _c(
-                "b-col",
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "protocolId-form-group",
+                    label: "№ на протокола",
+                    "label-for": "protocolId-input"
+                  }
+                },
                 [
-                  _c("h4", [
-                    _vm._v(
-                      "\n                        Описание на проблема:\n                    "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("ckeditor", {
+                  _c("b-form-input", {
                     attrs: {
-                      id: "editorData",
-                      editor: _vm.editor,
-                      config: _vm.editorConfig
+                      id: "protocolId-input",
+                      name: "protocolId-input",
+                      disabled: "",
+                      size: "lg"
                     },
                     model: {
-                      value: _vm.entity.explanation,
+                      value: _vm.$v.entity.protocolId.$model,
                       callback: function($$v) {
-                        _vm.$set(_vm.entity, "explanation", $$v)
+                        _vm.$set(
+                          _vm.$v.entity.protocolId,
+                          "$model",
+                          typeof $$v === "string" ? $$v.trim() : $$v
+                        )
                       },
-                      expression: "entity.explanation"
+                      expression: "$v.entity.protocolId.$model"
                     }
                   })
                 ],
                 1
               ),
               _vm._v(" "),
-              _c("b-col", { attrs: { cols: "12" } }),
-              _vm._v(" "),
               _c(
-                "b-col",
-                { attrs: { cols: "12" } },
+                "b-row",
                 [
+                  _c("b-col", { attrs: { cols: "12" } }, [
+                    _c("h2", [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.entity.asset.title) +
+                          " " +
+                          _vm._s(_vm.entity.asset.model) +
+                          "\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("span", [
+                      _vm._v(
+                        "\n                    Сериен № " +
+                          _vm._s(_vm.entity.asset.serial) +
+                          "\n                "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
                   _c(
-                    "b-form-group",
-                    {
-                      attrs: {
-                        id: "isWarrantyEvent-form-group",
-                        label: "Събитието гаранционно ли е?",
-                        "label-for": "isWarrantyEvent-input"
-                      }
-                    },
+                    "b-col",
                     [
-                      _c("b-form-select", {
-                        attrs: {
-                          options: [
-                            {
-                              label: "Да, гаранционно е събитието",
-                              value: true
-                            },
-                            { label: "Не, не е гаранционно", value: false }
-                          ],
-                          "text-field": "label"
-                        },
-                        model: {
-                          value: _vm.entity.isWarrantyEvent,
-                          callback: function($$v) {
-                            _vm.$set(_vm.entity, "isWarrantyEvent", $$v)
-                          },
-                          expression: "entity.isWarrantyEvent"
-                        }
-                      }),
+                      _c("h4", [
+                        _vm._v(
+                          "\n                        Описание на проблема:\n                    "
+                        )
+                      ]),
                       _vm._v(" "),
                       _c(
-                        "b-form-invalid-feedback",
+                        "b-form-group",
                         {
-                          attrs: { id: "isWarrantyEvent-input-live-feedback" }
+                          attrs: {
+                            id: "explanation-form-group",
+                            label: "Описание на проблема / събитието",
+                            "label-for": "explanation-input"
+                          }
                         },
                         [
-                          _vm._v(
-                            "\n                            Моля, отбележи\n                        "
+                          _c("b-textarea", {
+                            attrs: {
+                              id: "explanation-input",
+                              name: "explanation-input",
+                              state: _vm.$v.entity.explanation.$dirty
+                                ? !_vm.$v.entity.explanation.$error
+                                : null,
+                              "aria-describedby":
+                                "explanation-input-live-feedback",
+                              rows: "8",
+                              size: "lg"
+                            },
+                            model: {
+                              value: _vm.$v.entity.explanation.$model,
+                              callback: function($$v) {
+                                _vm.$set(
+                                  _vm.$v.entity.explanation,
+                                  "$model",
+                                  $$v
+                                )
+                              },
+                              expression: "$v.entity.explanation.$model"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-invalid-feedback",
+                            {
+                              attrs: { id: "explanation-input-live-feedback" }
+                            },
+                            [
+                              _vm.$v.entity.explanation.$invalid
+                                ? _c("div", [
+                                    _vm.$v.entity.explanation.required
+                                      ? _c("span", [
+                                          _vm._v(
+                                            "\n                                    Това поле e задължително и трябва да съдържа минимум " +
+                                              _vm._s(
+                                                _vm.$v.entity.explanation
+                                                  .$params.minLength.min
+                                              ) +
+                                              " символа!\n                                "
+                                          )
+                                        ])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.$v.entity.explanation.minLength
+                                      ? _c("span", [
+                                          _vm._v(
+                                            "\n                                    Това поле трябва да е поне 5 символа!\n                                "
+                                          )
+                                        ])
+                                      : _vm._e()
+                                  ])
+                                : _vm._e()
+                            ]
                           )
-                        ]
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { cols: "12" } }),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { cols: "12" } },
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "isWarrantyEvent-form-group",
+                            label: "Гаранционно събитие?",
+                            "label-for": "isWarrantyEvent-input"
+                          }
+                        },
+                        [
+                          _c("b-form-select", {
+                            attrs: {
+                              options: [
+                                {
+                                  label: "Да, гаранционно е събитието",
+                                  value: true
+                                },
+                                { label: "Не, не е гаранционно", value: false }
+                              ],
+                              "text-field": "label",
+                              id: "isWarrantyEvent-input",
+                              name: "isWarrantyEvent-input",
+                              state: _vm.$v.entity.isWarrantyEvent.$dirty
+                                ? !_vm.$v.entity.isWarrantyEvent.$error
+                                : null,
+                              "aria-describedby":
+                                "isWarrantyEvent-input-live-feedback",
+                              size: "lg"
+                            },
+                            model: {
+                              value: _vm.$v.entity.isWarrantyEvent.$model,
+                              callback: function($$v) {
+                                _vm.$set(
+                                  _vm.$v.entity.isWarrantyEvent,
+                                  "$model",
+                                  $$v
+                                )
+                              },
+                              expression: "$v.entity.isWarrantyEvent.$model"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-invalid-feedback",
+                            {
+                              attrs: {
+                                id: "isWarrantyEvent-input-live-feedback"
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                            Nevalidno\n                        "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { cols: "6" } },
+                    [
+                      _c(
+                        "b-button",
+                        {
+                          attrs: { block: "", variant: "primary" },
+                          on: {
+                            click: function($event) {
+                              return _vm.save()
+                            }
+                          }
+                        },
+                        [_vm._v("Запиши!")]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { cols: "6" } },
+                    [
+                      _c(
+                        "b-button",
+                        { attrs: { block: "", variant: "danger" } },
+                        [_vm._v("Откажи!")]
                       )
                     ],
                     1
                   )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                { attrs: { cols: "6" } },
-                [
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { block: "", variant: "primary" },
-                      on: {
-                        click: function($event) {
-                          return _vm.save()
-                        }
-                      }
-                    },
-                    [_vm._v("Запиши!")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                { attrs: { cols: "6" } },
-                [
-                  _c("b-button", { attrs: { block: "", variant: "danger" } }, [
-                    _vm._v("Откажи!")
-                  ])
                 ],
                 1
               )
@@ -74016,13 +74267,19 @@ var render = function() {
               staticClass: "text-capitalize text-lg-center",
               attrs: { cols: "12" }
             },
-            [_c("h1", [_vm._v("\n                Протокол №\n            ")])]
+            [
+              _c("h1", [
+                _vm._v("\n                Протокол №№№№фдфе\n            ")
+              ])
+            ]
           ),
           _vm._v(" "),
           _c("b-col", { attrs: { cols: "2" } })
         ],
         1
       ),
+      _vm._v(" "),
+      _c("h3", [_vm._v("fwer\n    ")]),
       _vm._v(" "),
       _c(
         "b-form-group",
@@ -74089,42 +74346,30 @@ var render = function() {
           attrs: { "footer-bg-variant": "light", "header-bg-variant": "dark" }
         },
         [
-          _c("div", { attrs: { slot: "header" }, slot: "header" }, [
-            _c("h2", [
-              _vm._v(
-                "\n                    " +
-                  _vm._s(_vm.dataItems.title) +
-                  "\n                    " +
-                  _vm._s(_vm.dataItems.model) +
-                  "\n                "
-              )
-            ])
-          ]),
-          _vm._v(" "),
           _c(
-            "b-button-group",
+            "b-container",
             [
               _c(
-                "b-dropdown",
-                { attrs: { variant: "outline-primary", text: "Добави" } },
+                "b-button-group",
                 [
-                  _c("div", { attrs: { slot: "text" }, slot: "text" }, [
-                    _c("i", { staticClass: "fas fa-plus" }),
-                    _vm._v(
-                      "\n                         Добави\n                     "
-                    )
-                  ]),
-                  _vm._v(" "),
                   _c(
-                    "b-dropdown-item",
-                    {
-                      on: {
-                        click: function($event) {
-                          _vm.addAssetIssue = true
-                        }
-                      }
-                    },
-                    [_vm._v("Ново събитие")]
+                    "b-dropdown",
+                    { attrs: { variant: "outline-primary", text: "Добави" } },
+                    [
+                      _c("div", { attrs: { slot: "text" }, slot: "text" }, [
+                        _c("i", { staticClass: "fas fa-plus" }),
+                        _vm._v(
+                          "\n                             Добави\n                         "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-dropdown-item",
+                        { on: { click: _vm.addIssueToAsset } },
+                        [_vm._v("Ново събитие")]
+                      )
+                    ],
+                    1
                   )
                 ],
                 1
@@ -74133,12 +74378,18 @@ var render = function() {
             1
           ),
           _vm._v(" "),
+          _vm._v("\n            " + _vm._s(_vm.dataItems) + "\n            "),
+          _c("create-new-case-form", {
+            attrs: { assets: _vm.dataItems, origin: "asset" },
+            on: { refreshTable: _vm.logs }
+          }),
+          _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
           _c("b-table", {
             ref: "tata",
             attrs: {
-              items: _vm.dataItems.maintenances,
+              items: _vm.$props.maintenanceData[0],
               fields: _vm.assetTableFields,
               borderd: "",
               responsive: "",
@@ -74199,9 +74450,73 @@ var render = function() {
                       ? _c("span", [_vm._v("В процес на разрешаване!")])
                       : _vm._e(),
                     _vm._v(" "),
-                    data.item.status === 2 ? _c("span") : _vm._e(),
+                    data.item.status === 2
+                      ? _c("span", [_vm._v("Затворен")])
+                      : _vm._e(),
                     _vm._v(" "),
-                    data.item.status === 3 ? _c("span") : _vm._e()
+                    data.item.status === 3 ? _c("span") : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.statusEditing,
+                            expression: "statusEditing"
+                          }
+                        ],
+                        key: data.item.status
+                      },
+                      [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(data.item.id) +
+                            "\n                            "
+                        ),
+                        _c("b-form-select", {
+                          attrs: { options: _vm.statusOptions },
+                          model: {
+                            value: data.item.status,
+                            callback: function($$v) {
+                              _vm.$set(data.item, "status", $$v)
+                            },
+                            expression: "data.item.status"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "b-btn",
+                          {
+                            on: {
+                              click: function($event) {
+                                return _vm.changeCaseStatus(data.item)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Запази\n                            "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-btn",
+                      {
+                        attrs: { variant: "info", clsas: "text-rigth" },
+                        on: {
+                          click: function($event) {
+                            _vm.statusEditing = !_vm.statusEditing
+                          }
+                        }
+                      },
+                      [_vm._v("Промени")]
+                    )
                   ]
                 }
               },
@@ -74250,70 +74565,48 @@ var render = function() {
                 fn: function(row) {
                   return [
                     _c("b-card", [
-                      _c("h1", [_vm._v("hello")]),
+                      _c("h1", [_vm._v("Подробности за сервизното събитие")]),
                       _vm._v(
                         "\n                            " +
                           _vm._s(row.item) +
-                          "\n                        "
-                      )
+                          "\n                            "
+                      ),
+                      _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
+                        _vm._v(
+                          "\n                                footer\n                            "
+                        )
+                      ])
                     ])
+                  ]
+                }
+              },
+              {
+                key: "actions",
+                fn: function(data) {
+                  return [
+                    _c(
+                      "b-dropdown",
+                      { attrs: { right: "", text: "Menu" } },
+                      [
+                        _c("b-dropdown-item", [_vm._v("Item 1")]),
+                        _vm._v(" "),
+                        _c("b-dropdown-item", [_vm._v("Item 2")]),
+                        _vm._v(" "),
+                        _c("b-dropdown-divider"),
+                        _vm._v(" "),
+                        _c("b-dropdown-item", [_vm._v("Item 3")])
+                      ],
+                      1
+                    )
                   ]
                 }
               }
             ])
           }),
           _vm._v(" "),
-          _c("b-button", { on: { click: _vm.logs } }, [
-            _vm._v("manual refres")
-          ]),
+          _vm.assetServiceIssue ? _c("div") : _vm._e(),
           _vm._v(" "),
-          _vm.assetServiceIssue
-            ? _c(
-                "div",
-                [
-                  _c("h2", [
-                    _vm._v(
-                      "\n                    Добавяне на нов сервизен запис\n                "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("service-form")
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "div",
-            { attrs: { slot: "footer" }, slot: "footer" },
-            [
-              _c(
-                "b-button-group",
-                [
-                  _c(
-                    "b-dropdown",
-                    { attrs: { block: "", text: "Menu" } },
-                    [
-                      _c("b-dropdown-item", [_vm._v("Добави ново събитие")]),
-                      _vm._v(" "),
-                      _c("b-dropdown-item", [
-                        _vm._v("Добави събитие към съществуващ протокол")
-                      ]),
-                      _vm._v(" "),
-                      _c("b-dropdown-divider"),
-                      _vm._v(" "),
-                      _c("b-dropdown-item", [_vm._v("Item 3")])
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
+          _c("div", { attrs: { slot: "footer" }, slot: "footer" })
         ],
         1
       ),
@@ -74327,23 +74620,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c(
-            "b-row",
-            [
-              _c("create-new-case-form", {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.addAssetIssue,
-                    expression: "addAssetIssue"
-                  }
-                ],
-                attrs: { assets: _vm.dataItems, origin: "component" }
-              })
-            ],
-            1
-          ),
+          _c("b-container", { attrs: { fluid: "" } }),
           _vm._v(" "),
           _c("b-table", {
             ref: "far",
@@ -74407,24 +74684,6 @@ var render = function() {
             ])
           }),
           _vm._v(" "),
-          _vm.componentServiceIssue
-            ? _c(
-                "div",
-                [
-                  _c("h2", [
-                    _vm._v(
-                      "\n                    Добавяне на нов сервизен запис\n                "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("service-form")
-                ],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
           _c(
             "div",
             { attrs: { slot: "footer" }, slot: "footer" },
@@ -74444,7 +74703,7 @@ var render = function() {
                     [
                       _c("i", { staticClass: "fas fa-plus" }),
                       _vm._v(
-                        "\n                    Добави нов запис\n                "
+                        "\n                    Добави нов запиДобавяне на нов сервизен запис с\n                "
                       )
                     ]
                   )
@@ -74905,7 +75164,25 @@ var render = function() {
           }
         },
         [
-          _c("div", { attrs: { slot: "header" }, slot: "header" }),
+          _c("div", { attrs: { slot: "header" }, slot: "header" }, [
+            _c("h2", [
+              _vm._v("\n                   Списък с техника\n               ")
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "text-right" },
+              [
+                _c("b-btn", { attrs: { variant: "success" } }, [
+                  _c("i", { staticClass: "fa fa-plus" }),
+                  _vm._v(
+                    "\n                       Добави нова апаратура\n                   "
+                  )
+                ])
+              ],
+              1
+            )
+          ]),
           _vm._v(" "),
           _c("b-pagination", {
             attrs: {
@@ -75208,7 +75485,12 @@ var render = function() {
                             {
                               attrs: {
                                 "aria-describedby": "dropdown-header-1",
-                                href: "#"
+                                href: ""
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteAsset(data.item.id)
+                                }
                               }
                             },
                             [
@@ -75318,29 +75600,7 @@ var render = function() {
               ])
             ],
             2
-          ),
-          _vm._v(" "),
-          _c("b-pagination", {
-            attrs: {
-              "total-rows": _vm.meta.total,
-              "per-page": _vm.meta.per_page,
-              "aria-controls": "assettable",
-              "first-text": "Първа",
-              "prev-text": "Предишна",
-              "next-text": "Следваща",
-              "last-text": "Последна",
-              size: "xl",
-              align: "fill"
-            },
-            on: { change: _vm.pageChanged },
-            model: {
-              value: _vm.currentPage,
-              callback: function($$v) {
-                _vm.currentPage = $$v
-              },
-              expression: "currentPage"
-            }
-          })
+          )
         ],
         1
       )

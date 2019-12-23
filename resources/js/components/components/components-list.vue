@@ -5,7 +5,6 @@
                  responsive
                  head-variant="light"
                  large
-
                  hover
                  :fields="tableFields">
             <template slot="nomer" slot-scope="data">
@@ -60,11 +59,17 @@
                         label: 'Действия',
                         key: 'actions'
                     },
-                ]
+                ],
+                loading: true,
             }
         },
         mounted () {
             this.componentsx = this.$props.components
+        },
+        methods: {
+            getComponentsInfo() {
+
+            }
         }
     }
 </script>

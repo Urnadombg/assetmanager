@@ -1,7 +1,12 @@
 <?php
 
+use App\Asset;
+use App\Maintenance;
+use DemeterChain\Main;
 use Illuminate\Http\Request;
 use App\Http\Resources\Asets as AsetsResource;
+use Illuminate\Support\Facades\DB;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,14 +24,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/test/', function () {
 
-    $rma = new \App\Maintenance();
-    dd($rma->generateRMANumber());
+    $asset = Asset::findOrFail(197);
 
 });
 
 Route::prefix('/assets')->group(function () {
     Route::get('/', 'API\\AssetController@index');
     Route::get('/{id}', 'API\\AssetController@show');
+    Route::delete('/{id}', 'API\\AssetController@destroy');
     Route::post('/', 'API\\AssetController@store');
     Route::put('/{id}', 'API\\AssetController@update');
     Route::post('/uploadFile', 'API\\AssetController@saveAssetMedia');
@@ -44,6 +49,7 @@ Route::prefix('/customers')->group(function () {
 });
 
 Route::prefix('/maintenances')->group(function () {
-    Route::post('/', 'API\\MaintenanceController@createNewRecord');
+    Route::post('/', 'API\\MaintenanceController@store');
     Route::get('/getRmaNumber', 'API\\MaintenanceController@getRmaNumber');
+    Route::patch('/{id}/setStatus', 'API\\MaintenanceController@setCaseStatus');
 });

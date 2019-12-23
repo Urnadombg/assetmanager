@@ -2,6 +2,15 @@
     <b-container fluid>
        <b-card bg-variant="info" text-variant="dark" header-bg-variant="primary" body-bg-variant="white">
            <div slot="header">
+               <h2>
+                   Списък с техника
+               </h2>
+               <div class="text-right">
+                   <b-btn variant="success">
+                       <i class="fa fa-plus"></i>
+                       Добави нова апаратура
+                   </b-btn>
+               </div>
            </div>
                <b-pagination
                    v-model="currentPage"
@@ -115,7 +124,7 @@
                         <b-dropdown-item aria-describedby="dropdown-header-1" :href="`/assets/${data.item.id}/edit`">
                             Редакция
                         </b-dropdown-item>
-                        <b-dropdown-item aria-describedby="dropdown-header-1" href="#">
+                        <b-dropdown-item aria-describedby="dropdown-header-1" href="" @click="deleteAsset(data.item.id)">
                             Изтриване
                         </b-dropdown-item>
                         <b-dropdown-item-button aria-describedby="dropdown-header-1">Виж компонентите</b-dropdown-item-button>
@@ -147,19 +156,7 @@
 <!--                    </b-btn-group>-->
                 </template>
            </b-table>
-           <b-pagination
-               v-model="currentPage"
-               :total-rows="meta.total"
-               :per-page="meta.per_page"
-               aria-controls="assettable"
-               first-text="Първа"
-               prev-text="Предишна"
-               next-text="Следваща"
-               last-text="Последна"
-               size="xl"
-               align="fill"
-               @change="pageChanged"
-           ></b-pagination>
+
        </b-card>
 
     </b-container>
@@ -228,44 +225,54 @@
             this.getAssetRecords()
         },
         methods: {
+            deleteAsset(id) {
+                axios.delete(`/api/assets/${id}`)
+                    .then(
+                        (data) => {
+                            console.log(data)
+                            this.$root.$emit('bv::refresh::table', 'assettable')
+                        }
+                    )
+                    .catch((err) => console.log(err))
+            },
             goToAssetFile(x) {
                 window.location.href = '/assets/' + x.id
             },
             getAssetRecords(ctx, callback) {
 
-                this.sortBy = ctx.sortBy
-                // console.log(ctx.apiUrl)
-                // console.log(data.data.data);
-                let promise = axios.get(`/api/assets?page=${this.currentPage}`)
-
-                return promise.then((data) => {
-                    this.meta = data.data.meta
-                    // this.assets = data.data.data
-                    const assets = data.data.data
-                    this.assets = assets
-                    return assets
-                }).catch(error => {
-                    // Here we could override the busy state, setting isBusy to false
-                    // this.isBusy = false
-                    // Returning an empty array, allows table to correctly handle
-                    // internal busy state in case of error
-                    return []
-                })
+                console.log(ctx)
+                let req = axios.get(`/api/assets?${this.currentPage}`);
+               return req.then(
+                    (data) => {
+                        this.meta = data.data.meta
+                        const items = data.data.data
+                        return items
+                    }
+                )
+                // this.sortBy = ctx.sortBy
+                // // console.log(ctx.apiUrl)
+                // // console.log(data.data.data);
+                // let promise = axios.get(`/api/assets?page=${this.currentPage}`)
+                //
+                // return promise.then((data) => {
+                //     this.meta = data.data.meta
+                //     // this.assets = data.data.data
+                //     const assets = data.data.data
+                //     this.assets = assets
+                //     return assets
+                // }).catch(error => {
+                //     // Here we could override the busy state, setting isBusy to false
+                //     // this.isBusy = false
+                //     // Returning an empty array, allows table to correctly handle
+                //     // internal busy state in case of error
+                //     return []
+                // })
             },
-            pageChanged() {
+            pageChanged(ctx) {
                 // this.currentPage = this.meta.current_page
                 // console.log(this.currentPage)
-
-                // axios.get(`/api/assets?page=${this.currentPage}`)
-                //     .then(
-                //         (data) => {
-                //
-                //             const items = data.data.data
-                //             // Here we could override the busy state, setting isBusy to false
-                //             // this.isBusy = false
-                //             return(items)
-                //         }
-                //     )
+                this.currentPage = ctx
+                this.getAssetRecords();
                 this.$root.$emit('bv::refresh::table', 'assettable')
             }
         }

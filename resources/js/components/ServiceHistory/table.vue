@@ -2,26 +2,32 @@
 <div>
         <b-card footer-bg-variant="light"
                 header-bg-variant="dark">
-            <div slot="header">
-                <h2>
-                    {{ dataItems.title }}
-                    {{ dataItems.model }}
-                </h2>
-            </div>
-             <b-button-group>
-                 <b-dropdown variant="outline-primary" text="Добави">
-                     <div slot="text">
-                         <i class="fas fa-plus"></i>
-                         Добави
-                     </div>
-                     <b-dropdown-item @click="addAssetIssue = true">Ново събитие</b-dropdown-item>
-<!--                     <b-dropdown-item href="#novo">Ново събитие към съществуващ протокол</b-dropdown-item>-->
-                 </b-dropdown>
-             </b-button-group>
-
-<!--            <create-new-case-form :assets="dataItems" :origin="'asset'" v-show="!addAssetIssue" v-on:refreshTable="logs"></create-new-case-form>-->
+<!--            <div slot="header">-->
+<!--                <h2>-->
+<!--                    {{ dataItems.title }}-->
+<!--                    {{ dataItems }}-->
+<!--                </h2>-->
+<!--            </div>-->
+             <b-container>
+                 <b-button-group>
+                     <b-dropdown variant="outline-primary" text="Добави">
+                         <div slot="text">
+                             <i class="fas fa-plus"></i>
+                             Добави
+                         </div>
+                         <b-dropdown-item @click="addIssueToAsset">Ново събитие</b-dropdown-item>
+                         <!--                     <b-dropdown-item href="#novo">Ново събитие към съществуващ протокол</b-dropdown-item>-->
+                     </b-dropdown>
+                 </b-button-group>
+             </b-container>
+<!--            {{ maintenanceData}}-->
+            {{ dataItems }}
+            <create-new-case-form :assets="dataItems"
+                                  :origin="'asset'"
+                                  v-on:refreshTable="logs">
+            </create-new-case-form>
             <hr>
-                <b-table :items="dataItems.maintenances"
+                <b-table :items="$props.maintenanceData[0]"
                          :fields="assetTableFields"
                          borderd
                          ref="tata"
@@ -46,8 +52,17 @@
                     <template slot="status" slot-scope="data">
                         <span v-if="data.item.status === 0"><i class="fas fa-file"></i>Нов</span>
                         <span v-if="data.item.status === 1">В процес на разрешаване!</span>
-                        <span v-if="data.item.status === 2"></span>
+                        <span v-if="data.item.status === 2">Затворен</span>
                         <span v-if="data.item.status === 3"></span>
+                        <div v-show="statusEditing" :key="data.item.status">
+                            {{ data.item.id }}
+                            <b-form-select v-model="data.item.status" :options="statusOptions">
+                            </b-form-select>
+                            <b-btn @click="changeCaseStatus(data.item)">
+                                Запази
+                            </b-btn>
+                        </div>
+                        <b-btn variant="info" clsas="text-rigth" @click="statusEditing = !statusEditing">Промени</b-btn>
                     </template>
                     <template slot="protocolId" slot-scope="data">
                         {{ data.item.protocolNumber }}
@@ -67,29 +82,36 @@
                     </template>
                     <template slot="row-details" slot-scope="row">
                         <b-card>
-                            <h1>hello</h1>
+                            <h1>Подробности за сервизното събитие</h1>
                             {{ row.item }}
+                            <div slot="footer">
+                                footer
+                            </div>
                         </b-card>
                     </template>
+                    <template slot="actions" slot-scope="data">
+                        <b-dropdown right text="Menu">
+                            <b-dropdown-item>Item 1</b-dropdown-item>
+                            <b-dropdown-item>Item 2</b-dropdown-item>
+                            <b-dropdown-divider></b-dropdown-divider>
+                            <b-dropdown-item>Item 3</b-dropdown-item>
+                        </b-dropdown>
+                    </template>
                 </b-table>
-            <b-button @click="logs">manual refres</b-button>
             <div v-if="assetServiceIssue">
-                <h2>
-                    Добавяне на нов сервизен запис
-                </h2>
-                <hr>
-                <service-form></service-form>
+
+<!--                <service-form></service-form>-->
             </div>
 
             <div slot="footer">
-                <b-button-group>
-                    <b-dropdown block text="Menu">
-                        <b-dropdown-item>Добави ново събитие</b-dropdown-item>
-                        <b-dropdown-item>Добави събитие към съществуващ протокол</b-dropdown-item>
-                        <b-dropdown-divider></b-dropdown-divider>
-                        <b-dropdown-item>Item 3</b-dropdown-item>
-                    </b-dropdown>
-                </b-button-group>
+<!--                <b-button-group>-->
+<!--                    <b-dropdown block text="Menu">-->
+<!--                        <b-dropdown-item>Добави ново събитие</b-dropdown-item>-->
+<!--                        <b-dropdown-item>Добави събитие към съществуващ протокол</b-dropdown-item>-->
+<!--                        <b-dropdown-divider></b-dropdown-divider>-->
+<!--                        <b-dropdown-item>Item 3</b-dropdown-item>-->
+<!--                    </b-dropdown>-->
+<!--                </b-button-group>-->
             </div>
         </b-card>
 
@@ -99,10 +121,13 @@
                     Периферия
                 </h2>
             </div>
-            <b-row>
-                <create-new-case-form :assets="dataItems" :origin="'component'" v-show="addAssetIssue"></create-new-case-form>
+            <b-container fluid>
+<!--                <create-new-case-form :assets="dataItems"-->
+<!--                                      :origin="'component'"-->
+<!--                                      v-show="addAssetIssue">-->
 
-            </b-row>
+<!--                </create-new-case-form>-->
+            </b-container>
                 <b-table :items="merged" ref="far"
                          :fields="componentTableFields"
                          @row-selected="rowSelected"
@@ -130,15 +155,13 @@
                         {{ data.item.maintenance.protocolUUID }}
                     </template>
                 </b-table>
-
-
-            <div v-if="componentServiceIssue">
-                <h2>
-                    Добавяне на нов сервизен запис
-                </h2>
-                <hr>
-                <service-form></service-form>
-            </div>
+<!--            <div v-if="componentServiceIssue">-->
+<!--                <h2>-->
+<!--                    Добавяне на нов сервизен запис-->
+<!--                </h2>-->
+<!--                <hr>-->
+<!--&lt;!&ndash;                <service-form></service-form>&ndash;&gt;-->
+<!--            </div>-->
 
 
             <div slot="footer">
@@ -147,7 +170,7 @@
                        @click="componentServiceIssue = !componentServiceIssue"
                        v-if="!componentServiceIssue">
                     <i class="fas fa-plus"></i>
-                    Добави нов запис
+                    Добави нов запиДобавяне на нов сервизен запис с
                 </b-btn>
                 <b-btn variant="warning"
                        @click="componentServiceIssue = !componentServiceIssue"
@@ -179,11 +202,6 @@
                 addAssetIssue: false,
                 addComponentIssue: false,
                 merged: [],
-                editor: ClassicEditor,
-                editorData: '<p>Rich-text editor content.</p>',
-                editorConfig: {
-                    // The configuration of the rich-text editor.
-                },
                 componentTableFields: [
                     {
                         label: '№ на протокола',
@@ -226,18 +244,18 @@
                         label: '№ на протокола',
                         key:'protocolId'
                     },
-                    {
-                        label: 'Наименование на изделието',
-                        key:'title'
-                    },
-                    {
-                        label: 'Модел на изделието',
-                        key:'model'
-                    },
-                    {
-                        label: 'Сериен № на изделието',
-                        key:'serial'
-                    },
+                    // {
+                    //     label: 'Наименование на изделието',
+                    //     key:'title'
+                    // },
+                    // {
+                    //     label: 'Модел на изделието',
+                    //     key:'model'
+                    // },
+                    // {
+                    //     label: 'Сериен № на изделието',
+                    //     key:'serial'
+                    // },
                     {
                         label: 'Сервизно събитие от',
                         key:'perform_on'
@@ -253,6 +271,10 @@
                     {
                         label: 'Кратко обяснение',
                         key:'explanation'
+                    },
+                    {
+                        label: 'Действия',
+                        key: 'actions'
                     }
 
                 ],
@@ -282,6 +304,22 @@
                     key: 'actions'
                 },
             ],
+                statusOptions: [
+                    {
+                        value: 0,
+                        text: 'Нов'
+                    },
+                    {
+                        value: 1,
+                        text: 'В процес на разрешаване!'
+                    },
+                    {
+                        value: 2,
+                        text: 'Затворен'
+                    },
+
+                ],
+                statusEditing: false,
             }
         },
         created() {
@@ -291,34 +329,19 @@
             });
         },
         mounted () {
-            // this.dataItems = this.$props.maintenanceData[0]
-            // setTimeout(() => {
-            //     this.$props.maintenanceData.forEach(d => {
-            //         d.maintenances.forEach(assetMaintenance => {
-            //             // this.merged.push(assetMaintenance)
-            //         })
-            //         d.components.forEach(compo => {
-            //             compo.maintenances.forEach(mdt => {
-            //                 this.merged.push({
-            //                     title: compo.title,
-            //                     model: compo.model,
-            //                     serial: compo.serial,
-            //                     maintenance: mdt
-            //                 })
-            //                 this.componentMaintenanceData.push(mdt)
-            //             })
-            //         })
-            //     })
-            // },0)
-            // axios.get(`/assets/${this.$props.id}`)
-            this.getData();
+            this.dataItems = this.$props.maintenanceData
+            // console.log("rable,", this.$props)
         },
         methods: {
+            addIssueToAsset() {
+              this.addAssetIssue = true
+            },
             getData() {
-                axios.get(`/assets/${this.$props.id}`)
+                axios.get(`/assets/${this.$props.maintenanceData.id}`)
                     .then(
                         (data) => {
-                            this.dataItems = data.data
+                            // console.log("DAAA", data.data[0])
+                            this.dataItems = data.data[0]
                         }
                     )
             },
@@ -334,7 +357,21 @@
             },
             rowSelected(te){
                 console.log(te)
-            }
+            },
+            changeCaseStatus(serviceCase) {
+                axios.patch(`/api/maintenances/${serviceCase.id}/setStatus`, { status: serviceCase.status} )
+                    .then(
+                        (data) => {
+                            console.log(data)
+                        }
+                    )
+                    .catch(
+                        (error) => {
+                            console.log(error)
+                        }
+                    )
+                this.statusEditing = false
+            },
         },
         computed: {
 
