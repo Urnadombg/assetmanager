@@ -32,7 +32,12 @@ class ComponentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $component = new Component();
+        $component->title = $request->title;
+        $component->model = $request->model;
+        $component->serial = $request->serial;
+
+
     }
 
     /**

@@ -153,7 +153,7 @@
                     asset: '',
                     component: '',
                 },
-
+                asset_id: '',
                 editor: ClassicEditor,
                 editorConfig: {
                     // The configuration of the rich-text editor.
@@ -184,13 +184,13 @@
            this.getProtocolId();
             if (this.$props.origin === 'asset') {
                 // if (this.$props.assets.warranty)
-                console.log("SH", this.$props)
                 setTimeout(() => {
                     this.entity.asset = this.$props.assets
+                    this.asset_id = this.$props.assets
                     // this.entity.component = this.entity.asset.components
                     // console.log(Object.keys(this.entity))c
-                    // console.log("set", this.entity)
-
+                    console.log(this.entity)
+                    console.log(this.asset_id)
                 },70)
             } else if (this.$props.origin === 'component') {
                 this.entity.component = this.$props.assets.components
@@ -200,20 +200,22 @@
             save() {
                 this.$v.entity.$touch()
                 if (this.$v.entity.$invalid) {
+                    console.log(this.entity)
                     this.$bvToast.toast("Формата за запис на ново сервизно събитие е невалидна!",{
                         title: "Не мога да запиша формата",
-                        toaster: "b-toaster-top-full",
+                        toaster: "b-toaster-top-right",
                         variant: "danger"
                     })
                 } else {
-                    console.log(this.entity)
+                    console.log("else", this.entity)
+                    console.log("elseasset", this.asset_id)
                     // axios.post('/api/maintenances', this.entity)
                     //     .then(
                     //         (data) => {
                     //             this.$bvToast.show('assetSaved');
-                    //             this.$root.$emit('bv::refresh::table', 'assetMaintenanceTable')
-                    //             // console.log("data", data.data)
-                    //             this.$emit('refreshTable', this.entity);
+                    //             // this.$root.$emit('bv::refresh::table', 'assetMaintenanceTable')
+                    //             // // console.log("data", data.data)
+                    //             // this.$emit('refreshTable', this.entity);
                     //         }
                     //     )
                     //     .catch(

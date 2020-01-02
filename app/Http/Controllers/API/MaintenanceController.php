@@ -33,10 +33,11 @@ class MaintenanceController extends Controller
     public function store(Request $request)
     {
 
-        $asset = \App\Asset::findOrFail($request->asset)->load(['components', 'warranty', 'maintenances']);
+//dd($request->asset[0]['id']);
+        $asset = \App\Asset::findOrFail($request->asset[0]['id'])->load(['components', 'warranty', 'maintenances']);
 
         $maintenance = new Maintenance();
-//        dd($asset);
+        dd($asset);
 
         $maintenance->perform_on = \Carbon\Carbon::now();
         $maintenance->protocolUUID = \Ramsey\Uuid\Uuid::uuid4();
@@ -94,28 +95,24 @@ class MaintenanceController extends Controller
         //
     }
 
-//    public function createNewRecord(Request $request)
-//    {
-//
-//
-//
-//
-//        $asset = \App\Asset::findOrFail($request->id)->load(['components', 'warranty', 'maintenances']);
-//
-//        $maintenance = new \App\Maintenance([
-//            'perform_on' => \Carbon\Carbon::now(),
-//            'protocolUUID' => \Ramsey\Uuid\Uuid::uuid4(),
-//            'protocolNumber' => $request->protocolId,
-//            'status' => $request->status,
-//            'isWarrantyEvent' => $request->isWarrantyEvent,
-//            'explanation' => $request->explanation,
-//        ]);
-//
-//        dd($asset);
-//        $asset->maintenances()->save($maintenance);
-//
-//        return response()->json($asset);
-//    }
+    public function createNewRecord(Request $request)
+    {
+        $asset = \App\Asset::findOrFail($request->id)->load(['components', 'warranty', 'maintenances']);
+
+        $maintenance = new \App\Maintenance([
+            'perform_on' => \Carbon\Carbon::now(),
+            'protocolUUID' => \Ramsey\Uuid\Uuid::uuid4(),
+            'protocolNumber' => $request->protocolId,
+            'status' => $request->status,
+            'isWarrantyEvent' => $request->isWarrantyEvent,
+            'explanation' => $request->explanation,
+        ]);
+
+        dd($asset);
+        $asset->maintenances()->save($maintenance);
+
+        return response()->json($asset);
+    }
 
     public function setCaseStatus(Request $request)
     {

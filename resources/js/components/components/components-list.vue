@@ -6,19 +6,29 @@
                  head-variant="light"
                  large
                  hover
+                 @click="rowSelected"
                  :fields="tableFields">
-            <template slot="nomer" slot-scope="data">
-                {{ data.index +1 }}
+            <template v-slot:cell(nomer)="row">
+                {{ row.index +1 }}
             </template>
-            <template slot="[warranty]" slot-scope="data">
-                <strong>Валидна от:</strong>
-                {{ data.item.warranty.start }}
-                <strong>до:</strong>
-                {{ data.item.warranty.end }}
+            <template v-slot:cell(show_details)="row">
+                {{ row }}
             </template>
-            <template slot="actions">
+            <template v-slot:cell(warranty)="row">
+                <div v-if="row.item.warranty">
+                    <strong>Валидна от:</strong>
+                    {{ row.item.warranty.start }}
+                    <strong>до:</strong>
+                    {{ row.item.warranty.end }}
+                </div>
+                <div v-else>
+                    Няма данни за гаранционна карта
+                </div>
+
+            </template>
+            <template v-slot:cell(actions)="row">
                 <b-btn-group>
-                    <b-btn variant="primary">Виж</b-btn>
+                    <b-btn variant="primary " @click="row.item._showDetails = !row.item._showDetails" >Виж</b-btn>
                     <b-btn variant="secondary">Редакция</b-btn>
                     <b-btn variant="danger">Изтриване</b-btn>
                 </b-btn-group>
@@ -69,6 +79,10 @@
         methods: {
             getComponentsInfo() {
 
+            },
+            rowSelected(row) {
+                console.log(row)
+                row._showDetails = !row._showDetails
             }
         }
     }

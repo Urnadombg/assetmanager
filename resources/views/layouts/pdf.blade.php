@@ -21,54 +21,13 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Дентакон</a>
-        <button class="navbar-toggler" type="button"
-                data-toggle="collapse"
-                data-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                @if (Route::has('login'))
-
-                @auth
-                <li class="nav-item"><a href="{{ url('/home') }}">Home</a></li>
-                @else
-                <li class="nav-item">
-                    <a href="{{ route('login') }}">Login</a>
-                </li>
-                @if (Route::has('register'))
-                <li class="nav-item">
-                    <a href="{{ route('register') }}">Register</a>
-                </li>
-                @endif
-                @endauth
-            </ul>
-            @endif
-
-            {{--                <ul class="navbar-nav">--}}
-                {{--                    <li class="nav-item active">--}}
-                    {{--                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--}}
-                    {{--                    </li>--}}
-                {{--                    <li class="nav-item">--}}
-                    {{--                        <a class="nav-link" href="#">Features</a>--}}
-                    {{--                    </li>--}}
-                {{--                    <li class="nav-item">--}}
-                    {{--                        <a class="nav-link" href="#">Pricing</a>--}}
-                    {{--                    </li>--}}
-                {{--                    <li class="nav-item">--}}
-                    {{--                        <a class="nav-link disabled" href="#">Disabled</a>--}}
-                    {{--                    </li>--}}
-                {{--                </ul>--}}
-        </div>
-    </nav>
 
         @yield('content')
-
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/3.3.7+1/js/sb-admin-2.min.js" integrity="sha256-Y0Z5pT4qPGaoUSHoxW+J8fIWjQnjc7v03WBEUnt9SQ0=" crossorigin="anonymous"></script>--}}
+    {{--    <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>--}}
 </div>
 </body>
 </html>

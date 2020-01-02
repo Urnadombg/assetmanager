@@ -1,14 +1,14 @@
 <template>
 <div>
+    <b-btn v-b-modal.modal-lg variant="primary">
+        open
+    </b-btn>
+    <b-modal id="modal-lg" size="lg" :title="`Добавяне на нов сервизен запис към ${dataItems.title} ${dataItems.model},${dataItems.serial}`">
+        <create-new-case-form></create-new-case-form>
+    </b-modal>
         <b-card footer-bg-variant="light"
                 header-bg-variant="dark">
-<!--            <div slot="header">-->
-<!--                <h2>-->
-<!--                    {{ dataItems.title }}-->
-<!--                    {{ dataItems }}-->
-<!--                </h2>-->
-<!--            </div>-->
-             <b-container>
+             <b-container fluid>
                  <b-button-group>
                      <b-dropdown variant="outline-primary" text="Добави">
                          <div slot="text">
@@ -16,18 +16,16 @@
                              Добави
                          </div>
                          <b-dropdown-item @click="addIssueToAsset">Ново събитие</b-dropdown-item>
-                         <!--                     <b-dropdown-item href="#novo">Ново събитие към съществуващ протокол</b-dropdown-item>-->
                      </b-dropdown>
                  </b-button-group>
              </b-container>
-<!--            {{ maintenanceData}}-->
-            {{ dataItems }}
             <create-new-case-form :assets="dataItems"
                                   :origin="'asset'"
-                                  v-on:refreshTable="logs">
+                                  v-show="assetServiceIssue">
             </create-new-case-form>
             <hr>
-                <b-table :items="$props.maintenanceData[0]"
+<!--            {{ dataItems.maintenances }}-->
+                <b-table :items="dataItems.maintenances"
                          :fields="assetTableFields"
                          borderd
                          ref="tata"
@@ -40,6 +38,11 @@
                          show-empty>
                     <template slot="title" slot-scope="data">
                         {{ data.item.title }}
+                    </template>
+                    <template v-slot:empty="scope">
+                        <h4 class="text-center">Няма записи!</h4>
+                        <br>
+                        <b-btn block>Добави нов сервизен запис</b-btn>
                     </template>
                     <template slot="isWarrantyEvent" slot-scope="data">
                         <span v-if="data.item.isWarrantyEvent === 1" style="color: green;">
@@ -99,78 +102,64 @@
                     </template>
                 </b-table>
             <div v-if="assetServiceIssue">
-
-<!--                <service-form></service-form>-->
             </div>
 
             <div slot="footer">
-<!--                <b-button-group>-->
-<!--                    <b-dropdown block text="Menu">-->
-<!--                        <b-dropdown-item>Добави ново събитие</b-dropdown-item>-->
-<!--                        <b-dropdown-item>Добави събитие към съществуващ протокол</b-dropdown-item>-->
-<!--                        <b-dropdown-divider></b-dropdown-divider>-->
-<!--                        <b-dropdown-item>Item 3</b-dropdown-item>-->
-<!--                    </b-dropdown>-->
-<!--                </b-button-group>-->
             </div>
         </b-card>
-
         <b-card>
             <div slot="header">
                 <h2>
                     Периферия
                 </h2>
             </div>
-            <b-container fluid>
-<!--                <create-new-case-form :assets="dataItems"-->
-<!--                                      :origin="'component'"-->
-<!--                                      v-show="addAssetIssue">-->
-
-<!--                </create-new-case-form>-->
-            </b-container>
+<!--            {{ dataItems.components}}-->
                 <b-table :items="merged" ref="far"
                          :fields="componentTableFields"
-                         @row-selected="rowSelected"
+                         @row-clicked="expandAdditionalInfo"
                          borderd
-                         responsive
                          hover
                          selectable
                          striped
                          head-variant="light"
                          show-empty>
-                    <template slot="title" slot-scope="data">
-                        {{ data.item.title }}
-                        {{ data.item.model }}
+                    <template v-slot:cell(title)="row">
+                        {{ row.item.com.title }} {{ row.item.com.model }}
                     </template>
-                    <template slot="maintenance.isWarrantyEvent" slot-scope="data">
-                        <span v-if="data.item.maintenance.isWarrantyEvent === 1" style="color: green;">
-                            <i class="fas fa-check"></i>
-                        </span>
-                        <span v-if="data.item.maintenance.isWarrantyEvent !== 1" style="color: red;">
-                            <i class="fas fa-times"></i>
-                        </span>
-                        <!--{{ data.item.maintenance.isWarrantyEvent === 1 ? "DA" : "new" }}-->
+                    <template v-slot:cell(serial)="row">
+                        {{row.item.com.serial}}
+                    </template>
+                    <template v-slot:cell(maintenance.perform_on)="row">
+                        {{row.item.perform_on}}
+                    </template>
+                    <template v-slot:cell(maintenance.explanation)="row">
+                        {{row.item.explanation}}
+                    </template>
+                    <template v-slot:empty="scope">
+                        <h4 class="text-center">Няма записи!</h4>
+                        <br>
+                        <b-btn block>Добави нов сервизен запис</b-btn>
+                    </template>
+                    <template slot="row-details" slot-scope="row">
+                        <b-card>
+                            <h1>Подробности за сервизното събитие</h1>
+                            {{ row.item }}
+                            <div slot="footer">
+                                footer
+                            </div>
+                        </b-card>
                     </template>
                     <template slot="maintenance.protocolUUID" slot-scope="data">
                         {{ data.item.maintenance.protocolUUID }}
                     </template>
                 </b-table>
-<!--            <div v-if="componentServiceIssue">-->
-<!--                <h2>-->
-<!--                    Добавяне на нов сервизен запис-->
-<!--                </h2>-->
-<!--                <hr>-->
-<!--&lt;!&ndash;                <service-form></service-form>&ndash;&gt;-->
-<!--            </div>-->
-
-
             <div slot="footer">
                 <b-btn variant="primary"
                        style="background-color: mediumblue"
                        @click="componentServiceIssue = !componentServiceIssue"
                        v-if="!componentServiceIssue">
                     <i class="fas fa-plus"></i>
-                    Добави нов запиДобавяне на нов сервизен запис с
+                    Добавяне на нов сервизен запис
                 </b-btn>
                 <b-btn variant="warning"
                        @click="componentServiceIssue = !componentServiceIssue"
@@ -210,10 +199,6 @@
                     {
                         label: 'Наименование на изделието',
                         key:'title'
-                    },
-                    {
-                        label: 'Модел на изделието',
-                        key:'model'
                     },
                     {
                         label: 'Сериен № на изделието',
@@ -330,9 +315,26 @@
         },
         mounted () {
             this.dataItems = this.$props.maintenanceData
-            // console.log("rable,", this.$props)
+            this.getComponentServiceHistory();
+            // console.log(this.$props)
         },
         methods: {
+            getComponentServiceHistory() {
+             let componentHist = []
+              return this.dataItems.components.forEach(cop => {
+                   cop.maintenances.forEach((maint, index) => {
+                       axios.get(`/api/components/${maint.pivot.component_id}`)
+                           .then(
+                               (data) => {
+                                   maint['com'] = data.data
+                                   this.merged.push(maint);
+                               }
+                           )
+
+                   })
+                  return this.merged || [];
+              })
+            },
             addIssueToAsset() {
               this.addAssetIssue = true
             },
@@ -344,13 +346,6 @@
                             this.dataItems = data.data[0]
                         }
                     )
-            },
-            logs(data) {
-                // this.dataItems.maintenances.push(data)
-
-                // this.$root.$emit('bv::refresh::table', 'tata')
-                // this.$refs.tata.refresh()
-                // console.log("LogData", data)
             },
             expandAdditionalInfo(row) {
                 row._showDetails = !row._showDetails

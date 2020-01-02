@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 Route::resource('assets', 'AssetController');
 Route::resource('components', 'ComponentController');
+Route::resource('customers', 'CustomerController');
 
 Auth::routes();
 

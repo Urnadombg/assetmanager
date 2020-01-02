@@ -27,7 +27,25 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        dd($request->all());
+        $customer = new Customer();
+
+        $customer->name = $request->name;
+        $customer->lastname = $request->lastname;
+        $customer->phone = $request->phone;
+        $customer->address = $request->address;
+        $customer->city = $request->city;
+//        $customer->legalEntity_id = $request->legalEntity_id;
+
+        // TODO: to be implemented
+
+//        if ($request->has('legalEntity')) {
+//            $customer->companies()->create([
+//
+//            ]);
+//        }
+        $customer->save();
+        return response()->json(['message' => 'Customer has been saved!']);
     }
 
     /**
@@ -38,7 +56,9 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer = Customer::findOrFail($id)->load(['assets', 'companies']);
+
+        return $customer;
     }
 
     /**

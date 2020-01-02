@@ -33,143 +33,244 @@
                             <i class="fas fa-money-check"></i>
                             Детайли
                         </template>
-                        <b-card>
-                            <div slot="header">
-                                <h1>
-                                    <i class="fas fa-money-check"></i>
-                                    Детайли
-                                </h1>
-                            </div>
-                            <b-card-body>
-                                <b-row>
-                                    <b-col cols="6">
-                                        <b-table :items="[assetInfo]"
-                                                 :fields="assetDetailsFields"
-                                                 class="table-responsive"
-                                                 stacked
-                                                 small>
-                                            <template slot="[serial]" slot-scope="data">
-                                                 <span v-if="data.item.serial === null">
-                                                  <b-btn @click="setEditModeOn(data.item, 'serial')"
-                                                         v-show="!isInEditMode"
-                                                         class="btn btn-primary btn-sm">
-                                                      <i class="fas fa-plus"></i>
-                                                  </b-btn>
-                                                  </span>
-                                                    <b-form v-if="isInEditMode && attributeToUpdate === 'serial'">
-                                                        <b-input-group>
-                                                            <b-form-input size="sm"
-                                                                          v-model="currentAsset.serial"></b-form-input>
-                                                            <b-input-group-append>
-                                                                <b-button variant="success" size="sm"
-                                                                          @click="isInEditMode = !isInEditMode">
-                                                                    Запази
-                                                                </b-button>
-                                                                <b-button variant="danger" size="sm"
-                                                                          @click="isInEditMode = !isInEditMode">
-                                                                    Откажи
-                                                                </b-button>
-                                                            </b-input-group-append>
-                                                        </b-input-group>
-                                                    </b-form>
-                                                    {{ data.item.serial }}
-                                            </template>
-                                            <template slot="[location]" slot-scope="data">
-                                            <span v-if="data.item.location === null">
-                                            <b-btn @click="setEditModeOn(data.item, 'location')"
-                                            v-show="!isInEditMode"
-                                            class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>
-                                            </b-btn>
-                                            </span>
-                                            <b-form v-if="isInEditMode && attributeToUpdate === 'location'">
-                                                <b-input-group>
-                                                    <b-form-input size="sm"></b-form-input>
-                                                    <b-input-group-append>
-                                                        <b-button variant="success" size="sm">
-                                                            Запази
-                                                        </b-button>
-                                                        <b-button variant="danger" size="sm"
-                                                                  @click="isInEditMode = !isInEditMode">
-                                                            Откажи
-                                                        </b-button>
-                                                    </b-input-group-append>
-                                                </b-input-group>
-                                            </b-form>
-                                            {{ data.item.location }}
-                                            </template>
-                                            <template slot="[department]" slot-scope="data">
-                                                  <span v-if="data.item.department === null">
-                                                      <b-btn @click="setEditModeOn(data.item, 'department')"
-                                                             v-show="!isInEditMode"
-                                                             class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>
-                                                      </b-btn>
-                                                  </span>
-                                                    <b-form v-if="isInEditMode && attributeToUpdate === 'department'">
-                                                        <b-input-group>
-                                                            <b-form-input size="sm"></b-form-input>
-                                                            <b-input-group-append>
-                                                                <b-button variant="success" size="sm">
-                                                                    Запази
-                                                                </b-button>
-                                                                <b-button variant="danger" size="sm"
-                                                                          @click="isInEditMode = !isInEditMode">
-                                                                    Откажи
-                                                                </b-button>
-                                                            </b-input-group-append>
-                                                        </b-input-group>
-                                                    </b-form>
-                                                    {{ data.item.department }}
+                <b-card>
+                    <div slot="header">
+                        <h1>
+                            <i class="fas fa-money-check"></i>
+                            Детайли
+                        </h1>
+                    </div>
+                    <b-card-body>
+                        <b-row>
+                            <b-col cols="6">
+                                <b-btn @click="refreshTable">refresher</b-btn>
+                                <b-table :items="[assetInfo]"
+                                         :fields="assetDetailsFields"
+                                         class="table-responsive"
+                                         ref="assetInfoTable"
+                                         :busy="assetTableBusyState"
+                                         stacked
+                                         small>
+                                    <template v-slot:cell(title)="row">
+                                        <b-form-group v-if="isInEditMode">
+                                            <b-form-input v-model="currentAsset.title"></b-form-input>
+                                        </b-form-group>
+                                        <span v-show="!isInEditMode">
+                                            {{ row.item.title }}
+                                        </span>
+                                    </template>
+
+                                    <template v-slot:cell(model)="row">
+                                        <b-form-group v-if="isInEditMode">
+                                            <b-form-input v-model="currentAsset.model"></b-form-input>
+                                        </b-form-group>
+                                        <span v-show="!isInEditMode">
+                                            {{ row.item.model }}
+                                        </span>
+                                    </template>
+
+                                    <template v-slot:cell(serial)="row">
+                                        <span v-show="!isInEditMode">
+                                            {{ !row.item.serial ? '-' : row.item.serial }}
+                                        </span>
+                                        <b-input-group v-if="isInEditMode" label="Сериен №:">
+                                            <b-form-input v-model="currentAsset.serial"></b-form-input>
+                                        </b-input-group>
+                                    </template>
+                                    <template v-slot:cell(location)="row">
+                                       <span v-show="!isInEditMode">
+                                            {{ !row.item.location ? '-' : row.item.location }}
+                                        </span>
+                                        <b-input-group v-if="isInEditMode" label="Сериен №:">
+                                            <b-form-input v-model="currentAsset.location"></b-form-input>
+                                        </b-input-group>
+                                    </template>
+                                    <template v-slot:cell(type_of_asset)="row">
+                                       <span v-show="!isInEditMode">
+                                            {{ !row.item.type_of_asset ? '-' : (row.item.type_of_asset === "primary" ? 'Основен актив' : 'Вторичен актив') }}
+                                        </span>
+                                        <b-form-group v-if="isInEditMode">
+                                            <b-form-select v-model="currentAsset.type_of_asset"
+                                                           :options="[{ value: 'primary', text: 'Основен актив'},
+                                                       { value: 'secondary', text: 'Вторичен'}]">
+
+                                            </b-form-select>
+                                        </b-form-group>
+                                    </template>
+
+                                    <template v-slot:cell(warranty)="row">
+                                         <span v-if="!row.item.warranty">
+                                            <b-btn size="sm" variant="primary" @click="createWarranty(row)">+-</b-btn>
+                                        </span>
+                                        <span v-else>
+                                            {{ row.item.warranty.start}} - {{ row.item.warranty.end }}
+                                        </span>
+                                        <b-btn variant="warning" @click="createWarranty(row)">Регенерирай</b-btn>
+                                    </template>
+                                    <template v-slot:cell(purchaseDate)="row">
+                                        <span v-if="!row.item.purchaseDate">
+                                            <b-btn size="sm" variant="primary">+</b-btn>
+                                        </span>
+                                     </template>
+                                    <template v-slot:cell(customer)="row">
+                                         <span v-if="!row.item.customer">
+<!--                                            <b-btn size="sm" variant="primary" @click="createWarranty(row)">+-</b-btn>-->
+                                        </span>
+                                        <span v-else>
+                                            <a :href="`/customers/${row.item.customer.id}`">
+                                             {{ row.item.customer.name }}
+                                            {{ row.item.customer.lastname }}
+                                            </a>
+                                            <multiselect :options="customers"
+                                                         :searchable="true"
+                                                         :custom-label="customLabelForAc"
+                                                         track-by="name"
+                                                         v-model="customer"
+                                                         @select="changeOwnerShip"
+                                                         @search-change="getCustomersForAC">
+                                                <template slot="option" slot-scope="props">
+                                                    {{ props.option.name }}
+                                                    {{ props.option.lastname }}
                                                 </template>
-                                            <template slot="[warranty]" slot-scope="data">
-                                                <strong>Валидна от:</strong>
-                                                {{ data.item.warranty.start }}
-                                                <strong>до:</strong>
-                                                {{ data.item.warranty.end }}
-                                            </template>
-                                            <template slot="[purchaseDate]" slot-scope="data">
-                                              <span v-if="data.item.purchaseDate === null">
-                                                  <b-btn @click="setEditModeOn(data.item, 'purchaseDate')"
-                                                         v-show="!isInEditMode"
-                                                         class="btn btn-primary btn-sm">
-                                                      <i class="fas fa-plus"></i>
-                                                  </b-btn>
-                                              </span>
-                                                <b-form v-if="isInEditMode && attributeToUpdate === 'purchaseDate'">
-                                                    <b-input-group>
-                                                        <b-form-input size="sm"></b-form-input>
-                                                        <b-input-group-append>
-                                                            <b-button variant="success" size="sm">
-                                                                Запази
-                                                            </b-button>
-                                                            <b-button variant="danger" size="sm"
-                                                                      @click="isInEditMode = !isInEditMode">
-                                                                Откажи
-                                                            </b-button>
-                                                        </b-input-group-append>
-                                                    </b-input-group>
-                                                </b-form>
-                                                {{ data.item.purchaseDate }}
-                                            </template>
-                                        </b-table>
-                                    </b-col>
-                                    <b-col cols="6">
-                                        <b-form @submit="uploadFile" enctype="multipart/form-data">
-                                            <b-form-file v-model="file"></b-form-file>
-                                            <b-button variant="success" type="submit">Запази</b-button>
-                                        </b-form>
-                                        <div class="media" v-for="media in assetInfo.media">
-                                            <div v-if="media.media_type === 'image/jpeg'">
-                                                <b-img :src="'http://192.168.10.10/' + media.pathToMedia"
-                                                       fluid>
+                                                <template slot="singleLabel" slot-scope="props">
+                                                    {{ props.option.name }}
+                                                    {{ props.option.lastname }}
+                                                </template>
+                                            </multiselect>
+                                        </span>
+                                    </template>
+                                    <template v-slot:cell(actions)="row">
+                                        <b-btn-group>
+                                            <b-btn @click="prepareForUpdate(row)">Редакция</b-btn>
+                                            <b-btn @click="update(row)">Update</b-btn>
+                                            <b-btn>Изтрий</b-btn>
+                                        </b-btn-group>
+                                     </template>
 
-                                                </b-img>
-                                            </div>
-                                        </div>
+                                    <!--                                            <template slot="[serial]" slot-scope="data">-->
+<!--                                                 <span v-if="data.item.serial === null">-->
+<!--                                                  <b-btn @click="setEditModeOn(data.item, 'serial')"-->
+<!--                                                         v-show="!isInEditMode"-->
+<!--                                                         class="btn btn-primary btn-sm">-->
+<!--                                                      <i class="fas fa-plus"></i>-->
+<!--                                                  </b-btn>-->
+<!--                                                  </span>-->
+<!--                                                    <b-form v-if="isInEditMode && attributeToUpdate === 'serial'">-->
+<!--                                                        <b-input-group>-->
+<!--                                                            <b-form-input size="sm"-->
+<!--                                                                          v-model="currentAsset.serial"></b-form-input>-->
+<!--                                                            <b-input-group-append>-->
+<!--                                                                <b-button variant="success" size="sm"-->
+<!--                                                                          @click="isInEditMode = !isInEditMode">-->
+<!--                                                                    Запази-->
+<!--                                                                </b-button>-->
+<!--                                                                <b-button variant="danger" size="sm"-->
+<!--                                                                          @click="isInEditMode = !isInEditMode">-->
+<!--                                                                    Откажи-->
+<!--                                                                </b-button>-->
+<!--                                                            </b-input-group-append>-->
+<!--                                                        </b-input-group>-->
+<!--                                                    </b-form>-->
+<!--                                                    {{ data.item.serial }}-->
+<!--                                            </template>-->
+<!--                                            <template slot="[location]" slot-scope="data">-->
+<!--                                                <span v-if="data.item.location === null">-->
+<!--                                                    <b-btn @click="setEditModeOn(data.item, 'location')"-->
+<!--                                                    v-show="!isInEditMode"-->
+<!--                                                    class="btn btn-primary btn-sm">-->
+<!--                                                        <i class="fas fa-plus"></i>-->
+<!--                                                    </b-btn>-->
+<!--                                                </span>-->
+<!--                                            <b-form v-if="isInEditMode && attributeToUpdate === 'location'">-->
+<!--                                                <b-input-group>-->
+<!--                                                    <b-form-input size="sm"></b-form-input>-->
+<!--                                                    <b-input-group-append>-->
+<!--                                                        <b-button variant="success" size="sm">-->
+<!--                                                            Запази-->
+<!--                                                        </b-button>-->
+<!--                                                        <b-button variant="danger" size="sm"-->
+<!--                                                                  @click="isInEditMode = !isInEditMode">-->
+<!--                                                            Откажи-->
+<!--                                                        </b-button>-->
+<!--                                                    </b-input-group-append>-->
+<!--                                                </b-input-group>-->
+<!--                                            </b-form>-->
+<!--                                            {{ data.item.location }}++-->
+<!--                                            </template>-->
+<!--                                            <template slot="[department]" slot-scope="data">-->
+<!--                                                  <span v-if="data.item.department === null">-->
+<!--                                                      <b-btn @click="setEditModeOn(data.item, 'department')"-->
+<!--                                                             v-show="!isInEditMode"-->
+<!--                                                             class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>-->
+<!--                                                      </b-btn>-->
+<!--                                                  </span>-->
+<!--                                                    <b-form v-if="isInEditMode && attributeToUpdate === 'department'">-->
+<!--                                                        <b-input-group>-->
+<!--                                                            <b-form-input size="sm"></b-form-input>-->
+<!--                                                            <b-input-group-append>-->
+<!--                                                                <b-button variant="success" size="sm">-->
+<!--                                                                    Запази-->
+<!--                                                                </b-button>-->
+<!--                                                                <b-button variant="danger" size="sm"-->
+<!--                                                                          @click="isInEditMode = !isInEditMode">-->
+<!--                                                                    Откажи-->
+<!--                                                                </b-button>-->
+<!--                                                            </b-input-group-append>-->
+<!--                                                        </b-input-group>-->
+<!--                                                    </b-form>-->
+<!--                                                    {{ data.item.department }}-->
+<!--                                                </template>-->
+<!--                                            <template slot="[warranty]" slot-scope="row">-->
+<!--                                                dawqr-->
+<!--                                                <strong>Валидна от:</strong>``-->
+<!--                                                {{ data.item.warranty.start }}-`- -->
+<!--                                                <strong>до:</strong>-->
+<!--                                                {{ data.item.warranty.end }}-->
+<!--                                            </template>-->
+<!--                                            <template slot="[purchaseDate]" slot-scope="data">-->
+<!--                                              <span v-if="data.item.purchaseDate === null">-->
+<!--                                                  <b-btn @click="setEditModeOn(data.item, 'purchaseDate')"-->
+<!--                                                         v-show="!isInEditMode"-->
+<!--                                                         class="btn btn-primary btn-sm">-->
+<!--                                                      <i class="fas fa-plus"></i>-->
+<!--                                                  </b-btn>-->
+<!--                                              </span>-->
+<!--                                                <b-form v-if="isInEditMode && attributeToUpdate === 'purchaseDate'">-->
+<!--                                                    <b-input-group>-->
+<!--                                                        <b-form-input size="sm"></b-form-input>-->
+<!--                                                        <b-input-group-append>-->
+<!--                                                            <b-button variant="success" size="sm">-->
+<!--                                                                Запази-->
+<!--                                                            </b-button>-->
+<!--                                                            <b-button variant="danger" size="sm"-->
+<!--                                                                      @click="isInEditMode = !isInEditMode">-->
+<!--                                                                Откажи-->
+<!--                                                            </b-button>-->
+<!--                                                        </b-input-group-append>-->
+<!--                                                    </b-input-group>-->
+<!--                                                </b-form>-->
+<!--                                                {{ data.item.purchaseDate }}-->
+<!--                                            </template>-->
+                                </b-table>
+                            </b-col>
+                            <b-col cols="6">
+<!--                                <b-form @submit="uploadFile" enctype="multipart/form-data">-->
+<!--                                    <b-form-file v-model="file"></b-form-file>-->
+<!--                                    <b-button variant="success" type="submit">Запази</b-button>-->
+<!--                                </b-form>-->
+<!--                                <div class="media" v-for="media in assetInfo.media">-->
+<!--                                    <div v-if="media.media_type === 'image/jpeg'">-->
+<!--                                        <b-img :src="'http://192.168.10.10/' + media.pathToMedia"-->
+<!--                                               fluid>-->
 
-                                    </b-col>
-                                </b-row>
-                            </b-card-body>
-                        </b-card>
+<!--                                        </b-img>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+                            </b-col>
+                        </b-row>
+                    </b-card-body>
+                </b-card>
 
                     </b-tab>
                     <b-tab v-if="!loading" @click="tri(1)" :active="activeTab === 1">
@@ -184,7 +285,13 @@
                                     Компоненти
                                 </h1>
                             </div>
+<!--                            {{ assetInfo }}-->
+<!--                            <b-btn variant="info" @click="addComponentToAsset">Добави</b-btn>-->
+
                             <component-list :components="assetInfo.components"></component-list>
+
+                            <add-component-to-asset :id="assetInfo.id"></add-component-to-asset>
+
                         </b-card>
                     </b-tab>
                     <b-tab v-if="!loading" @click="tri(2)" :active="activeTab === 2">
@@ -193,8 +300,8 @@
                             Сервизна история
                         </template>
                         <div>
-<!--                            {{ assetInfo }}-->
-                            <service-history-table :maintenanceData="[assetInfo]" origin="asset"></service-history-table>
+<!--                            {{ assetInfo}}-->
+                            <service-history-table :maintenanceData="assetInfo" origin="asset"></service-history-table>
                         </div>
                     </b-tab>
                     <b-tab v-if="!loading" @click="tri(3)" :active="activeTab === 3">
@@ -202,6 +309,7 @@
                             <i class="fas fa-folder-open"></i>
                             Документи
                         </template>
+                        {{ assetInfo.media }}
                     </b-tab>
                 </b-tabs>
             </b-container>
@@ -225,6 +333,8 @@
                 assetInfo: [],
                 assetMedia: [],
                 loading: true,
+                customer: '',
+                customers: [],
                 file: '',
                 activeTab: '',
                 currentAsset: {
@@ -303,10 +413,15 @@
                         key: 'purchaseDate'
                     },
                     {
+                        label: 'Собственик',
+                        key: 'customer'
+                    },
+                    {
                         label: 'Действия',
                         key: 'actions'
                     },
-                ]
+                ],
+                assetTableBusyState: false
             }
         },
         mounted() {
@@ -325,6 +440,59 @@
             )
         },
         methods: {
+            customLabelForAc({ name, lastname, city}) {
+                return `${name} ${lastname} ${city}`
+            },
+            getCustomersForAC() {
+                axios.get('/api/customers')
+                    .then(
+                        (data) => {
+                            this.customers = data.data
+                        }
+                    )
+            },
+            changeOwnerShip(item) {
+                // console.log("Asdasd", this.assetInfo[0].id)
+
+                axios.post(`/api/assets/changeOwner`, {
+                    asset_id: this.$props.id,
+                    newId: item.id
+                })
+                    .then(
+                        (data) => {
+                            console.log(data.data)
+                        }
+                    )
+            },
+            refreshTable() {
+                this.assetTableBusyState = true
+
+                this.$refs.assetInfoTable.refresh()
+
+                this.assetTableBusyState = false
+
+            },
+            createWarranty(item) {
+                // console.log(item.item)
+              axios.post(`/api/assets/createWarranty/${item.item.id}`, item.item.id)
+                  .then(
+                      (data) => {
+                          this.$bvToast.toast(`Гаранционната карта е записана ${data.data.message}`)
+                          this.$refs.assetInfoTable.refresh()
+                      }
+                  )
+                  .then(
+                      () => {
+                          this.$refs.assetInfoTable.refresh()
+                      }
+                  )
+            },
+            addComponentToAsset(asset) {
+              axios.post('/api/assets/addComponentToAsset', {
+                  asset_id: asset.id,
+                  rowdata: 'asdasd'
+              })
+            },
             tri(tabID) {
               console.log(tabID)
                 // this
@@ -341,6 +509,27 @@
                 this.assetEntity = assetToUpdate
                 this.attributeToUpdate = attributeToUpdate
                 assetToUpdate[attributeToUpdate] = this.currentAsset[attributeToUpdate];
+            },
+            update(data) {
+                axios.put(`/api/assets/${this.currentAsset.id}`, this.currentAsset)
+                    .then(
+                        (data) => {
+                            console.log(data.data)
+                        }
+                    )
+                this.isInEditMode = false
+            },
+            prepareForUpdate(row) {
+                this.isInEditMode = true
+                this.currentAsset = row.item
+                // this.currentAsset['customer_id'] = row.item.customer.id
+                //
+                // axios.put(`/api/assets/${this.currentAsset.id}`, this.currentAsset)
+                //     .then(
+                //         (data) => {
+                //             console.log(data.data)
+                //         }
+                //     )
             },
             uploadFile(evt) {
                 evt.preventDefault();

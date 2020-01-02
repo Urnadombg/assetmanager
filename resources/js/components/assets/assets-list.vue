@@ -26,10 +26,10 @@
                    @change="pageChanged"
                ></b-pagination>
            <b-container fluid>
-                <b-form-input size="lg" v-model="filter"></b-form-input>
            </b-container>
            <br>
-
+           <vuetable-pagination-info ref="paginationInfoTop"
+           ></vuetable-pagination-info>
            <b-table :items="getAssetRecords"
                     id="assettable"
                     bordered
@@ -38,123 +38,35 @@
                     head-variant="dark"
                     :sort-desc.sync="sortDesc"
                     show-empty
-                    :filter="filter"
-                    :per-page="meta.per_page"
-                    :current-page="meta.current_page"
                     :fields="tableFields"
                     hover
                     striped
                     responsive
                     @row-dblclicked="goToAssetFile"
+                    @filtered="onFiltered"
            >
-<!--           <b-table :items="assets" hover striped>-->
-               <template slot="table-busy">
-                   <div >
-                       <b-spinner class="align-content-lg-center"></b-spinner>
-                       <strong>Зарежда...</strong>
-                   </div>
+               <template v-slot:cell(nomer)="data" style="width: 3%">
+                    {{ data.index + 1 }}
                </template>
-               <template slot="[nomer]" slot-scope="data">
-                   {{ data.index +1 }}
+               <template v-slot:cell(title)="data">
+                   {{ data.item.title }} {{ data.item.model }}
                </template>
-               <template slot="[typeOfAsset]" slot-scope="data">
-                   {{ data.item.type_of_asset === 'primary' ? "Основен актив": "второстепенен/компонент"}}
+               <template v-slot:cell(actions)="data">
+                    <b-btn-group>
+                        <b-btn variant="info" @click="goToAssetFile(data.item, 0)">
+                            <i class="fa fa-eye"></i>
+                        </b-btn>
+                        <b-btn variant="warning" @click="goToAssetFile(data.item,1)">
+                            <i class="fa fa-cogs"></i>
+                        </b-btn>
+                        <b-btn variant="primary" @click="goToAssetFile(data.item,2)">
+                            <i class="fa fa-tools"></i>
+                        </b-btn>
+                        <b-btn variant="success" @click="goToAssetFile(data.item,3)">
+                            <i class="fa fa-folder"></i>
+                        </b-btn>
+                    </b-btn-group>
                </template>
-
-               <template slot="row-details" slot-scope="row">
-                   <b-card>
-                       <b-row class="mb-2">
-                           <!--<b-col><b>Age:</b></b-col>-->
-                           <b-col>
-                               <component-list :components="row.item.components"></component-list>
-                               <!--<service-history-table :maintenanceData="[row.item]"></service-history-table>-->
-                           </b-col>
-                       </b-row>
-
-                       <b-button size="sm" @click="row.toggleDetails">Скрий детайлите</b-button>
-                   </b-card>
-               </template>
-
-               <template slot="[components]" slot-scope="data">
-                   <div>
-<!--                       <b-button :href="`/assets/${data.item.id}&tabIndex=1`">-->
-                           <h3>
-                               <a :href="`/assets/${data.item.id}&tabIndex=1`">
-                                   <b-badge variant="primary">
-                                       Компоненти
-                                       {{ data.item.cc }}
-                                   </b-badge>
-                               </a>
-                           </h3>
-<!--                       </b-button>-->
-<!--                       sdf-->
-<!--                       {{ data.detailsShowing ? "da" :"ne"}}-->
-                   </div>
-               </template>
-               <template slot="[department]" slot-scope="data">
-                   {{ data.item.department}}
-               </template>
-               <template slot="[customer]" slot-scope="data">
-                   <div v-if="data.item.customer.companies.length > 0">
-                       <a :href="'/customers/' + data.item.customer.id">
-                           {{data.item.customer.companies[0].companyName }}
-                       </a>
-                   </div>
-                   <div v-else>
-                       <a :href="'/customers/' + data.item.customer.id">
-                           {{ data.item.customer.name }} {{ data.item.customer.lastname }}
-                       </a>
-                   </div>
-               </template>
-                <template slot="[actions]" slot-scope="data">
-                    <b-dropdown id="dropdown-aria" text="Виж"  split
-                                split-variant="outline-primary"
-                                variant="primary">
-                        <div slot="text">
-                            <i class="fas fa-eye"></i>
-                            Виж
-                        </div>
-                        <b-dropdown-header id="dropdown-header-1">
-                            {{ data.item.title }}
-                            {{ data.item.model }}
-                        </b-dropdown-header>
-                        <b-dropdown-item aria-describedby="dropdown-header-1" :href="`/assets/${data.item.id}`">
-                            Виж досието
-                        </b-dropdown-item>
-                        <b-dropdown-item aria-describedby="dropdown-header-1" :href="`/assets/${data.item.id}/edit`">
-                            Редакция
-                        </b-dropdown-item>
-                        <b-dropdown-item aria-describedby="dropdown-header-1" href="" @click="deleteAsset(data.item.id)">
-                            Изтриване
-                        </b-dropdown-item>
-                        <b-dropdown-item-button aria-describedby="dropdown-header-1">Виж компонентите</b-dropdown-item-button>
-
-                        <b-dropdown-header id="dropdown-header-2">
-                            <i class="fas fa-cogs"></i>
-                            Компоненти
-                        </b-dropdown-header>
-                        <b-dropdown-item-button aria-describedby="dropdown-header-2">Добави</b-dropdown-item-button>
-                        <b-dropdown-item-button aria-describedby="dropdown-header-2">Виж</b-dropdown-item-button>
-
-<!--                        <b-dropdown-divider></b-dropdown-divider>-->
-
-                        <b-dropdown-header id="dropdown-header-2">Сервиз</b-dropdown-header>
-                        <b-dropdown-item-button aria-describedby="dropdown-header-2">История</b-dropdown-item-button>
-                        <b-dropdown-item-button aria-describedby="dropdown-header-2">Добави ново сервизно събитие</b-dropdown-item-button>
-
-<!--                        <b-dropdown-divider></b-dropdown-divider>-->
-
-                        <b-dropdown-header id="dropdown-header-2">Документи</b-dropdown-header>
-                        <b-dropdown-item-button aria-describedby="dropdown-header-2">История</b-dropdown-item-button>
-                        <b-dropdown-item-button aria-describedby="dropdown-header-2">Добави нов документ</b-dropdown-item-button>
-
-                    </b-dropdown>
-<!--                    <b-btn-group>-->
-<!--                        <a :href="`/assets/${data.item.id}`" class="btn btn-primary">Виж</a>-->
-<!--                        <a href="" class="btn btn-info">Редакция</a>-->
-<!--                        <a href="" class="btn btn-warning">Изтрий</a>-->
-<!--                    </b-btn-group>-->
-                </template>
            </b-table>
 
        </b-card>
@@ -164,9 +76,12 @@
 
 <script>
     import ServiceHistoryTable from "../ServiceHistory/table";
+    import VueAutoSuggest from 'vue-autosuggest'
+
     export default {
         name: "asset-list",
-        components: {ServiceHistoryTable},
+        props: ['localData'],
+        components: {ServiceHistoryTable,VueAutoSuggest},
         data () {
             return {
                 assets: [],
@@ -182,32 +97,9 @@
                         key: 'title'
                     },
                     {
-                        label: 'Модел',
-                        key: 'model'
-                    },
-                    {
                         label: 'сериен №',
                         key: 'serial',
                         sortable: true
-                    },
-                    {
-                        label: 'Тип на актива',
-                        key: 'typeOfAsset',
-                        sortable: true
-                    },
-                    {
-                        label: 'Допълнително оборудване',
-                        key: 'components',
-                        sortable: true
-                    },
-                    {
-                        label: 'Катедра',
-                        key: 'department',
-                        sortable: true
-                    },
-                    {
-                        label: 'Клиент',
-                        key: 'customer'
                     },
                     {
                         label: 'Действия',
@@ -218,10 +110,20 @@
                 currentPage: 1,
                 isBusy: false,
                 sortDesc: false,
-                sortBy: 'model'
+                sortBy: 'model',
+                sortOrder: [
+                    {
+                        field: 'model',
+                        direction: 'asc'
+                    }
+                ]
             }
         },
+
         mounted() {
+            if (this.$props.localData) {
+                console.log("da")
+            }
             this.getAssetRecords()
         },
         methods: {
@@ -235,38 +137,33 @@
                     )
                     .catch((err) => console.log(err))
             },
-            goToAssetFile(x) {
-                window.location.href = '/assets/' + x.id
+            goToAssetFile(asset, tabIndex) {
+                window.location.href = `/assets/${asset.id}&tabIndex=${tabIndex}`
             },
-            getAssetRecords(ctx, callback) {
+            getAssetRecords(ctx) {
+                this.isBusy = true
+                const promise = axios.get(`/api/assets?page=${this.currentPage}`)
+                // Must return a promise that resolves to an array of items
 
-                console.log(ctx)
-                let req = axios.get(`/api/assets?${this.currentPage}`);
-               return req.then(
-                    (data) => {
-                        this.meta = data.data.meta
-                        const items = data.data.data
-                        return items
-                    }
-                )
-                // this.sortBy = ctx.sortBy
-                // // console.log(ctx.apiUrl)
-                // // console.log(data.data.data);
-                // let promise = axios.get(`/api/assets?page=${this.currentPage}`)
-                //
-                // return promise.then((data) => {
-                //     this.meta = data.data.meta
-                //     // this.assets = data.data.data
-                //     const assets = data.data.data
-                //     this.assets = assets
-                //     return assets
-                // }).catch(error => {
-                //     // Here we could override the busy state, setting isBusy to false
-                //     // this.isBusy = false
-                //     // Returning an empty array, allows table to correctly handle
-                //     // internal busy state in case of error
-                //     return []
-                // })
+                return promise.then(data => {
+                    // Pluck the array of items off our axios response
+
+                    const items = data.data.data
+                    this.meta = data.data.meta
+                    this.isBusy = false
+                    this.assets = items
+                    // Must return an array of items or an empty array if an error occurred
+                    return items || []
+                })
+
+
+            },
+            onFiltered(filteredItems) {
+                // console.log(filteredItems)
+                // console.log("ON FILTER")
+                // this.currentPage = filteredItems.meta.current_page
+                // this.getAssetRecords()
+                this.getAssetRecords().then((d) => console.log(d))
             },
             pageChanged(ctx) {
                 // this.currentPage = this.meta.current_page
@@ -274,11 +171,42 @@
                 this.currentPage = ctx
                 this.getAssetRecords();
                 this.$root.$emit('bv::refresh::table', 'assettable')
+            },
+            clickHandler(item) {
+                // event fired when clicking on the input
+                // this.searchAsset('sh');
+            },
+            searchAsset(term) {
+              return axios.get(`/api/assets/search/${term}`)
+                    .then(
+                        (data) => {
+                            const items = data.data
+                           return items || []
+                        }
+                    )
+                    .catch(
+                        (error) => {
+                            console.log(error)
+
+                        }
+                    )
             }
         }
     }
 </script>
 
-<style scoped>
+<style>
+    autosuggest__results {
+        background-color: #4dc0b5;
+    }
+    .autosuggest-container {
+        display: flex;
+        justify-content: center;
+        width: 280px;
+    }
 
+    #autosuggest { width: 100%; display: block;}
+    .autosuggest__results-item--highlighted {
+        background-color: #faf;
+    }
 </style>

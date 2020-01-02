@@ -15,8 +15,12 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+{{--    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.5.94/css/materialdesignicons.min.css">--}}
+{{--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">--}}
 
+{{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/3.3.7+1/css/sb-admin-2.min.css" integrity="sha256-WeMGw+d+qR+l2h9TzmC+jTME4zy5zYzG8E6FbPikzeM=" crossorigin="anonymous" />--}}
     <!-- Styles -->
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>

@@ -64,4 +64,5 @@ class Asset extends Model
     {
         return $this->maintenances()->where('status', '=',0);
     }
+
 }

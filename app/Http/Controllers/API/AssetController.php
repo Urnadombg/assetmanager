@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Asset;
+use App\Customer;
 use App\Http\Resources\AssetCollection;
 use App\Http\Resources\AssetResource;
 use App\Media;
@@ -22,11 +23,10 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $asp = AssetResource::collection(Asset::with(['warranty','customer','media','maintenances'])->advancedFilter());
+        $asp = AssetResource::collection(Asset::with(['warranty',
+            'customer','media',
+            'maintenances'])->advancedFilter());
         return $asp;
-//        $ass = \App\Http\Resources\AssetResource::collection(\App\Asset::with(['warranty','customer','media','maintenances'])->paginate());
-////        dd($ass);
-//        return $ass;
     }
 
     /**
@@ -41,7 +41,7 @@ class AssetController extends Controller
         $asset->type_of_asset = $request->type_of_asset;
         $asset->model = $request->model;
         $asset->location = $request->location;
-        $asset->customer_id = ($request->customer_id == null ? 0 : $request->customer_id);
+        $asset->customer_id = ($request->customer_id == null ? 2 : $request->customer_id);
         $asset->serial = $request->serial;
         $asset->purchaseDate = $request->purchaseDate;
         $asset->department = $request->department;
@@ -52,6 +52,16 @@ class AssetController extends Controller
         return response()->json(['message' => 'Item has been saved!', 'asset_id' => $asset->id]);
     }
 
+    public function addComponentToAsset(Request $request)
+    {
+        $asset = Asset::findOrFail($request->asset_id);
+        $asset->components()->create([
+            'title' => $request->title,
+            'model' => $request->model,
+            'serial' => $request->serial
+        ]);
+        return response()->json('opk');
+    }
     /**
      * Display the specified resource.
      *
@@ -60,14 +70,9 @@ class AssetController extends Controller
      */
     public function show($id)
     {
-//        $asset = Asset::with(
-//            ['customer','warranty','components', 'media'])
-//            ->where('id','=',$id)
-//            ->get();
 
         $asset = new AssetResource(Asset::findOrFail($id)->load(['components', 'warranty','media', 'maintenances']));
-//        return response()->json([$asset]);
-//        return response()->json($asset);
+
         return $asset;
     }
 
@@ -80,11 +85,14 @@ class AssetController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($request->all());
+
         $assetToUpdate = Asset::find($id);
         $assetToUpdate->type_of_asset = $request->type_of_asset;
         $assetToUpdate->model = $request->model;
         $assetToUpdate->location = $request->location;
-        $assetToUpdate->customer_id = ($request->customer_id == null ? 0 : $request->customer_id);
+//        $assetToUpdate->customer_id = ($request->customer_id == null ? 1 : $request->customer_id);
+        $assetToUpdate->customer_id = $request->customer_id;
         $assetToUpdate->serial = $request->serial;
         $assetToUpdate->purchaseDate = $request->purchaseDate;
         $assetToUpdate->department = $request->department;
@@ -165,5 +173,39 @@ class AssetController extends Controller
             'explanation' => $request->explanation,
         ]);
         return response()->json('ok');
+    }
+
+    /**
+     * @params:
+     *      id
+     *
+     * */
+    public function changeOwner(Request $request)
+    {
+        $asset = Asset::findOrFail($request->asset_id);
+        $asset->customer_id = $request->newId;
+        $asset->save();
+
+        return response()->json(['message' => 'ok']);
+
+    }
+
+    public function createWarranty(Request $request)
+    {
+        $asset = Asset::findOrFail($request->id)->load('customer');
+//        dd($asset);
+
+        $war = new \App\Warranty();
+        $war->card_id = \Ramsey\Uuid\Uuid::uuid4();
+        $war->start = \Carbon\Carbon::today();
+        $war->end = \Carbon\Carbon::today()->addYears(2);
+        $war->periodInDays = 1534;
+        $war->asset_id = $asset->id;
+
+        $war->generateAssetWarrantyCardFromToday($asset);
+
+        $war->save();
+
+        return response()->json(['message' => 'Warranty has been saved!']);
     }
 }

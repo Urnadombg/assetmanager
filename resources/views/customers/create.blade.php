@@ -1,4 +1,4 @@
 @extends('layouts.main')
 @section('content')
-    <customer-details></customer-details>
+    <customer-create-form></customer-create-form>
 @endsection

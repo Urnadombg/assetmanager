@@ -22,9 +22,14 @@ Vue.use(ImageUploader);
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 // register globally
 Vue.component('multiselect', Multiselect)
+import SuiVue from 'semantic-ui-vue';
+import VueMoment from 'vue-moment';
 
+Vue.use(VueMoment);
 Vue.use(Vuelidate);
 Vue.use(BootstrapVue);
+Vue.use(SuiVue);
+// import 'semantic-ui-css/semantic.min.css';
 
 /**
  * The following block of code may be used to automatically register your
@@ -37,6 +42,9 @@ Vue.use(BootstrapVue);
 import CKEditor from '@ckeditor/ckeditor5-vue';
 
 Vue.use( CKEditor );
+import { DataTables, DataTablesServer } from 'vue-data-tables'
+Vue.use(DataTables)
+Vue.use(DataTablesServer)
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
@@ -45,16 +53,19 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('asset-list', require('./components/assets/assets-list.vue').default);
 Vue.component('asset-details', require('./components/Pages/Assets/AssetDetails').default);
 Vue.component('create-new-asset', require('./components/assets/CreateNewAsset').default);
+Vue.component('add-component-to-asset', require('./components/components/ComponentModalForm').default);
 
 Vue.component('component-list', require('./components/components/components-list').default);
 Vue.component('component-index', require('./components/components/ComponentIndex').default);
+Vue.component('customers-list', require('./components/Customers/CustomersList.vue').default);
+Vue.component('customer-details', require('./components/Customers/CustomerDetails.vue').default);
+Vue.component('customer-create-form', require('./components/Customers/CustomerCreateForm.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
 const app = new Vue({
     el: '#app',
 });
