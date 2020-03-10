@@ -1,30 +1,20 @@
 <template>
 <div>
-    <b-btn v-b-modal.modal-lg variant="primary">
-        open
-    </b-btn>
-    <b-modal id="modal-lg" size="lg" :title="`Добавяне на нов сервизен запис към ${dataItems.title} ${dataItems.model},${dataItems.serial}`">
-        <create-new-case-form></create-new-case-form>
-    </b-modal>
-        <b-card footer-bg-variant="light"
+    <b-card footer-bg-variant="light"
                 header-bg-variant="dark">
              <b-container fluid>
+
                  <b-button-group>
                      <b-dropdown variant="outline-primary" text="Добави">
                          <div slot="text">
                              <i class="fas fa-plus"></i>
                              Добави
                          </div>
-                         <b-dropdown-item @click="addIssueToAsset">Ново събитие</b-dropdown-item>
+                         <b-dropdown-item v-b-modal.assetServiceRecord>Ново събитие</b-dropdown-item>
                      </b-dropdown>
                  </b-button-group>
              </b-container>
-            <create-new-case-form :assets="dataItems"
-                                  :origin="'asset'"
-                                  v-show="assetServiceIssue">
-            </create-new-case-form>
             <hr>
-<!--            {{ dataItems.maintenances }}-->
                 <b-table :items="dataItems.maintenances"
                          :fields="assetTableFields"
                          borderd
@@ -36,6 +26,10 @@
                          head-variant="light"
                          @row-clicked="expandAdditionalInfo"
                          show-empty>
+                    <template v-slot:cell(protocolId)="row">
+                        {{ `SC-${String(row.item.id).padStart(10, '0')}` }}
+
+                    </template>
                     <template slot="title" slot-scope="data">
                         {{ data.item.title }}
                     </template>
@@ -83,15 +77,6 @@
                     <template slot="serial" slot-scope="data">
                         {{ dataItems.serial }}
                     </template>
-                    <template slot="row-details" slot-scope="row">
-                        <b-card>
-                            <h1>Подробности за сервизното събитие</h1>
-                            {{ row.item }}
-                            <div slot="footer">
-                                footer
-                            </div>
-                        </b-card>
-                    </template>
                     <template slot="actions" slot-scope="data">
                         <b-dropdown right text="Menu">
                             <b-dropdown-item>Item 1</b-dropdown-item>
@@ -100,20 +85,150 @@
                             <b-dropdown-item>Item 3</b-dropdown-item>
                         </b-dropdown>
                     </template>
-                </b-table>
-            <div v-if="assetServiceIssue">
-            </div>
+                    <template slot="row-details" slot-scope="row">
+                            <div v-if="row.item.isWarrantyEvent === 0">
+                                <b-card header-bg-variant="danger" header-text-variant="white">
+                                    <div slot="header">
+                                        <b-row>
+                                            <b-col cols="10">
+                                                <h1>Подробности за сервизното събитие</h1>
+                                            </b-col>
+                                            <b-col>
+                                                <b-badge variant="warning" v-if="row.item.status === 1">
+                                                    <h4>В процес на разрешаване!</h4>
+                                                </b-badge>
+                                                <b-badge variant="success" v-if="row.item.status === 2">
+                                                    <h4>Разрешен!</h4>
+                                                </b-badge>
+                                            </b-col>
+                                            <b-col class="text-right">
+                                                <b-form-select v-model="row.item.status" :options="statusOptions"></b-form-select>
+                                            </b-col>
+                                        </b-row>
+                                    </div>
+                                    <br>
 
-            <div slot="footer">
-            </div>
+                                    <span>
+                                    Сервизното събитие е създадено на <strong>{{ row.item.created_at }}, {{ $moment(row.item.created_at).fromNow() }}</strong>
+                                    <span v-if="!row.item.updated_at === row.item.created_at">
+                                        (последно обновен на {{ row.item.updated_at === row.item.created_at }})
+                                    </span>
+                                 </span>
+                                    <br>
+
+                                    <span>
+                                    <strong>
+                                        Обяснение към сервизното събитие:
+                                    </strong>
+                                </span>
+
+                                    <p style="background-color: lightslategray; color: white; border-radius: 10px; padding: 25px;">
+                                        {{ row.item.explanation }}
+                                    </p>
+                                    <hr />
+                                    <br>
+                                    {{ row.item }}
+                                    <div slot="footer" class="text-center alignt-center">
+                                        <b-btn-group >
+                                            <b-btn variant="info">
+                                                <i class="fa fa-print"></i>
+                                                Разпечатай текущия протокол
+                                            </b-btn>
+                                            <b-btn variant="danger">
+                                                <i class="fa fa-pen"></i>
+                                                Редактирай
+                                            </b-btn>
+                                            <b-btn variant="info" :click="addNoteToMaintenance(row.item)">
+                                                <i class="fa fa-plus"></i>
+                                                Добави бележка
+                                            </b-btn>
+                                            <b-btn variant="primary">
+                                                <i class="fa fa-envelope"></i>
+                                                Изпрати по имейл на клиента
+                                            </b-btn>
+                                        </b-btn-group>
+                                    </div>
+                                </b-card>
+                            </div>
+                            <div v-else>
+                                <div>
+                                    <b-card header-bg-variant="warning" header-text-variant="white">
+                                        <div slot="header">
+                                            <h1>Подробности за сервизното събитие</h1>
+                                        </div>
+                                        <!--{{ row.item }}-->
+                                        <span>
+                                        Сервизното събитие е създадено на <strong>{{ row.item.created_at }}</strong>
+                                        <span v-if="!row.item.updated_at === row.item.created_at">
+                                            (последно обновен на {{ row.item.updated_at === row.item.created_at }})
+                                        </span>
+                                     </span>
+                                        <br>
+                                        <span>
+                                        <strong>
+                                            Обяснение към сервизното събитие:
+                                        </strong>
+                                    </span>
+                                        <p style="background-color: lightslategray; color: white; border-radius: 10px; padding: 25px;">
+                                            {{ row.item.explanation }}
+                                        </p>
+                                        <hr />
+                                        <p>
+                                            <span v-if="row.item.status === 0"><i class="fas fa-file"></i>Нов</span>
+                                            <span v-if="row.item.status === 1" class="text-warning">В процес на разрешаване!</span>
+                                            <span v-if="row.item.status === 2">Затворен</span>
+                                            <span v-if="row.item.status === 3"></span>
+                                        </p>
+                                        <br>
+                                        <b-card v-for="(note,index ) in row.item.notes"
+                                                :key="row.item.id" :bg-variant="index % 2 !== 0 ? 'info' : 'warning'">
+                                            <b-card-body >
+                                                <b-row>
+                                                    <b-col cols="2">
+                                                        <i class="fa fa-sticky-note fa-4x"></i>
+                                                    </b-col>
+                                                    <b-col>
+                                                        <!--Бележка от {{ row.item.created_at | moment().fromNow()}}-->
+                                                        {{ note }}
+                                                    </b-col>
+                                                </b-row>
+                                            </b-card-body>
+                                            <br>
+                                        </b-card>
+                                        <div slot="footer" class="text-center alignt-center">
+                                            <b-btn-group >
+                                                <b-btn variant="info">
+                                                    <i class="fa fa-print"></i>
+                                                    Разпечатай текущия протокол
+                                                </b-btn>
+                                                <b-btn variant="danger">
+                                                    <i class="fa fa-pen"></i>
+                                                    Редактирай
+                                                </b-btn>
+                                                <b-btn variant="info">
+                                                    <i class="fa fa-plus"></i>
+                                                    Добави бележка
+                                                </b-btn>
+                                                <b-btn variant="primary">
+                                                    <i class="fa fa-envelope"></i>
+                                                    Изпрати по имейл на клиента
+                                                </b-btn>
+                                            </b-btn-group>
+                                        </div>
+                                    </b-card>
+                                </div>
+                            </div>
+                    </template>
+
+                </b-table>
         </b-card>
+         <br>
         <b-card>
             <div slot="header">
                 <h2>
-                    Периферия
+                    Периферия123
                 </h2>
             </div>
-<!--            {{ dataItems.components}}-->
                 <b-table :items="merged" ref="far"
                          :fields="componentTableFields"
                          @row-clicked="expandAdditionalInfo"
@@ -123,6 +238,9 @@
                          striped
                          head-variant="light"
                          show-empty>
+                    <template v-slot:cell(maintenance.id)="row">
+                        {{ `SC-${String(row.item.id).padStart(10, '0')}` }}
+                    </template>
                     <template v-slot:cell(title)="row">
                         {{ row.item.com.title }} {{ row.item.com.model }}
                     </template>
@@ -153,21 +271,6 @@
                         {{ data.item.maintenance.protocolUUID }}
                     </template>
                 </b-table>
-            <div slot="footer">
-                <b-btn variant="primary"
-                       style="background-color: mediumblue"
-                       @click="componentServiceIssue = !componentServiceIssue"
-                       v-if="!componentServiceIssue">
-                    <i class="fas fa-plus"></i>
-                    Добавяне на нов сервизен запис
-                </b-btn>
-                <b-btn variant="warning"
-                       @click="componentServiceIssue = !componentServiceIssue"
-                       v-if="componentServiceIssue">
-                    Отказ
-                </b-btn>
-            </div>
-
         </b-card>
 
 </div>
@@ -194,7 +297,7 @@
                 componentTableFields: [
                     {
                         label: '№ на протокола',
-                        key:'maintenance.protocolUUID'
+                        key:'maintenance.id'
                     },
                     {
                         label: 'Наименование на изделието',
@@ -312,6 +415,7 @@
                 this.logs(data)
                 // console.log("refreshing")
             });
+            this.$moment().locale('bg')
         },
         mounted () {
             this.dataItems = this.$props.maintenanceData
@@ -319,6 +423,9 @@
             // console.log(this.$props)
         },
         methods: {
+            addNoteToMaintenance(item) {
+              console.log("DASD")
+            },
             getComponentServiceHistory() {
              let componentHist = []
               return this.dataItems.components.forEach(cop => {
